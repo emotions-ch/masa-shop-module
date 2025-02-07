@@ -51,19 +51,8 @@ component
       "Quantity":#url.quantity#
     }
 
-    writeOutput(serializeJSON(local.out));
-    abort;
-  }
-
-  /**
-   * get cart
-   */
-  public array function getCart() {
-    local.currentCart = session.cart.getArticles();
-
-    writeOutput(serializeJSON(local.currentCart));
-    return local.currentCart;
-    abort;
+    // writeOutput(serializeJSON(local.out));
+    // abort;
   }
 
   /**
