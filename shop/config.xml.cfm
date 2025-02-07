@@ -1,1 +1,1 @@
-<mura name="Shop" contenttypes="*" iconclass="mi-share"/>
+<mura name="Shop" contenttypes="*" iconclass="mi-cart-plus"/>
