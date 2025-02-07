@@ -4,12 +4,14 @@ component
 	{
 
 	function onRenderStart(m, application){
+		// writeDump(var=objectParams, abort=true);
 		if (!structKeyExists(session, 'cart')) {
 			session.cart = new components.Cart();
 		}
 		
 		if (structKeyExists(url, 'ajax')) ajaxHandler();
 		return this;
+
 	}
 
 	function onApplicationLoad() {
@@ -36,14 +38,14 @@ component
 		 * update cart with actions
 		 */
 		private void function updateCart(){
-			local.article = new CartArticle(id=url.articleId, quantity=url.quantity);
+			local.article = new components.CartArticle(id=url.articleId, quantity=url.quantity);
 			session.cart.updateArticle(local.article);
 			local.out = {
 				"ArticleId":#url.articleId#,
 				"Quantity":#url.quantity#
 			}
 		
-			writeOutput(serializeJSON(local.out));
+			// writeOutput(serializeJSON(local.out));
 			abort;
 		}
 	
@@ -54,8 +56,8 @@ component
 			local.currentCart = session.cart.getArticles();
 		
 			writeOutput(serializeJSON(local.currentCart));
-			return local.currentCart;
-			abort;
+			return "meow";
+			// abort;
 		}
 	
 		/**
