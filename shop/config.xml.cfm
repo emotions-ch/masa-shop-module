@@ -1,0 +1,1 @@
+<mura name="Shop" contenttypes="*" iconclass="mi-share"/>
