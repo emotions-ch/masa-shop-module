@@ -6,8 +6,9 @@
 	<cfset objectParams.render="server">
 </cfsilent>
 <cfoutput>
+	<cfset local.cartHandler = new components.CartHandler()>
 	<div class="masa-module-buttonUwU">
 		<cfdump var="#objectParams#">
-		<cfdump var="#session#">
+		<cfdump var="#session.cart.getArticles()#">
 	</div>
 </cfoutput>
