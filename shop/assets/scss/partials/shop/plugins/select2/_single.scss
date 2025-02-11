@@ -1,0 +1,37 @@
+.select2-selection--single {
+  box-sizing: border-box;
+
+  cursor: pointer;
+  display: block;
+
+  height: $select2-height;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  .select2-selection__rendered {
+    display: block;
+    padding-left: $select2-padding-left;
+    padding-right: $select2-padding-right;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: $select2-font-size;
+  }
+
+  .select2-selection__clear {
+    background-color: transparent;
+    border: none;
+    font-size: $select2-font-size;
+  }
+}
+
+&[dir="rtl"] {
+  .select2-selection--single {
+    .select2-selection__rendered {
+      padding-right: $select2-padding-left;
+      padding-left: $select2-padding-right;
+    }
+  }
+}

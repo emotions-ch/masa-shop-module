@@ -1,0 +1,39 @@
+// @import "partials/variables";
+// @import "partials/shop/shopPage";
+
+#shop-modul-object {
+  background-color: #fff;
+  padding-bottom: 20px;
+
+  @import 'partials/shop/fonts';
+  @import 'partials/shop/variables';
+  @import 'partials/shop/mixins';
+  @import 'partials/shop/bootstrap';
+  @import 'partials/shop/plugins';
+  @import 'partials/shop/components';
+  @import 'partials/shop/common';
+  @import 'partials/shop/partials';
+  @import 'partials/shop/sections';
+  @import 'partials/shop/home_page';
+  @import 'partials/shop/shop_page';
+  @import 'partials/shop/checkout_page';
+  @import 'partials/shop/content_page';
+  @import 'partials/shop/grid';
+  @import 'partials/shop/popup';
+  @import 'partials/shop/shop_addons'; // custom styles added ontop of vietnam
+}
+
+article.product {
+  width: 95vw;
+  overflow: hidden;
+
+  @import 'partials/shop/variables';
+  @import 'partials/shop/mixins';
+  @import 'partials/shop/bootstrap/buttons';
+  @import 'partials/shop/plugins';
+  @import 'partials/shop/components';
+  @import 'partials/shop/common';
+  @import 'partials/shop/partials';
+  @import 'partials/shop/product';
+  @import 'partials/shop/shop_addons'; // custom styles added ontop of vietnam
+}

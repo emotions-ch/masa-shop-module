@@ -4,10 +4,15 @@
 	<cfparam name="objectParams.emailSubjectLine" default="Order confirmation">
 	<cfparam name="objectParams.emailText" default="">
 	<cfset objectParams.render="server">
+
+	<cfset local.modulePath = "/modules/shop">
 </cfsilent>
 
 <cfoutput>
-<cfhtmlhead><script src="/modules/shop/assets/js/cart.js" defer></script></cfhtmlhead>
+<cfhtmlhead>
+	<script src="#local.modulePath#/assets/js/shop.js" defer></script>
+	<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
+</cfhtmlhead>
 	
 	<cfset local.cartHandler = new components.CartHandler()>
 	<div>
