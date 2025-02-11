@@ -1,5 +1,8 @@
 <cfsilent>
 	<cfparam name="objectParams.view" default="shop">
+	<cfparam name="objectParams.emailSender" default="">
+	<cfparam name="objectParams.emailSubjectLine" default="Order confirmation">
+	<cfparam name="objectParams.emailText" default="">
 	<cfset objectParams.render="server">
 </cfsilent>
 
@@ -8,9 +11,8 @@
 	
 	<cfset local.cartHandler = new components.CartHandler()>
 	<div>
-		<!--- <cfdump var="#objectParams#" expand="false">
-		<cfdump var="#session.cart.getTotalQuantity()#">
-		<cfdump var="#session.cart.getArticles()#"> --->
+
+		<!--- <cfdump var="#m.siteConfig().getAllValues()#"> --->
 
 		<cfinclude template="views/#objectParams.view#.cfm">
 	</div>

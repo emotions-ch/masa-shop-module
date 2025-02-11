@@ -6,10 +6,10 @@
 
   <cfif !isEmpty(form)>
     <cfset local.recipitent = m.siteConfig('contactEmail')>
-    <cfset local.sender = "no-reply@myemotions.cloud">
+    <cfset local.sender = objectParams.emailSender>
 
     <!--- mail to melanie --->
-    <cfmail to="#local.recipitent#" from="#local.sender#" subject="Hundeschule-Bestellung vom #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html">
+    <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html">
       <cfloop collection="#form#" item="key">
         <cfif key neq "fieldnames" and key neq "alternateShippingAddress" and not isEmpty(form[key])>
           <cfoutput>#key#: #form[key]#<br></cfoutput>
@@ -20,11 +20,10 @@
     </cfmail>
 
     <!--- mail to customer --->
-    <cfmail to="#form.email#" from="#local.sender#" subject="Ihre Bestellung bei der Hundeschule Famcane" type="html">
-      <p>Hallo #form.firstname#</p>
-      <p>Vielen Dank für deine Bestellung und das Vertrauen in uns!</p>
-      <p>Nachfolgend findest du deine Bestellbestätigung:</p>
-      <p><b>Lieferadresse:</b><br>
+    <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html">
+      <p>Hi #form.firstname#</p>
+      <p>#objectParams.emailText#</p>
+      <p><b>Shippingadress:</b><br>
 
       <cfif form.shippingAddress.len()>
         <cfif form.shippingAddresszusatz neq "">
@@ -35,7 +34,7 @@
         #form.shippingAddress#<br>
         #form.shippingZip# #form.shippingCity#<br></p>
 
-        <p><b>Rechnungsadresse:</b><br>
+        <p><b>Billingadress:</b><br>
 
         <cfif form.addresszusatz neq "">
           #form.addresszusatz#<br>
@@ -57,8 +56,7 @@
 
       <p><b>Artikel</b><br>
       #local.billing.generateBillingTable(session.cart, session.shippingCost)#</p>
-      <p>Freundliche Grüsse<br>
-      Hundeschule Famcane</p>
+      <p>#m.siteconfig('contactname')#</p>
     </cfmail>
   </cfif>
 
@@ -147,7 +145,7 @@
 
             <input type="submit" class="btn btn-primary mt-3" value="Bestellung abschicken">
           </form>
-          <script>
+          <script> <!--- form control --->
             document.getElementById('alternateShippingAddress').addEventListener('change', function() {
               var billingAddressDiv = document.querySelector('.shipping-address');
               if (this.checked) {
