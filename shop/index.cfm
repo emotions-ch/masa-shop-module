@@ -15,7 +15,7 @@
 </cfhtmlhead>
 	
 	<cfset local.cartHandler = new components.CartHandler()>
-	<div>
+	<div id="shop-modul-object">
 
 		<!--- <cfdump var="#m.siteConfig().getAllValues()#"> --->
 
