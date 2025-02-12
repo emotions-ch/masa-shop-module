@@ -4,21 +4,21 @@
 
       <br>
       <div class="right">
-        <button class="btn btn-primary mt-3"  onclick="window.location.href='/shop'">&##8592; Zurück zum Shop</button>
+        <button class="btn btn-primary mt-3"  onclick="window.location.href='#local.cleanRequestUrl#'">&##8592; Zurück zum Shop</button>
       </div>
 
       <div class="row">
         <picture id="product-image" style="background-image: url(#local.productContent.getImageUrl()#)"></picture>
 
         <div id="product-info">
-          <h4>#local.productContent.get('title')#</h4>
+          <h2>#local.productContent.get('title')#</h2>
 
           <cfif local.productContent.get("articleAmount").len()>
-            <p id="amount" class="highlight">Menge: #local.productContent.get("articleAmount")#</p>
+            <p id="amount">Menge: #local.productContent.get("articleAmount")#</p>
           </cfif>
 
             <p>#local.productContent.get('summary')#</p>
-          <span id="price" class="highlight" >CHF #NumberFormat(local.productContent.get("articlePrice") ,'.00')#</span>
+          <span id="price">CHF #NumberFormat(local.productContent.get("articlePrice") ,'.00')#</span>
           
           <div class="product-action">
             <div class="quantity">

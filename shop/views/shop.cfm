@@ -84,7 +84,7 @@
 					"summary":local.article.get("summary"),
 					"price":local.article.get("articlePrice"),
 					"amount":local.article.get("articleAmount"),
-					"image":local.article.getImageUrl("shop"),
+					"image":local.article.getImageUrl("medium"),
 					"url":local.article.get("url")
 				})>
 			</cfif>

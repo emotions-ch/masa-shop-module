@@ -10934,10 +10934,6 @@
           align-items: flex-end;
 }
 
-article.product {
-  width: 95vw;
-  overflow: hidden;
-}
 article.product .btn {
   display: inline-block;
   font-weight: 400;
@@ -12388,7 +12384,7 @@ article.product .row picture#product-image {
   background-position: center;
   width: 100%;
   height: 20vw;
-  margin-right: 10px;
+  margin: 0 0 25px 0;
 }
 @media (max-width: 1200px) {
   article.product .row picture#product-image {
@@ -12398,6 +12394,7 @@ article.product .row picture#product-image {
   }
 }
 article.product .row #product-info {
+  border-top: #ebebeb 1px solid;
   width: 100%;
 }
 article.product .row #product-info h1 {

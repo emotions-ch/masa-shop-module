@@ -26,7 +26,7 @@
 
     width: 100%;
     height: 20vw;
-    margin-right: 10px;
+    margin: 0 0 25px 0;
 
     @media (max-width: 1200px) {
       width: 100%;
@@ -37,6 +37,7 @@
   }
 
   #product-info {
+    border-top: $border_color 1px solid;
     width: 100%;
 
     h1 {

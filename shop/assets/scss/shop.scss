@@ -44,8 +44,7 @@ $border_radius: 0.25rem;
 }
 
 article.product {
-  width: 95vw;
-  overflow: hidden;
+  // overflow: hidden;
 
   @import 'partials/variables';
   @import 'partials/mixins';
