@@ -8,7 +8,7 @@
       </div>
 
       <div class="row">
-        <picture id="product-image" style="background-image: url(#local.productContent.getImageUrl('shop')#)"></picture>
+        <picture id="product-image" style="background-image: url(#local.productContent.getImageUrl()#)"></picture>
 
         <div id="product-info">
           <h4>#local.productContent.get('title')#</h4>
