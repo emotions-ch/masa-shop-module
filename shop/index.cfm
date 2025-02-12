@@ -15,18 +15,17 @@
 	</cfif>
 
 	<cfset local.modulePath = "/modules/shop">
+	<cfset local.cartHandler = new components.CartHandler()>
 </cfsilent>
 
 <cfoutput>
-<cfhtmlhead>
-	<script src="#local.modulePath#/assets/js/shop.js" defer></script>
-	<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
-</cfhtmlhead>
-	
-	<cfset local.cartHandler = new components.CartHandler()>
+	<cfhtmlhead>
+		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
+		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
+	</cfhtmlhead>
+
 	<div id="shop-modul-object">
 
-		<!--- <cfdump var="#m.siteConfig().getAllValues()#"> --->
 		<cfset local.productContent = m.content().loadBy(contentid=url.product)>
 
 		<cfif url.product neq "" && local.productContent.get('contentid') neq "00000000000000000000000000000000001">
