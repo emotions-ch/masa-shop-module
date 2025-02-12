@@ -28,9 +28,7 @@
 
 		<!--- <cfdump var="#m.siteConfig().getAllValues()#"> --->
 		<cfset local.productContent = m.content().loadBy(contentid=url.product)>
-		<cfdump var="#local.cleanRequestUrl#">
-		<cfdump var="#CGI.Request_Url#">
-		
+
 		<cfif url.product neq "" && local.productContent.get('contentid') neq "00000000000000000000000000000000001">
 			<cfinclude template="views/product.cfm">
 		<cfelse>
