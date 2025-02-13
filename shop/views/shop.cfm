@@ -49,7 +49,7 @@
 				</div> <!-- dropdown --> --->
 				
 				<div class="ml-sm-auto">
-					<a class="btn btn-primary" href="/checkout">Zur Kasse</a>
+					<a class="btn btn-primary" href="#local.cleanRequestUrl#?checkout=1">Zur Kasse</a>
 				</div>
 			</div> <!-- breadcrumb -->
 		</nav> <!-- breadcrumb -->

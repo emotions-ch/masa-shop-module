@@ -74,8 +74,8 @@
             <!--- billing table done --->
 
             <div class="spread">
-              <button class="btn btn-primary mt-3" onclick="window.location.href='/shop'">Zurück zum Shop</button>
-              <button class="btn btn-primary mt-3" onclick="window.location.href='/checkout?clear=1'">Warenkorb leeren</button>
+              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
+              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?clear=1'">Warenkorb leeren</button>
             </div>
           </div>
 
