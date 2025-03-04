@@ -65,7 +65,10 @@
 
     <div class="form-box">
       <div class="form-wrap">
-        <cfif isEmpty(form)>
+        <cfif session.cart.getTotalQuantity() eq 0>
+          <h2 class="form-title">Ihr Warenkorb ist leer</h2>
+          <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
+        <cfelseif isEmpty(form)>
 
           <h2 class="form-title">Ihr Warenkorb</h2>
           <div class="table-responsive">
