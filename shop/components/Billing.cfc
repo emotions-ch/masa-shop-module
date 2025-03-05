@@ -76,12 +76,12 @@ component
     string unstructuredMessage = "",
     numeric shippingCost=0
   ) output=false {
-    local.main = new scripts.qrBill.main();
+    local.main = new qrBill();
     // the data in here is just a stub for testing purposes
 
     local.bill = local.main.createBill(
       "CH8230787786229140905",
-      #decimalFormat(arguments.cart.getTotalPrice(arguments.shippingCost))#,
+      #arguments.cart.getTotalPrice(arguments.shippingCost)#,
       "CHF"
     );
 

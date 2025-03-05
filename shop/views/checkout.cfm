@@ -1,9 +1,6 @@
 <cfoutput>
   <cfset local.billing = new modules.shop.components.Billing()>
 
-  <!--- TODO --->
-  <cfset session.shippingCost = 10>
-
   <cfif !isEmpty(form)>
     <cfset local.recipitent = m.siteConfig('contactEmail')>
     <cfset local.sender = objectParams.emailSender>
@@ -65,8 +62,9 @@
 
     <div class="form-box">
       <div class="form-wrap">
-        <cfif session.cart.getTotalQuantity() eq 0>
+        <cfif session.cart.getTotalQuantity() eq 0 AND !isEmpty(form)>
           <h2 class="form-title">Ihr Warenkorb ist leer</h2>
+          <p>Gehen Sie doch zurück zu unserem Shop und füllen Sie Ihren Warenkorb :)</p>
           <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
         <cfelseif isEmpty(form)>
 
@@ -209,6 +207,10 @@
               #form.zip# #form.city#<br>
             </p>
           </cfif>
+
+          <script>
+            window.open('/modules/shop/components/pdf-bill-export/index.cfm', '_blank');
+          </script>
 
           <cfset session.delete("cart")>
 
