@@ -12,6 +12,7 @@ component
    */
   public component function init(){
     variables.articles = [];
+    session.shippingCost = 10;
 
     return this;
   }
