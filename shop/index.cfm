@@ -3,7 +3,7 @@
 	<cfparam name="objectParams.emailSender" default="">
 	<cfparam name="objectParams.emailSubjectLine" default="Order confirmation">
 	<cfparam name="objectParams.emailText" default="">
-	<cfset objectParams.render="server">
+	<!--- <cfset objectParams.render="server"> --->
 
 	<!--- Url params --->
 	<cfparam name="url.product" default="00000000000000000000000000000000001">
@@ -26,11 +26,6 @@
 </cfsilent>
 
 <cfoutput>
-	<cfhtmlhead>
-		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
-		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
-	</cfhtmlhead>
-
 	<div id="shop-modul-object">
 
 		<cfset local.productContent = m.content().loadBy(contentid=url.product)>
@@ -42,5 +37,8 @@
 		<cfelse>
 			<cfinclude template="views/#objectParams.view#.cfm">
 		</cfif> 
+
+		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
+		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
 	</div>
 </cfoutput>
