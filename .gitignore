@@ -1,1 +1,3 @@
 Application.cfc
+shop/components/pdf-bill-export/tmp/*.*
+shop/assets/images/logo.png
