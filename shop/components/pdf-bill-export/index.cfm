@@ -64,7 +64,7 @@
 </cfif>
 <!--- END DEV SHIT --->
 
-<cfcontent type="application/pdf">
-<cfdocument format="pdf" backgroundvisible="true">
+<cfdocument format="PDF" filename="#ExpandPath('./tmp/#session.SessionID#.pdf')#" overwrite="yes">
   <cfoutput>#local.bill#</cfoutput>
 </cfdocument>
+<cfset session.delete("cart")>

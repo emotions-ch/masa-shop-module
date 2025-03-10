@@ -55,7 +55,7 @@
       #local.billing.generateBillingTable(session.cart, session.shippingCost)#</p>
       <p>#m.siteconfig('contactname')#</p>
     </cfmail>
-  </cfif>
+  </cfif> 
 
   <div class="container">
     <h2 class="heading-line text-primary mt-4">KASSE</h2>
@@ -209,10 +209,17 @@
           </cfif>
 
           <script>
-            window.open('/modules/shop/components/pdf-bill-export/index.cfm', '_blank');
+            fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
+              method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+              console.log('Success:', data);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
           </script>
-
-          <cfset session.delete("cart")>
 
           <button class="btn btn-primary mt-3" onclick="window.location.href='/shop'">Zurück zum shop</button>
         </cfif>
