@@ -6,7 +6,7 @@
     <cfset local.sender = objectParams.emailSender>
 
     <!--- mail to melanie --->
-    <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html">
+    <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
       <cfloop collection="#form#" item="key">
         <cfif key neq "fieldnames" and key neq "alternateShippingAddress" and not isEmpty(form[key])>
           <cfoutput>#key#: #form[key]#<br></cfoutput>
@@ -17,7 +17,7 @@
     </cfmail>
 
     <!--- mail to customer --->
-    <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html">
+    <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
       <p>Hi #form.firstname#</p>
       <p>#objectParams.emailText#</p>
       <p><b>Shippingadress:</b><br>
@@ -81,7 +81,7 @@
           </div>
 
           <h2 class="form-title">Warenkorb bestellen</h2>
-          <form method="POST">
+          <form method="POST" action="?checkout=1">
             <label for="firstname">Vorname*</label>
             <input type="text" class="form-control" id="firstname" name="firstname" required>
 
