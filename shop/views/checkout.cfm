@@ -1,62 +1,6 @@
 <cfoutput>
   <cfset local.billing = new modules.shop.components.Billing()>
 
-  <cfif !isEmpty(form)>
-    <cfset local.recipitent = m.siteConfig('contactEmail')>
-    <cfset local.sender = objectParams.emailSender>
-
-    <!--- mail to melanie --->
-    <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
-      <cfloop collection="#form#" item="key">
-        <cfif key neq "fieldnames" and key neq "alternateShippingAddress" and not isEmpty(form[key])>
-          <cfoutput>#key#: #form[key]#<br></cfoutput>
-        </cfif>
-      </cfloop>
-      <br>
-      #local.billing.generateBillingTable(session.cart, session.shippingCost)#
-    </cfmail>
-
-    <!--- mail to customer --->
-    <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
-      <p>Hi #form.firstname#</p>
-      <p>#objectParams.emailText#</p>
-      <p><b>Shippingadress:</b><br>
-
-      <cfif form.shippingAddress.len()>
-        <cfif form.shippingAddresszusatz neq "">
-          #form.shippingAddresszusatz#<br>
-        </cfif>
-        
-        #form.shippingFirstname# #form.shippingLastname#<br>
-        #form.shippingAddress#<br>
-        #form.shippingZip# #form.shippingCity#<br></p>
-
-        <p><b>Billingadress:</b><br>
-
-        <cfif form.addresszusatz neq "">
-          #form.addresszusatz#<br>
-        </cfif>
-
-        #form.firstname# #form.lastname#<br>
-        #form.address#<br>
-        #form.zip# #form.city#<br></p>
-
-      <cfelse>
-        <cfif form.addresszusatz neq "">
-          #form.addresszusatz#<br>
-        </cfif>
-
-        #form.firstname# #form.lastname#<br>
-        #form.address#<br>
-        #form.zip# #form.city#<br></p>
-      </cfif>
-
-      <p><b>Artikel</b><br>
-      #local.billing.generateBillingTable(session.cart, session.shippingCost)#</p>
-      <p>#m.siteconfig('contactname')#</p>
-    </cfmail>
-  </cfif> 
-
   <div class="container">
     <h2 class="heading-line text-primary mt-4">KASSE</h2>
 
@@ -222,6 +166,62 @@
           </script>
 
           <button class="btn btn-primary mt-3" onclick="window.location.href='/shop'">Zurück zum shop</button>
+
+          <cfsilent>
+            <cfset local.recipitent = m.siteConfig('contactEmail')>
+            <cfset local.sender = objectParams.emailSender>
+        
+            <!--- mail to melanie --->
+            <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+              <cfloop collection="#form#" item="key">
+                <cfif key neq "fieldnames" and key neq "alternateShippingAddress" and not isEmpty(form[key])>
+                  <cfoutput>#key#: #form[key]#<br></cfoutput>
+                </cfif>
+              </cfloop>
+              <br>
+              #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+            </cfmail>
+        
+            <!--- mail to customer --->
+            <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+              <p>Hi #form.firstname#</p>
+              <p>#objectParams.emailText#</p>
+              <p><b>Shippingadress:</b><br>
+        
+              <cfif form.shippingAddress.len()>
+                <cfif form.shippingAddresszusatz neq "">
+                  #form.shippingAddresszusatz#<br>
+                </cfif>
+                
+                #form.shippingFirstname# #form.shippingLastname#<br>
+                #form.shippingAddress#<br>
+                #form.shippingZip# #form.shippingCity#<br></p>
+        
+                <p><b>Billingadress:</b><br>
+        
+                <cfif form.addresszusatz neq "">
+                  #form.addresszusatz#<br>
+                </cfif>
+        
+                #form.firstname# #form.lastname#<br>
+                #form.address#<br>
+                #form.zip# #form.city#<br></p>
+        
+              <cfelse>
+                <cfif form.addresszusatz neq "">
+                  #form.addresszusatz#<br>
+                </cfif>
+        
+                #form.firstname# #form.lastname#<br>
+                #form.address#<br>
+                #form.zip# #form.city#<br></p>
+              </cfif>
+        
+              <p><b>Artikel</b><br>
+              #local.billing.generateBillingTable(session.cart, session.shippingCost)#</p>
+              <p>#m.siteconfig('contactname')#</p>
+            </cfmail>
+          </cfsilent>
         </cfif>
       </div>
     </div>
