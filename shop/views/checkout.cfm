@@ -165,7 +165,7 @@
             });
           </script>
 
-          <button class="btn btn-primary mt-3" onclick="window.location.href='/shop'">Zurück zum shop</button>
+          <button class="btn btn-primary mt-3" onclick="window.location.href='/?clear=1'">Zurück zum shop</button>
 
           <cfsilent>
             <cfset local.recipitent = m.siteConfig('contactEmail')>
@@ -180,6 +180,8 @@
               </cfloop>
               <br>
               #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+
+              <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
             </cfmail>
         
             <!--- mail to customer --->
@@ -220,6 +222,8 @@
               <p><b>Artikel</b><br>
               #local.billing.generateBillingTable(session.cart, session.shippingCost)#</p>
               <p>#m.siteconfig('contactname')#</p>
+
+              <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
             </cfmail>
           </cfsilent>
         </cfif>
