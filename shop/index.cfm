@@ -17,12 +17,19 @@
 	</cfif>
 
 	<cfset local.modulePath = "/modules/shop">
+	<cfset local.cartHandler = new components.CartHandler()>1
 
 	<cfif url.clear eq "1">
+		<cfdirectory action="list" directory="#expandPath('#local.modulePath#/components/pdf-bill-export/tmp/')#" name="fileList">
+		<cfloop query="fileList">
+			<cfif fileList.name contains "#session.SessionID#">
+				<cfset fileDelete = expandPath('#local.modulePath#/components/pdf-bill-export/tmp/' & fileList.name)>
+				<cffile action="delete" file="#fileDelete#">
+			</cfif>
+		</cfloop>
+	
 		<cfset session.delete("cart")>
 	</cfif>
-
-	<cfset local.cartHandler = new components.CartHandler()>
 </cfsilent>
 
 <cfoutput>

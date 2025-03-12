@@ -12,15 +12,12 @@
   <cflocation url="/" addtoken="false">
 </cfif>
 
-<cfdirectory action="delete" directory="#expandPath('./tmp')#" recurse="true">
-<cfdirectory action="create" directory="#expandPath('./tmp')#">
-
-<cfset local.imgId = createUUID()>
+<cfset local.billId = session.SessionID>
 <cfset local.billing = new modules.shop.components.Billing()>
 <cfset variables.m = application.serviceFactory.getBean('m')>
 <cfset local.qrInvoice = local.billing.getQrInvoice(session.cart, "Bestellung vom #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#", session.shippingCost)>
 
-<cffile action="write" file="./tmp/#local.imgId#.png" output="#local.qrInvoice#" nameconflict="overwrite">
+<cffile action="write" file="./tmp/#local.billId#.png" output="#local.qrInvoice#" nameconflict="overwrite">
 
 <cfsavecontent variable="local.bill">
   <cfoutput>
@@ -39,7 +36,7 @@
       <h1>Rechnung</h1>
       <div id="payment">
         #local.billing.generateBillingTable(session.cart, session.shippingCost)#
-        <img id="invoice" src="./tmp/#local.imgId#.png" alt="QR Rechnung">
+        <img id="invoice" src="./tmp/#local.billId#.png" alt="QR Rechnung">
       </div>
     </main>
   </cfoutput>
@@ -64,7 +61,6 @@
 </cfif>
 <!--- END DEV SHIT --->
 
-<cfdocument format="PDF" filename="#ExpandPath('./tmp/#session.SessionID#.pdf')#" overwrite="yes">
+<cfdocument format="PDF" filename="#ExpandPath('./tmp/#local.billId#.pdf')#" overwrite="yes">
   <cfoutput>#local.bill#</cfoutput>
 </cfdocument>
-<cfset session.delete("cart")>
