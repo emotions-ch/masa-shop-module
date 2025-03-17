@@ -70,9 +70,13 @@ component
 
   /**
    * @hint 
+   * 
+   * the argument creditor has to be made with qrBill.createAddress()
    */
   public any function getQrInvoice(
     required component cart,
+    required string iban,
+    required object creditor,
     string unstructuredMessage = "",
     numeric shippingCost=0
   ) output=false {
@@ -80,32 +84,23 @@ component
     // the data in here is just a stub for testing purposes
 
     local.bill = local.main.createBill(
-      "CH8230787786229140905",
+      arguments.iban,
       #arguments.cart.getTotalPrice(arguments.shippingCost)#,
       "CHF"
     );
 
-    local.bill.setCreditor(
-        local.main.createAddress(
-          name="Hundeschule FAMCANE GmbH",
-          street="Dorfstrasse",
-          houseNo="34",
-          postalCode="6340",
-          town="Baar",
-          countryCode="CH"
-        )
-      );
+    local.bill.setCreditor(arguments.creditor);
     
-    local.bill.setReference("210000000003139471430009017");
+    local.bill.createAndSetQRReference(second(now()));
     local.bill.setUnstructuredMessage(arguments.unstructuredMessage);
 
     local.bill.setFormat(
-        local.main.createBillFormat(
-          language=local.main.createLanguage("de"),
-          graphicsFormat=local.main.createGraphicsFormat("PNG"),
-          seperatorType=local.main.createSeperatorType('SOLID_LINE')
-        )
-      );
+      local.main.createBillFormat(
+        language=local.main.createLanguage("de"),
+        graphicsFormat=local.main.createGraphicsFormat("PNG"),
+        seperatorType=local.main.createSeperatorType('SOLID_LINE')
+      )
+    );
     local.qrbill = local.main.createQRBill().generate(local.bill);
 
     return local.qrbill;

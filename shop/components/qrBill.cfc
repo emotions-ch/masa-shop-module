@@ -15,8 +15,7 @@ component
     return this;
   }
 
-
-  /**
+/**
    * @hint Create a new bill (net.codecrete.qrbill.generator.Bill)
    * https://javadoc.io/static/net.codecrete.qrbill/qrbill-generator/3.3.1/net/codecrete/qrbill/generator/Bill.html
    * 
@@ -28,7 +27,8 @@ component
     required string account,
     required numeric amount,
     required string currency,
-    string billInformation = ""
+    string billInformation = "",
+    string referenceType = "REFERENCE_TYPE_NO_REF"
   ) output=false {
     local.bill = createObject('java', 'net.codecrete.qrbill.generator.Bill');
 
@@ -39,7 +39,8 @@ component
 
     return local.bill;
   }
-  
+
+
   /**
    * @hint Create a new address (net.codecrete.qrbill.generator.Address)
    * https://javadoc.io/doc/net.codecrete.qrbill/qrbill-generator/latest/net/codecrete/qrbill/generator/Address.html

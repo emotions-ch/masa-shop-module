@@ -14,8 +14,24 @@
 
 <cfset local.billId = session.SessionID>
 <cfset local.billing = new modules.shop.components.Billing()>
+<cfset local.qrBill = new modules.shop.components.qrBill()>
 <cfset variables.m = application.serviceFactory.getBean('m')>
-<cfset local.qrInvoice = local.billing.getQrInvoice(session.cart, "Bestellung vom #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#", session.shippingCost)>
+
+<cfset local.creditor = local.qrBill.createAddress(
+  name="Hundeschule FAMCANE GmbH",
+  street="Dorfstrasse",
+  houseNo="34",
+  postalCode="6340",
+  town="Baar",
+  countryCode="CH"
+)>
+<cfset local.qrInvoice = local.billing.getQrInvoice(
+  cart=session.cart,
+  unstructuredMessage="Bestellung vom #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#",
+  shippingCost=session.shippingCost,
+  iban="CH8230787786229140905",
+  creditor=local.creditor
+)>
 
 <cffile action="write" file="./tmp/#local.billId#.png" output="#local.qrInvoice#" nameconflict="overwrite">
 
