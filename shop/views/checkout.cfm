@@ -25,7 +25,7 @@
           </div>
 
           <h2 class="form-title">Warenkorb bestellen</h2>
-          <form method="POST" action="?checkout=1">
+          <form>
             <label for="firstname">Vorname*</label>
             <input type="text" class="form-control" id="firstname" name="firstname" required>
 
@@ -110,6 +110,24 @@
               }
             });
 
+            function submitOrder(event) {
+              event.preventDefault();
+              fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
+              method: 'POST',
+              body: new FormData(event.target)
+              })
+              .then(response => response.json())
+              .then(data => {
+              console.log('Success:', data);
+              window.location.href = '?checkout=1';
+              })
+              .catch((error) => {
+              console.error('Error:', error);
+              });
+            }
+
+            document.querySelector('form').addEventListener('submit', submitOrder);
+
             // Initially hide the billing address div
             document.querySelector('.shipping-address').style.display = 'none';
           </script>
@@ -151,20 +169,6 @@
               #form.zip# #form.city#<br>
             </p>
           </cfif>
-
-          <script>
-            fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
-              method: 'POST'
-            })
-            .then(response => response.json())
-            .then(data => {
-              console.log('Success:', data);
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
-          </script>
-
           <button class="btn btn-primary mt-3" onclick="window.location.href='/?clear=1'">Zurück zum shop</button>
 
           <cfsilent>
