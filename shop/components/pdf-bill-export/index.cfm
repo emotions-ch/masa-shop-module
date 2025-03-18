@@ -37,29 +37,28 @@
 
 <cfsavecontent variable="local.bill">
   <cfoutput>
-    <div id="pdf-head">
-      <img class="logo" src="modules/shop/assets/images/logo.png">
-      <div id="header-pad"></div>
-    </div>
-
-    <main>
-      <p class="small">#m.siteConfig('contactName')# / #m.siteConfig('contactAddress')# / #m.siteConfig('contactzip')# #m.siteConfig('contactCity')#</p>
-
-      <!--- customer address --->
-
-      <p class="right">#m.siteConfig('contactCity')#, #lsDateFormat(now(), "d.m.yyyy")#</p>
-
-      <h1>Rechnung</h1>
-      <div id="payment">
-        #local.billing.generateBillingTable(session.cart, session.shippingCost)#
-        <img id="invoice" src="./tmp/#local.billId#.png" alt="QR Rechnung">
+    <html>
+      <div id="pdf-head">
+        <img class="logo" src="modules/shop/assets/images/logo.png">
+        <div id="header-pad"></div>
       </div>
-    </main>
-  </cfoutput>
 
-  <style>
-    @import url('styles.css');
-  </style>
+      <main>
+        <p class="small">#m.siteConfig('contactName')# / #m.siteConfig('contactAddress')# / #m.siteConfig('contactzip')# #m.siteConfig('contactCity')#</p>
+        <p class="right">#m.siteConfig('contactCity')#, #lsDateFormat(now(), "d.m.yyyy")#</p>
+
+        <h1>Rechnung</h1>
+        <div id="payment">
+          #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+          <img id="invoice" src="./tmp/#local.billId#.png" alt="QR Rechnung">
+        </div>
+      </main>
+
+      <style>
+        @import url('styles.css');
+      </style>
+    </html>
+  </cfoutput>
 </cfsavecontent>
 
 
