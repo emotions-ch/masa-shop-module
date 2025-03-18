@@ -44,8 +44,8 @@
       </div>
 
       <main>
-        <p class="small">#m.siteConfig('contactName')# / #m.siteConfig('contactAddress')# / #m.siteConfig('contactzip')# #m.siteConfig('contactCity')#</p>
-        <p class="right">#m.siteConfig('contactCity')#, #lsDateFormat(now(), "d.m.yyyy")#</p>
+        <p class="small">#session.creditor.name# / #session.creditor.street# #session.creditor.houseNo# / #session.creditor.postalCode# #session.creditor.town#</p>
+        <p class="right">#session.creditor.town#, #lsDateFormat(now(), "d.m.yyyy")#</p>
 
         <h1>Rechnung</h1>
         <div id="payment">
