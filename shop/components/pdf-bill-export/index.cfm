@@ -18,18 +18,18 @@
 <cfset variables.m = application.serviceFactory.getBean('m')>
 
 <cfset local.creditor = local.qrBill.createAddress(
-  name="Hundeschule FAMCANE GmbH",
-  street="Dorfstrasse",
-  houseNo="34",
-  postalCode="6340",
-  town="Baar",
-  countryCode="CH"
+  name=session.creditor.name,
+  street=session.creditor.street,
+  houseNo=session.creditor.houseNo,
+  postalCode=session.creditor.postalCode,
+  town=session.creditor.town,
+  countryCode=session.creditor.countryCode
 )>
 <cfset local.qrInvoice = local.billing.getQrInvoice(
   cart=session.cart,
   unstructuredMessage="Bestellung vom #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#",
   shippingCost=session.shippingCost,
-  iban="CH8230787786229140905",
+  iban=session.creditor.iban,
   creditor=local.creditor
 )>
 

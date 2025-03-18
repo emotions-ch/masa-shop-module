@@ -3,7 +3,13 @@
 	<cfparam name="objectParams.emailSender" default="">
 	<cfparam name="objectParams.emailSubjectLine" default="Order confirmation">
 	<cfparam name="objectParams.emailText" default="">
-	<!--- <cfset objectParams.render="server"> --->
+	<cfparam name="objectParams.creditorName" default="">
+	<cfparam name="objectParams.creditorStreet" default="">
+	<cfparam name="objectParams.creditorHouseNo" default="">
+	<cfparam name="objectParams.creditorPostalCode" default="">
+	<cfparam name="objectParams.creditorTown" default="">
+	<cfparam name="objectParams.creditorCountryCode" default="CH">
+	<cfparam name="objectParams.iban" default="">
 
 	<!--- Url params --->
 	<cfparam name="url.product" default="00000000000000000000000000000000001">
@@ -30,6 +36,17 @@
 	
 		<cfset session.delete("cart")>
 	</cfif>
+
+	<!--- Create creditor struct with all creditor parameters --->
+	<cfset session.creditor = {
+		name = objectParams.creditorName,
+		street = objectParams.creditorStreet,
+		houseNo = objectParams.creditorHouseNo,
+		postalCode = objectParams.creditorPostalCode,
+		town = objectParams.creditorTown,
+		countryCode = objectParams.creditorCountryCode,
+		iban = objectParams.iban
+	}>
 </cfsilent>
 
 <cfoutput>
