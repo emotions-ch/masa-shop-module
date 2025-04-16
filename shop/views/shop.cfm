@@ -2,6 +2,10 @@
 	<div class="container">
 		<nav aria-label="breadcrumb">
 			<div class="breadcrumb mt-3 flex-column flex-sm-row">
+				<div class="ml-sm-auto">
+					<a class="btn btn-primary" href="#local.cleanRequestUrl#?login=1">Login</a>
+				</div>
+
 				<!--- <div class="dropdown">
 					<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
 						Kategorie
