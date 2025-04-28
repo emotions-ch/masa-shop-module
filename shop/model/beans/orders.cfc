@@ -13,7 +13,7 @@ component
   property name="productContentIds" setter="true" getter="true" type="string" ormType="text" nullable="false" required="true"; //json array of contentIds
 
   // relationships
-  property name="customerId" fieldType="many-to-one" cfc="users" fkColumn="userId" lazy="true";
+  property name="customerId" fieldType="many-to-one" cfc="customers" fkColumn="userId" lazy="true";
   property name="payments" fieldType="one-to-one" cfc="payments" fkColumn="orderId" singularName="payment" lazy="true";
 
 }

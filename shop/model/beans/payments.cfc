@@ -14,5 +14,5 @@ component
   property name="transactionId" setter="true" getter="true" type="string" ormType="string" length="50" nullable="true" required="false";
 
   // relationships
-  property name="customerId" fieldType="many-to-one" cfc="UserBean" fkColumn="userId" lazy="true";
+  property name="orderId" fieldType="one-to-one" cfc="orders" fkColumn="userId" lazy="true";
 }
