@@ -2,9 +2,15 @@
 	<div class="container">
 		<nav aria-label="breadcrumb">
 			<div class="breadcrumb mt-3 flex-column flex-sm-row">
-				<div class="ml-sm-auto">
-					<a class="btn btn-primary" href="#local.cleanRequestUrl#?login=1">Login</a>
-				</div>
+				<cfif StructKeyExists(session, "customer")>
+					<div class="mr-sm-auto">
+						<a class="btn btn-primary" href="#local.cleanRequestUrl#?logout=1">Logout</a>
+					</div>
+				<cfelse>
+					<div class="ml-sm-auto">
+						<a class="btn btn-primary" href="#local.cleanRequestUrl#?login=1">Login</a>
+					</div>
+				</cfif>
 
 				<!--- <div class="dropdown">
 					<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
@@ -135,7 +141,7 @@
 
 					<div class="product-action d-flex align-items-center mt-auto">
 						<div class="quantity">
-								<input type="number" class="form-control" value="1" min="1" max="99">
+							<input type="number" class="form-control" value="1" min="1" max="99">
 						</div> <!-- quantity -->
 						<button href="##" class="article-to-cart form-control" article-id="#local.articles['contentId']#">In den Warenkorb</button>
 					</div> <!-- product-action -->
