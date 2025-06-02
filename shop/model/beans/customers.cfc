@@ -16,7 +16,7 @@ component
   property name="firstname" setter="true" getter="true" type="string" ormType="string" length="50" nullable="true" required="false";
   property name="lastname" setter="true" getter="true" type="string" ormType="string" length="50" nullable="true" required="false";
   property name="email" setter="true" getter="true" type="string" ormType="string" length="100" nullable="true" required="false";
-  property name="inActive" setter="true" getter="true" type="boolean" ormType="bit" nullable="false" required="true" default="0";
+  property name="active" setter="true" getter="true" type="boolean" ormType="bit" nullable="false" required="true" default="1";
   property name="created" setter="true" getter="true" type="datetime" ormType="datetime" nullable="false" required="true";
   property name="lastLogin" setter="true" getter="true" type="datetime" ormType="datetime" nullable="true" required="false";
   property name="lastUpdate" setter="true" getter="true" type="datetime" ormType="datetime" nullable="true" required="false";
