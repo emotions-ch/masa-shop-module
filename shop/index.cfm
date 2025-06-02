@@ -15,6 +15,8 @@
 	<cfparam name="url.product" default="00000000000000000000000000000000001">
 	<cfparam name="url.checkout" default="0">
 	<cfparam name="url.clear" default="0">
+	<cfparam name="url.login" default="0">
+	<cfparam name="url.logout" default="0">
 
 	<cfif cgi.query_string.len()>
 		<cfset local.cleanRequestUrl = left(cgi.request_url, "-" & "#cgi.query_string.len()+1#")>
@@ -22,8 +24,12 @@
 		<cfset local.cleanRequestUrl = cgi.request_url>
 	</cfif>
 
+	<cfif url.logout eq "1">
+		<cfset session.delete()>
+	</cfif>
+
 	<cfset local.modulePath = "/modules/shop">
-	<cfset local.cartHandler = new components.CartHandler()>1
+	<cfset local.cartHandler = new components.CartHandler()>
 
 	<cfif url.clear eq "1">
 		<cfdirectory action="list" directory="#expandPath('#local.modulePath#/components/pdf-bill-export/tmp/')#" name="fileList">
@@ -58,8 +64,10 @@
 			<cfinclude template="views/product.cfm">
 		<cfelseif url.checkout eq "1">
 			<cfinclude template="views/checkout.cfm">
+		<cfelseif url.login eq "1">
+			<cfinclude template="views/login.cfm">
 		<cfelse>
-			<cfinclude template="views/#objectParams.view#.cfm">
+			<cfinclude template="views/shop.cfm">
 		</cfif> 
 
 		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
