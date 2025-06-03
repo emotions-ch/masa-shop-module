@@ -94,4 +94,24 @@ component
   public array function getArticles(){
     return variables.articles;
   }
+
+  /**
+   * @hint get all articleIds in cart as json
+   * @return query
+   */
+  public string function getCartJson() {
+    local.json;
+
+    for (local.article in getArticles()) {
+      if (len(local.json)) {
+        local.json &= ",";
+      }
+      local.json &= serializeJSON({
+        "id": local.article.getId(),
+        "quantity": local.article.getQuantity()
+      });
+    }
+
+    return local.json;
+  };
 }
