@@ -114,7 +114,7 @@
 
       local.customer = entityLoad("customer", {email=form.email})[1];
 
-      if (!local.customer && !local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())) {
+      if (!structKeyExists(local, "customer") && !local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())) {
         throw(type="ValidationError", message="Invalid email or password.");
       }
 
