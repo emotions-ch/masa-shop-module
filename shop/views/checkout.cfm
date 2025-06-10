@@ -246,7 +246,89 @@
               <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
             </cfmail>
           </cfsilent>
+          
+          <!--- store customer in bean --->
+          <cfscript>
+            if (structKeyExists(session, "customer") AND session.customer.getEmail() EQ form.email) {
+              local.customer = session.customer;
 
+              local.sorce = "load";
+            } else {
+              local.customer = entityNew("customer",
+                {
+                  firstname: form.firstname,
+                  lastname: form.lastname,
+                  email: form.email,
+                  password: nullValue(),
+                  active: 0,
+                  created: now(),
+                  lastLogin: now(),
+                  lastUpdate: now()
+                }
+              );
+              entitySave(local.customer, true);
+              ormFlush();
+              local.customerId = entityLoad("customer", {email=form.email})[1].getCustomerId();
+              local.sorce = "new";
+            }
+            writeDump(local.sorce);
+
+            local.address = entityNew("shopAddress",
+              {
+                firstname: form.firstname,
+                lastname: form.lastname,
+                street: form.address,
+                zip: form.zip,
+                city: form.city,
+                customerId: local.customer
+              }
+            );
+
+            // local.addressExists = false;
+            // if (entityLoadByExample(local.address, true)) {
+            //   local.addressExists = true;
+            // }
+
+            entitySave(local.address, true);
+            ormFlush();
+
+            // writeDump(var=local.address, abort=true);
+
+            local.order = entityNew("shopOrder",
+              {
+                productContentIds: session.cart.getCartJson(),
+                orderDate: now(),
+                customerId: local.customer,
+                adressId: local.address
+              }
+            );
+
+            if (form.shippingAddress.len()) {
+              local.shippingAddress = entityNew("shopAddress",
+                {
+                  firstname: form.shippingFirstname,
+                  lastname: form.shippingLastname,
+                  street: form.shippingAddress,
+                  zip: form.shippingZip,
+                  city: form.shippingCity,
+                  customerId: local.customer
+                }
+              );
+
+              // local.shippingAddressExists = false;
+              // if (entityLoadByExample(local.shippingAddress, true)) {
+              //   local.shippingAddressExists = true;
+              // }
+
+              entitySave(local.shippingAddress, true);
+            }
+            writeDump(var=local.order, abort=false);
+            entitySave(local.order, true);
+            ormFlush();           
+            
+
+          </cfscript>
+          <cfdump var="#entityLoad('shopAddress')#" abort="false">
         </cfif>
       </div>
     </div>
