@@ -2,7 +2,7 @@ component
   displayName="Address Bean"
   entityName="shopAddress"
   hint="This provides the Address Table"
-  table="taddresses"
+  table="tshopAddresses"
   output="false"
   persistent="true"
 {

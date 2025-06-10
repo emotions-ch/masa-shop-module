@@ -2,7 +2,7 @@ component
   displayName="Customer Bean"
   entityName="customer"
   hint="This provides the Customer Table"
-  table="tcustomers"
+  table="tshopCustomers"
   output="false"
   persistent="true"
 {

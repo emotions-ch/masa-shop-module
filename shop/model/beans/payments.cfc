@@ -2,7 +2,7 @@ component
   displayName="Payment Bean"
   entityName="payment"
   hint="This provides the Payment Table"
-  table="tpayments"
+  table="tshopPayments"
   output="false"
   persistent="true"
 {
