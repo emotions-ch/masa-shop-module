@@ -295,6 +295,7 @@
               {
                 productContentIds: session.cart.getCartJson(),
                 orderDate: now(),
+                billingId: session.SessionID,
                 customerId: local.customer,
                 adressId: local.address
               }
@@ -312,12 +313,17 @@
                 }
               );
 
-              // local.shippingAddressExists = false;
-              // if (entityLoadByExample(local.shippingAddress, true)) {
-              //   local.shippingAddressExists = true;
-              // }
+              local.shippingAddressExists = entityLoadByExample(local.shippingAddress, true);
+              if (structKeyExists(local, "shippingAddressExists")) {
+                local.shippingAddress = local.shippingAddressExists;
+                writeDump("loaded existing Shippingaddress");
+              } else {
+                local.shippingAddress.setCreated(now());
+                entitySave(local.shippingAddress, true);
+                ormFlush();
+              }
 
-              entitySave(local.shippingAddress, true);
+              local.order.setshippingAddressId(local.shippingAddress);
             }
             writeDump(var=local.order, abort=false);
             entitySave(local.order, true);
