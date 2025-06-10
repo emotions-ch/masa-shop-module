@@ -19,5 +19,5 @@ component
 
   // relationships
   property name="customerId" fieldType="many-to-one" cfc="customers" fkColumn="customerId" lazy="true";
-  property name="orderId" fieldType="many-to-many" linktable="addressOrder" cfc="orders" fkColumn="orderId" lazy="true";
+  property name="orderId" fieldType="one-to many" linktable="addressOrder" cfc="orders" fkColumn="addressId" lazy="true";
 }

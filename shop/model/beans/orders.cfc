@@ -16,6 +16,6 @@ component
   // relationships
   property name="customerId" setter="true" getter="true" fieldType="many-to-one" cfc="customers" fkColumn="customerId" lazy="true";
   property name="payments" setter="true" getter="true" fieldType="one-to-one" cfc="payments" fkColumn="paymentId" singularName="payment" lazy="true" nullValue="true" required="false"; 
-  property name="adressId" setter="true" getter="true" fieldType="many-to-many" linktable="addressOrder" cfc="adresses" fkColumn="adressId" lazy="true";
-  property name="shippingAddressId" setter="true" getter="true" fieldType="many-to-many" linktable="addressOrder" cfc="adresses" fkColumn="adressId" lazy="true" nullable="true" required="false";
+  property name="adressId" setter="true" getter="true" fieldType="many-to-one" cfc="adresses" fkColumn="adressId" lazy="true";
+  // property name="shippingAddressId" setter="true" getter="true" fieldType="many-to-one" cfc="adresses" fkColumn="shippingAdressId" lazy="true" nullable="true" required="false";
 }

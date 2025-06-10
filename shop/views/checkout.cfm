@@ -251,8 +251,7 @@
           <cfscript>
             if (structKeyExists(session, "customer") AND session.customer.getEmail() EQ form.email) {
               local.customer = session.customer;
-
-              local.sorce = "load";
+              writeDump("loaded existing customer from session");
             } else {
               local.customer = entityNew("customer",
                 {
@@ -269,9 +268,7 @@
               entitySave(local.customer, true);
               ormFlush();
               local.customerId = entityLoad("customer", {email=form.email})[1].getCustomerId();
-              local.sorce = "new";
             }
-            writeDump(local.sorce);
 
             local.address = entityNew("shopAddress",
               {
@@ -284,15 +281,15 @@
               }
             );
 
-            // local.addressExists = false;
-            // if (entityLoadByExample(local.address, true)) {
-            //   local.addressExists = true;
-            // }
-
-            entitySave(local.address, true);
-            ormFlush();
-
-            // writeDump(var=local.address, abort=true);
+            local.addressExists = entityLoadByExample(local.address, true);
+            if (structKeyExists(local, "addressExists")) {
+              local.address = local.addressExists;
+              writeDump("loaded existing address");
+            } else {
+              local.address.setCreated(now());
+              entitySave(local.address, true);
+              ormFlush();
+            }
 
             local.order = entityNew("shopOrder",
               {
