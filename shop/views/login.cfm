@@ -35,6 +35,14 @@
       <form id="loginForm" method="post" action="?login=1">
         <input type="hidden" id="logintype" name="type" value="register">
         <div class="form-group">
+          <label for="registrationFirstname">First Name</label>
+          <input type="text" id="registrationFirstname" name="registrationFirstname" required>
+        </div>
+        <div class="form-group">
+          <label for="registrationLastname">Last Name</label>
+          <input type="text" id="registrationLastname" name="registrationLastname" required>
+        </div>
+        <div class="form-group">
           <label for="registrationEmail">Email</label>
           <input type="email" id="registrationEmail" name="registrationEmail" required>
         </div>
@@ -88,12 +96,13 @@
 
         local.customer = entityNew("customer",
           {
-            firstname: nullValue(),
-            lastname: nullValue(),
+            firstname: form.registrationFirstname,
+            lastname: form.registrationLastname,
             email: form.registrationEmail,
             password: local.hashedPassword,
             active: 1,
             created: now(),
+            passwordCreated: now(),
             lastLogin: now(),
             lastUpdate: now()
           }
