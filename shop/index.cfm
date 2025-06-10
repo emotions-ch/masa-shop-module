@@ -71,6 +71,7 @@
 		</cfif> 
 
 		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
+		<script src="#local.modulePath#/assets/js/jquery-3.7.1.min.js"></script>
 		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
 	</div>
 </cfoutput>
