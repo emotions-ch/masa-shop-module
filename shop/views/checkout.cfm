@@ -1,5 +1,21 @@
 <cfoutput>
   <cfset local.billing = new modules.shop.components.Billing()>
+  
+  <cfif structKeyExists(session, "customer")>
+    <!--- <cfdump var="#session.customer#" abort="false" expand="false"> --->
+    <!--- the empty string gets appended beacause ther default value of the values is NULL, which means I cannot instert them into a form --->
+    <cfset local.storedCustomerValues = {
+      email = session.customer.getEmail() & "",
+      firstname = session.customer.getFirstname() & "",
+      lastname = session.customer.getLastname() & "",
+    }>
+  <cfelse>
+    <cfset local.storedCustomerValues = {
+      email = "",
+      firstname = "",
+      lastname = "",
+    }>
+  </cfif>
 
   <div class="container">
     <h2 class="heading-line text-primary mt-4">KASSE</h2>
@@ -16,6 +32,7 @@
           <div class="table-responsive">
             <!--- billing table --->
             #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+            <cfdump var="#session.cart.getCartJson()#" label="Session Cart Articles" abort="false">
             <!--- billing table done --->
 
             <div class="spread">
@@ -25,15 +42,15 @@
           </div>
 
           <h2 class="form-title">Warenkorb bestellen</h2>
-          <form>
+          <form onsubmit="submitOrder(this); return false;" class="form" method="POST">
             <label for="firstname">Vorname*</label>
-            <input type="text" class="form-control" id="firstname" name="firstname" required>
+            <input type="text" class="form-control" id="firstname" name="firstname" required value="#local.storedCustomerValues.firstname#">
 
             <label for="lastname">Nachname*</label>
-            <input type="text" class="form-control" id="lastname" name="lastname" required>
+            <input type="text" class="form-control" id="lastname" name="lastname" required value="#local.storedCustomerValues.lastname#">
 
             <label for="email">E-Mail*</label>
-            <input type="email" class="form-control" id="email" name="email" required>
+            <input type="email" class="form-control" id="email" name="email" required value="#local.storedCustomerValues.email#">
 
             <label for="phone">Telefon</label>
             <input type="tel" class="form-control" id="phone" name="phone">
@@ -71,13 +88,13 @@
 
               <label for="shippingAddress">Strasse &amp; Nr.*</label>
               <input type="text" class="form-control" id="shippingAddress" name="shippingAddress">
-            
+
               <div class="form-row-2">
                 <div>
                   <label for="shippingZip">PLZ*</label>
                   <input type="text" class="form-control" id="shippingZip" name="shippingZip">
                 </div>
-              
+
                 <div>
                   <label for="shippingCity">Ort*</label>
                   <input type="text" class="form-control" id="shippingCity" name="shippingCity">
@@ -110,23 +127,22 @@
               }
             });
 
-            function submitOrder(event) {
-              event.preventDefault();
-              fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
-              method: 'POST',
-              body: new FormData(event.target)
+            async function submitOrder(f) {
+              await fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
+                method: 'POST',
+                body: new FormData(f),
               })
-              .then(response => response.json())
               .then(data => {
-              console.log('Success:', data);
-              window.location.href = '?checkout=1';
+                console.log('Success:', data);
+                f.submit();
               })
               .catch((error) => {
-              console.error('Error:', error);
+                console.error('Error:', error);
+                alert('Es ist ein Fehler aufgetreten. Bitte überprüfen Sie ihre Angaben versuchen Sie es erneut.');
               });
             }
 
-            document.querySelector('form').addEventListener('submit', submitOrder);
+            // document.querySelector('form').addEventListener('submit', submitOrder);
 
             // Initially hide the billing address div
             document.querySelector('.shipping-address').style.display = 'none';
@@ -174,7 +190,7 @@
           <cfsilent>
             <cfset local.recipitent = m.siteConfig('contactEmail')>
             <cfset local.sender = objectParams.emailSender>
-        
+
             <!--- mail to melanie --->
             <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <cfloop collection="#form#" item="key">
@@ -187,7 +203,7 @@
 
               <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
             </cfmail>
-        
+
             <!--- mail to customer --->
             <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <p>Hi #form.firstname#</p>
@@ -230,6 +246,7 @@
               <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
             </cfmail>
           </cfsilent>
+
         </cfif>
       </div>
     </div>
