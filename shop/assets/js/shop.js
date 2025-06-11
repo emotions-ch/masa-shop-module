@@ -91,9 +91,7 @@ function addToCart(article) {
     url: url,
     data: {},
     success: function (data) {
-      data = getJsonFromBody(data);
-
-      // console.log(data.trim());
+      console.log("Article added to cart: " + articleId);
     },
   });
 }

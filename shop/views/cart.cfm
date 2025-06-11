@@ -11,22 +11,26 @@
       
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
-          <!--- <cfdump var="#local.article#" label="Cart Article" abort="true"> --->
-          <!--- <cfset local.article = local.article.getArticleBean()> --->
           <div class="article">
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <h2>#local.article.getTitle()#</h2>
-              <p>Preis: CHF #NumberFormat(local.article.getPrice(), '.00')#</p>
-              <p>Menge: #local.article.getQuantity()#</p>
-              <p>Gesamt: CHF #NumberFormat(local.article.getTotalPrice(), '.00')#</p>
+              <p id="item-price">Preis: CHF #NumberFormat(local.article.getPrice(), '.00')#</p>
+              <p id="total-item-price">Gesamt: CHF #NumberFormat(local.article.getTotalPrice(), '.00')#</p>
             </div>
             <div class="product-action">
               <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#');">Entfernen</button>
               <div class="quantity">
-                <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" onchange="addToCart($(this));">
+                <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" onchange="updateQuantity(this, '#local.article.getPrice()#', '#local.article.getId()#'); ">
+                <script>
+                  function updateQuantity(input, price, articleId) {
+                    const quantity = $(input).val();
+                    const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
+                    $(input).closest('.article').find('##total-item-price').text('Gesamt: CHF ' + totalPrice);
+                    addToCart($(input));
+                  }
+                </script>
               </div> <!-- quantity -->
-              <script>let article = $(this);</script>
             </div>
           </div>
         </cfloop>
