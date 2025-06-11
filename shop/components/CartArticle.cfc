@@ -46,8 +46,18 @@ component
     return variables.articleBean.get("articlePrice");
   }
 
+  public string function getTotalPrice(){
+    return getPrice() * variables.quantity;
+  }
+
   public string function getTitle(){
     return variables.articleBean.get("title");
+  }
+
+  public string function getImageUrl(
+    string size="small"
+  ){
+    return variables.articleBean.getImageUrl(arguments.size);
   }
 
   private component function getArticleBean(){

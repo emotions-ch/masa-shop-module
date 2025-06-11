@@ -18,17 +18,14 @@ component
   }
 
   /**
-   * @hint adds or removes article depending if quantity is Positive or negative to cart
+   * @hint adds article or upates quantity of existing article in cart
    * @return void
    */
   public void function updateArticle(required component article){
     local.currentArticleId = arguments.article.getId();
     if (hasArticle(local.currentArticleId)) {
-      local.currentArticleQuantity = arguments.article.getQuantity();
-
       local.cartArticle = getArticleById(local.currentArticleId);
-      local.cartArticle.setQuantity(local.cartArticle.getQuantity() + local.currentArticleQuantity);
-      
+      local.cartArticle.setQuantity(arguments.article.getQuantity());
     } else {
       arrayAppend(variables.articles, arguments.article);
     }
@@ -78,7 +75,7 @@ component
   ) {
     local.totalPrice = 0;
     for (local.article in variables.articles) {
-      local.totalPrice += local.article.getPrice() * local.article.getQuantity();
+      local.totalPrice += local.article.getTotalPrice();
     }
 
     if (isDefined("arguments.shippingCost")) {

@@ -84,7 +84,7 @@ $(function () {
 function addToCart(article) {
   var quantity = article.closest('.product-action').find('.quantity input').val();
   var articleId = article.attr('article-id');
-  var url = `/shop/?ajax=updateCart&articleId=${articleId}&quantity=${quantity}`;
+  var url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}`;
 
   $.ajax({
     type: "GET",
@@ -93,7 +93,28 @@ function addToCart(article) {
     success: function (data) {
       data = getJsonFromBody(data);
 
-      console.log(data.trim());
+      // console.log(data.trim());
+    },
+  });
+}
+
+function removeFromCart(articleId) {
+  // Ask for confirmation before removing the item
+  if (!confirm('Are you sure you want to remove this item from your cart?')) {
+    return; // User canceled the operation
+  }
+  
+  var url = `?ajax=updateCart&articleId=${articleId}&quantity=0`;
+
+  $.ajax({
+    type: "GET",
+    url: url,
+    data: {},
+    success: function (data) {
+      data = getJsonFromBody(data);
+
+      // console.log(data.trim());
+      location.reload();
     },
   });
 }

@@ -17,6 +17,7 @@
 	<cfparam name="url.clear" default="0">
 	<cfparam name="url.login" default="0">
 	<cfparam name="url.logout" default="0">
+	<cfparam name="url.cart" default="0">
 
 	<cfif cgi.query_string.len()>
 		<cfset local.cleanRequestUrl = left(cgi.request_url, "-" & "#cgi.query_string.len()+1#")>
@@ -66,6 +67,8 @@
 			<cfinclude template="views/checkout.cfm">
 		<cfelseif url.login eq "1">
 			<cfinclude template="views/login.cfm">
+		<cfelseif url.cart eq "1">
+			<cfinclude template="views/cart.cfm">
 		<cfelse>
 			<cfinclude template="views/shop.cfm">
 		</cfif> 
