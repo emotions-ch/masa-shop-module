@@ -2,7 +2,6 @@
   <cfset local.billing = new modules.shop.components.Billing()>
   
   <cfif structKeyExists(session, "customer")>
-    <!--- <cfdump var="#session.customer#" abort="false" expand="false"> --->
     <!--- the empty string gets appended beacause ther default value of the values is NULL, which means I cannot instert them into a form --->
     <cfset local.storedCustomerValues = {
       email = session.customer.getEmail() & "",
@@ -56,17 +55,17 @@
             <input type="tel" class="form-control" id="phone" name="phone">
 
             <label for="address">Strasse &amp; Nr.*</label>
-            <input type="text" class="form-control" id="address" name="address" required>
+            <input type="text" class="form-control" id="address" name="address" required value="teststrasse 1">
 
             <div class="form-row-2">
               <div>
                 <label for="zip">PLZ*</label>
-                <input type="text" class="form-control" id="zip" name="zip" required>
+                <input type="text" class="form-control" id="zip" name="zip" required value="1234">
               </div>
 
               <div>
                 <label for="city">Ort*</label>
-                <input type="text" class="form-control" id="city" name="city" required>
+                <input type="text" class="form-control" id="city" name="city" required value="Testort">
               </div>
             </div>
 
@@ -81,23 +80,23 @@
             <div class="shipping-address">
               <h4>Lieferadresse</h4>
               <label for="shippingFirstname">Vorname*</label>
-              <input type="text" class="form-control" id="shippingFirstname" name="shippingFirstname">
+              <input type="text" class="form-control" id="shippingFirstname" name="shippingFirstname" value="Shipping test">
 
               <label for="shippingLastname">Nachname*</label>
-              <input type="text" class="form-control" id="shippingLastname" name="shippingLastname">
+              <input type="text" class="form-control" id="shippingLastname" name="shippingLastname" value="Shipping lastname test">
 
               <label for="shippingAddress">Strasse &amp; Nr.*</label>
-              <input type="text" class="form-control" id="shippingAddress" name="shippingAddress">
+              <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="Shipping teststrasse 2" >
 
               <div class="form-row-2">
                 <div>
                   <label for="shippingZip">PLZ*</label>
-                  <input type="text" class="form-control" id="shippingZip" name="shippingZip">
+                  <input type="text" class="form-control" id="shippingZip" name="shippingZip" value="5678">
                 </div>
 
                 <div>
                   <label for="shippingCity">Ort*</label>
-                  <input type="text" class="form-control" id="shippingCity" name="shippingCity">
+                  <input type="text" class="form-control" id="shippingCity" name="shippingCity" value="Shipping Testort">
                 </div>
               </div>
 
@@ -126,7 +125,7 @@
                 document.getElementById('shippingCity').required = false;
               }
             });
-            
+
             document.querySelector('.shipping-address').style.display = 'none';
           </script>
         <cfelse>
@@ -233,7 +232,7 @@
           <cfscript>
             new modules.shop.components.Checkout().storeOrder(form, session);
           </cfscript>
-          <cfdump var="#entityLoad('shopAddress')#" abort="false">
+          <!--- <cfdump var="#entityLoad('shopAddress')#" abort="false"> --->
         </cfif>
       </div>
     </div>
