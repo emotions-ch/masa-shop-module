@@ -2,7 +2,7 @@ component
   accessors="false"
   displayname="Class Cart"
   hint="Cart Class"
-  output="false"
+  output="true"
 {
   property type="array" name="articles";
 
@@ -21,15 +21,32 @@ component
    * @hint adds article or upates quantity of existing article in cart
    * @return void
    */
-  public void function updateArticle(required component article){
+  public void function updateArticle(
+    required component article,
+    boolean set = false
+    ){
     local.currentArticleId = arguments.article.getId();
     if (hasArticle(local.currentArticleId)) {
       local.cartArticle = getArticleById(local.currentArticleId);
-      local.cartArticle.setQuantity(arguments.article.getQuantity());
+
+      if (arguments.article.getQuantity() == 0) {
+        local.removed = removeArticle(local.cartArticle);
+      } else {
+        if (arguments.set) {
+          local.cartArticle.setQuantity(arguments.article.getQuantity());
+        } else {
+          local.cartArticle.setQuantity(local.cartArticle.getQuantity() + arguments.article.getQuantity());
+        }
+      }
     } else {
       arrayAppend(variables.articles, arguments.article);
     }
     return;
+  }
+
+  
+  private boolean function removeArticle(required component article){
+    return arrayDelete(variables.articles, arguments.article);  
   }
 
   /**

@@ -44,8 +44,13 @@ component
    * update cart with actions
    */
   private void function updateCart(){
+    local.set = false;
+    if (structKeyExists(url, "set") && url.set == 1) {
+      local.set = true;
+    }
+
     local.article = new CartArticle(id=url.articleId, quantity=url.quantity);
-    session.cart.updateArticle(local.article);
+    session.cart.updateArticle(local.article, local.set);
     local.out = {
       "ArticleId":#url.articleId#,
       "Quantity":#url.quantity#

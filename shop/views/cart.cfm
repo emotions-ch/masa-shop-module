@@ -11,7 +11,7 @@
       
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
-          <div class="article">
+          <div class="article" article-id="#local.article.getId()#">
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <h2>#local.article.getTitle()#</h2>
@@ -21,15 +21,7 @@
             <div class="product-action">
               <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#');">Entfernen</button>
               <div class="quantity">
-                <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" onchange="updateQuantity(this, '#local.article.getPrice()#', '#local.article.getId()#'); ">
-                <script>
-                  function updateQuantity(input, price, articleId) {
-                    const quantity = $(input).val();
-                    const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
-                    $(input).closest('.article').find('##total-item-price').text('Gesamt: CHF ' + totalPrice);
-                    addToCart($(input));
-                  }
-                </script>
+                <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#local.article.getId()#'); ">
               </div> <!-- quantity -->
             </div>
           </div>

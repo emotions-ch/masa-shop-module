@@ -84,7 +84,8 @@ $(function () {
 function addToCart(article) {
   var quantity = article.closest('.product-action').find('.quantity input').val();
   var articleId = article.attr('article-id');
-  var url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}`;
+  var set = article.attr('setter') || '0';
+  var url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}&set=${set}`;
 
   $.ajax({
     type: "GET",
@@ -94,6 +95,32 @@ function addToCart(article) {
       console.log("Article added to cart: " + articleId);
     },
   });
+}
+
+/**
+ * @function updateCart
+ * Updates the cart viw & object total price and item total price when quantity changes.
+ * @param {*} input 
+ * @param {*} price 
+ * @param {*} articleId 
+ */
+function updateCart(input, price, articleId) {
+  const quantity = $(input).val();
+  const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
+  $(input).closest('.article').find('#total-item-price').text('Gesamt: CHF ' + totalPrice);
+  // Update total cart price
+  const articles = document.querySelectorAll('.article');
+  let cartTotal = 0;
+  
+  articles.forEach(article => {
+    const itemTotalText = article.querySelector('#total-item-price').textContent;
+    const itemTotal = parseFloat(itemTotalText.replace('Gesamt: CHF ', ''));
+    cartTotal += itemTotal;
+  });
+  document.querySelector('.total-price').textContent = 'Gesamtpreis: CHF ' + cartTotal.toFixed(2);
+  if (input) {
+  }
+  addToCart($(input));
 }
 
 function removeFromCart(articleId) {
@@ -112,7 +139,9 @@ function removeFromCart(articleId) {
       data = getJsonFromBody(data);
 
       // console.log(data.trim());
-      location.reload();
+      document.querySelector('.article[article-id="' + articleId + '"]').remove();
+      console.log(document.querySelector('.article[article-id="' + articleId + '"] .quantity input'));
+      updateCart(document.querySelector('.article[article-id="' + articleId + '"] .quantity input'), 0, articleId);
     },
   });
 }
