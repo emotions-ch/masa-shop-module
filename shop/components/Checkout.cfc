@@ -44,8 +44,7 @@ component
         lastname: arguments.orderForm.lastname,
         street: arguments.orderForm.address,
         zip: arguments.orderForm.zip,
-        city: arguments.orderForm.city,
-        customerId: local.customer
+        city: arguments.orderForm.city
       }
     );
 
@@ -76,8 +75,7 @@ component
           lastname: arguments.orderForm.shippingLastname,
           street: arguments.orderForm.shippingAddress,
           zip: arguments.orderForm.shippingZip,
-          city: arguments.orderForm.shippingCity,
-          customerId: local.customer
+          city: arguments.orderForm.shippingCity
         }
       );
 
