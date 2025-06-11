@@ -46,6 +46,10 @@ component
     return variables.articleBean.get("articlePrice");
   }
 
+  public string function getUrl(){
+    return variables.articleBean.get("url");
+  }
+
   public string function getTotalPrice(){
     return getPrice() * variables.quantity;
   }
