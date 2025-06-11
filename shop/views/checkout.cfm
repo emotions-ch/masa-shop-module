@@ -126,25 +126,7 @@
                 document.getElementById('shippingCity').required = false;
               }
             });
-
-            async function submitOrder(f) {
-              await fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
-                method: 'POST',
-                body: new FormData(f),
-              })
-              .then(data => {
-                console.log('Success:', data);
-                f.submit();
-              })
-              .catch((error) => {
-                console.error('Error:', error);
-                alert('Es ist ein Fehler aufgetreten. Bitte überprüfen Sie ihre Angaben versuchen Sie es erneut.');
-              });
-            }
-
-            // document.querySelector('form').addEventListener('submit', submitOrder);
-
-            // Initially hide the billing address div
+            
             document.querySelector('.shipping-address').style.display = 'none';
           </script>
         <cfelse>

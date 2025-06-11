@@ -105,3 +105,18 @@ function getJsonFromBody(data) {
 
   return data;
 }
+
+async function submitOrder(f) {
+  await fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
+    method: 'POST',
+    body: new FormData(f),
+  })
+  .then(data => {
+    console.log('Success:', data);
+    f.submit();
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+    alert('Es ist ein Fehler aufgetreten. Bitte überprüfen Sie ihre Angaben versuchen Sie es erneut.');
+  });
+}
