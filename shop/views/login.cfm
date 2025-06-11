@@ -15,16 +15,20 @@
 
   <div class="main-wrapper login-wrapper">
     <div id="login">
+      <cfif (structKeyExists(url, "error") AND url.error EQ "invalid_credentials")>
+        <p class="error">Invalid email or password. Please try again.</p>
+      </cfif>
+
       <p>Login</p>
       <form id="loginForm" method="post" action="?login=1">
         <input type="hidden" id="registertype" name="type" value="login">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" id="email" name="email" required>
+          <input type="text" id="email" name="email" required value="meow+testing@emotions.ch">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required>
+          <input type="password" id="password" name="password" required value="meowpassword69">
         </div>
         <button type="submit">Login</button>
       </form>
@@ -123,14 +127,16 @@
 
       local.customer = entityLoad("customer", {email=form.email})[1];
 
-      if (!structKeyExists(local, "customer") && !local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())) {
-        throw(type="ValidationError", message="Invalid email or password.");
+      // writeDump(var="#local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())#", abort=true);
+
+      if (!local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())) {
+        cflocation(url="#local.cleanRequestUrl#?login=1&error=invalid_credentials");
+      } else {
+        session.customer = local.customer;
+
+        // Redirect to the home page or dashboard
+        cflocation(url="#local.cleanRequestUrl#");
       }
-
-      session.customer = local.customer;
-
-      // Redirect to the home page or dashboard
-      cflocation(url="#local.cleanRequestUrl#");
     }
   </cfscript>
 </cfoutput>
