@@ -1,5 +1,6 @@
 <cfoutput>
   <cfset local.billing = new modules.shop.components.Billing()>
+  <cfparam name="form.alternateShippingAddress" default="">
   
   <cfif structKeyExists(session, "customer")>
     <!--- the empty string gets appended beacause ther default value of the values is NULL, which means I cannot instert them into a form --->
@@ -25,7 +26,7 @@
           <h2 class="form-title">Ihr Warenkorb ist leer</h2>
           <p>Gehen Sie doch zurück zu unserem Shop und füllen Sie Ihren Warenkorb :)</p>
           <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
-        <cfelseif isEmpty(form)>
+        <cfelseif !structKeyExists(form, "fieldnames")>
 
           <h2 class="form-title">Ihr Warenkorb</h2>
           <div class="table-responsive">
@@ -132,7 +133,7 @@
           <h2 class="form-title">Bestellbestätigung</h2>
           <p>Vielen Dank für Ihre Bestellung, #form.firstname# #form.lastname#!</p>
           <p>Ihre Bestellung wird an folgende Adresse geliefert:</p>
-          <cfif form.shippingAddress.len()>
+          <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
             <p>
               <b>Lieferadresse:</b><br>
               <cfif form.shippingAddresszusatz neq "">
@@ -176,7 +177,11 @@
             <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <cfloop collection="#form#" item="key">
                 <cfif key neq "fieldnames" and key neq "alternateShippingAddress" and not isEmpty(form[key])>
-                  <cfoutput>#key#: #form[key]#<br></cfoutput>
+                  <cfif form.alternateShippingAddress EQ "on" AND reMatchNoCase("shipping[a-zA-Z]+", key).len() EQ 1>
+                    <cfoutput>#key#: #form[key]#<br></cfoutput>
+                  <cfelseif NOT reMatchNoCase("shipping[a-zA-Z]+", key).len() EQ 1>
+                    <cfoutput>#key#: #form[key]#<br></cfoutput>
+                  </cfif>
                 </cfif>
               </cfloop>
               <br>
@@ -191,7 +196,7 @@
               <p>#objectParams.emailText#</p>
               <p><b>Shippingadress:</b><br>
         
-              <cfif form.shippingAddress.len()>
+              <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
                 <cfif form.shippingAddresszusatz neq "">
                   #form.shippingAddresszusatz#<br>
                 </cfif>

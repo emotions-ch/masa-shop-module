@@ -68,7 +68,7 @@ component
       }
     );
 
-    if (arguments.orderForm.shippingAddress.len()) {
+    if (structKeyExists(arguments.orderForm, "alternateShippingAddress") && arguments.orderForm.alternateShippingAddress == "on") {
       local.shippingAddress = entityNew("shopAddress",
         {
           firstname: arguments.orderForm.shippingFirstname,
