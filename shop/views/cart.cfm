@@ -1,4 +1,11 @@
 <cfoutput>
+  <nav aria-label="breadcrumb">
+    <div class="breadcrumb mt-3 flex-column flex-sm-row">
+      <div class="ml-sm-auto">
+        <a class="btn btn-primary" href="#local.cleanRequestUrl#">Zurück zum Shop</a>
+      </div>
+    </div>
+  </nav>
   <div class="container" id="cart-module-object">
     <h1>Warenkorb</h1>
     <cfif session.cart.getTotalQuantity() eq 0>
