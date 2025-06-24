@@ -11,9 +11,11 @@ $(function () {
     addToCart($(this));
 
     var originalText = $(this).html();
-    $(this).html('<span class="checkmark">&#10004;</span>').css({'background-color':'green','color':'white'});
+    var originalWidth = $(this).outerWidth();
+
+    $(this).html('<span class="checkmark">&#10004;</span>').css({'background-color':'green','color':'white', 'width': originalWidth + "px"});
     setTimeout(() => {
-      $(this).html(originalText).css({'background-color':'','color':''});
+      $(this).html(originalText).css({'background-color':'','color':'', 'width': ''});
     }, 2000);
   });
 
