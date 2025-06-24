@@ -7,7 +7,7 @@
 						<a class="btn btn-primary" href="#local.cleanRequestUrl#?logout=1">Logout</a>
 					</div>
 				<cfelse>
-					<div class="ml-sm-auto">
+					<div class="mr-sm-auto">
 						<a class="btn btn-primary" href="#local.cleanRequestUrl#?login=1">Login</a>
 					</div>
 				</cfif>
@@ -59,7 +59,7 @@
 				</div> <!-- dropdown --> --->
 				
 				<div class="ml-sm-auto">
-					<a class="btn btn-primary" href="#local.cleanRequestUrl#?checkout=1">Zur Kasse</a>
+					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1">Zum Warenkorb</a>
 				</div>
 			</div> <!-- breadcrumb -->
 		</nav> <!-- breadcrumb -->
