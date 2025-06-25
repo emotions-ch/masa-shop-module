@@ -2,19 +2,53 @@
   <cfset local.billing = new modules.shop.components.Billing()>
   <cfparam name="form.alternateShippingAddress" default="">
   
-  <cfif structKeyExists(session, "customer")>
-    <!--- the empty string gets appended beacause ther default value of the values is NULL, which means I cannot instert them into a form --->
-    <cfset local.storedCustomerValues = {
-      email = session.customer.getEmail() & "",
-      firstname = session.customer.getFirstname() & "",
-      lastname = session.customer.getLastname() & "",
-    }>
-  <cfelse>
-    <cfset local.storedCustomerValues = {
-      email = "",
+  <cfset local.storedCustomerValues = {
+    email = "",
+    firstname = "",
+    lastname = "",
+    billingAddress = {
+      street = "",
+      zip = "",
+      city = ""
+    },
+    shippingAddress = {
+      active = "",
       firstname = "",
       lastname = "",
-    }>
+      street = "",
+      zip = "",
+      city = ""
+    }
+  }>
+
+  <cfif structKeyExists(session, "customer")>
+    <!--- the empty string gets appended beacause the default value of the values is NULL, which means I cannot instert them into a form --->
+    <cfset local.storedCustomerValues.email = session.customer.getEmail() & "">
+    <cfset local.storedCustomerValues.firstname = session.customer.getFirstname() & "">
+    <cfset local.storedCustomerValues.lastname = session.customer.getLastname() & "">
+
+    <!--- <cfdump var="#session.customer#" abort="true"> --->
+    <cfset local.ordersArray = session.customer.getOrders()>
+    <cfif NOT isNull(local.ordersArray) AND isArray(local.ordersArray)>
+      <cfset local.lastOrder = local.ordersArray.last()>
+
+      <cfset local.latestBillingAddressObject =  local.lastOrder.getAdressId()>
+      <cfif NOT isNull(local.latestBillingAddressObject)>
+        <cfset local.storedCustomerValues.billingAddress.street = local.latestBillingAddressObject.getStreet() & "">
+        <cfset local.storedCustomerValues.billingAddress.zip = local.latestBillingAddressObject.getZip() & "">
+        <cfset local.storedCustomerValues.billingAddress.city = local.latestBillingAddressObject.getCity() & "">
+      </cfif>
+
+      <cfset local.latestShippingAddressObject =  local.lastOrder.getShippingAddressId()>
+      <cfif NOT isNull(local.latestShippingAddressObject)>
+        <cfset local.storedCustomerValues.shippingAddress.active = "checked">
+        <cfset local.storedCustomerValues.shippingAddress.firstname = local.latestShippingAddressObject.getFirstname() & "">
+        <cfset local.storedCustomerValues.shippingAddress.lastname = local.latestShippingAddressObject.getLastname() & "">
+        <cfset local.storedCustomerValues.shippingAddress.street = local.latestShippingAddressObject.getStreet() & "">
+        <cfset local.storedCustomerValues.shippingAddress.zip = local.latestShippingAddressObject.getZip() & "">
+        <cfset local.storedCustomerValues.shippingAddress.city = local.latestShippingAddressObject.getCity() & "">
+      </cfif>
+    </cfif>
   </cfif>
 
   <div class="container">
@@ -55,17 +89,17 @@
             <input type="tel" class="form-control" id="phone" name="phone">
 
             <label for="address">Strasse &amp; Nr.*</label>
-            <input type="text" class="form-control" id="address" name="address" required >
+            <input type="text" class="form-control" id="address" name="address" required value="#local.storedCustomerValues.billingAddress.street#">
 
             <div class="form-row-2">
               <div>
                 <label for="zip">PLZ*</label>
-                <input type="text" class="form-control" id="zip" name="zip" required >
+                <input type="text" class="form-control" id="zip" name="zip" required value="#local.storedCustomerValues.billingAddress.zip#">
               </div>
 
               <div>
                 <label for="city">Ort*</label>
-                <input type="text" class="form-control" id="city" name="city" required >
+                <input type="text" class="form-control" id="city" name="city" required value="#local.storedCustomerValues.billingAddress.city#">
               </div>
             </div>
 
@@ -74,29 +108,29 @@
 
             <div class="form-row-2" style="margin-top: 1rem;">
               <label for="alternateShippingAddress">Abweichende Lieferadresse?</label>
-              <input type="checkbox" id="alternateShippingAddress" name="alternateShippingAddress">
+              <input type="checkbox" id="alternateShippingAddress" name="alternateShippingAddress" #local.storedCustomerValues.shippingAddress.active#>
             </div>
 
             <div class="shipping-address">
               <h4>Lieferadresse</h4>
               <label for="shippingFirstname">Vorname*</label>
-              <input type="text" class="form-control" id="shippingFirstname" name="shippingFirstname" >
+              <input type="text" class="form-control" id="shippingFirstname" name="shippingFirstname" value="#local.storedCustomerValues.shippingAddress.firstname#">
 
               <label for="shippingLastname">Nachname*</label>
-              <input type="text" class="form-control" id="shippingLastname" name="shippingLastname" >
+              <input type="text" class="form-control" id="shippingLastname" name="shippingLastname" value="#local.storedCustomerValues.shippingAddress.lastname#">
 
               <label for="shippingAddress">Strasse &amp; Nr.*</label>
-              <input type="text" class="form-control" id="shippingAddress" name="shippingAddress"  >
+              <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="#local.storedCustomerValues.shippingAddress.street#">
 
               <div class="form-row-2">
                 <div>
                   <label for="shippingZip">PLZ*</label>
-                  <input type="text" class="form-control" id="shippingZip" name="shippingZip" >
+                  <input type="text" class="form-control" id="shippingZip" name="shippingZip" value="#local.storedCustomerValues.shippingAddress.zip#">
                 </div>
 
                 <div>
                   <label for="shippingCity">Ort*</label>
-                  <input type="text" class="form-control" id="shippingCity" name="shippingCity" >
+                  <input type="text" class="form-control" id="shippingCity" name="shippingCity" value="#local.storedCustomerValues.shippingAddress.city#">
                 </div>
               </div>
 
@@ -126,7 +160,18 @@
               }
             });
 
-            document.querySelector('.shipping-address').style.display = 'none';
+            var shippingCheckbox = document.getElementById('alternateShippingAddress');
+            var shippingAddressDiv = document.querySelector('.shipping-address');
+            if (shippingCheckbox.checked) {
+              shippingAddressDiv.style.display = 'block';
+              document.getElementById('shippingFirstname').required = true;
+              document.getElementById('shippingLastname').required = true;
+              document.getElementById('shippingAddress').required = true;
+              document.getElementById('shippingZip').required = true;
+              document.getElementById('shippingCity').required = true;
+            } else {
+              shippingAddressDiv.style.display = 'none';
+            }
           </script>
         <cfelse>
           <h2 class="form-title">Bestellbestätigung</h2>

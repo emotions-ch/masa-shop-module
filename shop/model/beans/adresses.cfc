@@ -18,5 +18,5 @@ component
   property name="created" setter="true" getter="true" type="datetime" ormType="datetime" nullable="true" required="false";
 
   // relationships
-  property name="orderId" fieldType="one-to many" linktable="addressOrder" cfc="orders" fkColumn="addressId" lazy="true";
+  property name="orderId" fieldType="one-to many" linktable="addressOrder" cfc="orders" fkColumn="addressId" lazy="false";
 }

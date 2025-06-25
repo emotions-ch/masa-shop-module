@@ -22,5 +22,5 @@ component
   property name="lastUpdate" setter="true" getter="true" type="datetime" ormType="datetime" nullable="true" required="false";
 
   // relationships
-  property name="orders" fieldType="one-to-many" cfc="orders" fkColumn="customerId" singularName="order" lazy="true";
+  property name="orders" fieldType="one-to-many" cfc="orders" fkColumn="customerId" singularName="order" lazy="false";
 }
