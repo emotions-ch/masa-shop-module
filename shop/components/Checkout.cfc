@@ -95,4 +95,61 @@ component
     entitySave(local.order, true);
     ormFlush();
   }
+
+  /**
+   * returns the stored user details for the checkout form 
+   */
+  public struct function retriveCustomerData(
+    required struct session
+  ) {
+    local.storedCustomerData = {
+      email = "",
+      firstname = "",
+      lastname = "",
+      billingAddress = {
+        street = "",
+        zip = "",
+        city = ""
+      },
+      shippingAddress = {
+        active = "",
+        firstname = "",
+        lastname = "",
+        street = "",
+        zip = "",
+        city = ""
+      }
+    };
+
+    if ( structKeyExists(arguments.session, "customer") ) {
+      //  the empty string gets appended beacause the default value of the values is NULL, which means I cannot instert them into a form 
+      local.storedCustomerData.email = arguments.session.customer.getEmail() & "";
+      local.storedCustomerData.firstname = arguments.session.customer.getFirstname() & "";
+      local.storedCustomerData.lastname = arguments.session.customer.getLastname() & "";
+      local.ordersArray = arguments.session.customer.getOrders();
+
+      if ( !isNull(local.ordersArray) && isArray(local.ordersArray) && arrayLen(local.ordersArray) > 0 ) {
+        local.lastOrder = local.ordersArray.last();
+        local.latestBillingAddressObject =  local.lastOrder.getAdressId();
+
+        if ( !isNull(local.latestBillingAddressObject) ) {
+          local.storedCustomerData.billingAddress.street = local.latestBillingAddressObject.getStreet() & "";
+          local.storedCustomerData.billingAddress.zip = local.latestBillingAddressObject.getZip() & "";
+          local.storedCustomerData.billingAddress.city = local.latestBillingAddressObject.getCity() & "";
+        }
+
+        local.latestShippingAddressObject =  local.lastOrder.getShippingAddressId();
+        if ( !isNull(local.latestShippingAddressObject) ) {
+          local.storedCustomerData.shippingAddress.active = "checked";
+          local.storedCustomerData.shippingAddress.firstname = local.latestShippingAddressObject.getFirstname() & "";
+          local.storedCustomerData.shippingAddress.lastname = local.latestShippingAddressObject.getLastname() & "";
+          local.storedCustomerData.shippingAddress.street = local.latestShippingAddressObject.getStreet() & "";
+          local.storedCustomerData.shippingAddress.zip = local.latestShippingAddressObject.getZip() & "";
+          local.storedCustomerData.shippingAddress.city = local.latestShippingAddressObject.getCity() & "";
+        }
+      }
+    }
+
+    return local.storedCustomerData;
+  }
 }
