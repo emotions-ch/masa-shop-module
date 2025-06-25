@@ -27,7 +27,6 @@
     <cfset local.storedCustomerValues.firstname = session.customer.getFirstname() & "">
     <cfset local.storedCustomerValues.lastname = session.customer.getLastname() & "">
 
-    <!--- <cfdump var="#session.customer#" abort="true"> --->
     <cfset local.ordersArray = session.customer.getOrders()>
     <cfif NOT isNull(local.ordersArray) AND isArray(local.ordersArray)>
       <cfset local.lastOrder = local.ordersArray.last()>
