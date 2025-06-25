@@ -32,7 +32,6 @@
           <div class="table-responsive">
             <!--- billing table --->
             #local.billing.generateBillingTable(session.cart, session.shippingCost)#
-            <cfdump var="#session.cart.getCartJson()#" label="Session Cart Articles" abort="false">
             <!--- billing table done --->
 
             <div class="spread">
@@ -56,17 +55,17 @@
             <input type="tel" class="form-control" id="phone" name="phone">
 
             <label for="address">Strasse &amp; Nr.*</label>
-            <input type="text" class="form-control" id="address" name="address" required value="teststrasse 1">
+            <input type="text" class="form-control" id="address" name="address" required >
 
             <div class="form-row-2">
               <div>
                 <label for="zip">PLZ*</label>
-                <input type="text" class="form-control" id="zip" name="zip" required value="1234">
+                <input type="text" class="form-control" id="zip" name="zip" required >
               </div>
 
               <div>
                 <label for="city">Ort*</label>
-                <input type="text" class="form-control" id="city" name="city" required value="Testort">
+                <input type="text" class="form-control" id="city" name="city" required >
               </div>
             </div>
 
@@ -81,23 +80,23 @@
             <div class="shipping-address">
               <h4>Lieferadresse</h4>
               <label for="shippingFirstname">Vorname*</label>
-              <input type="text" class="form-control" id="shippingFirstname" name="shippingFirstname" value="Shipping test">
+              <input type="text" class="form-control" id="shippingFirstname" name="shippingFirstname" >
 
               <label for="shippingLastname">Nachname*</label>
-              <input type="text" class="form-control" id="shippingLastname" name="shippingLastname" value="Shipping lastname test">
+              <input type="text" class="form-control" id="shippingLastname" name="shippingLastname" >
 
               <label for="shippingAddress">Strasse &amp; Nr.*</label>
-              <input type="text" class="form-control" id="shippingAddress" name="shippingAddress" value="Shipping teststrasse 2" >
+              <input type="text" class="form-control" id="shippingAddress" name="shippingAddress"  >
 
               <div class="form-row-2">
                 <div>
                   <label for="shippingZip">PLZ*</label>
-                  <input type="text" class="form-control" id="shippingZip" name="shippingZip" value="5678">
+                  <input type="text" class="form-control" id="shippingZip" name="shippingZip" >
                 </div>
 
                 <div>
                   <label for="shippingCity">Ort*</label>
-                  <input type="text" class="form-control" id="shippingCity" name="shippingCity" value="Shipping Testort">
+                  <input type="text" class="form-control" id="shippingCity" name="shippingCity" >
                 </div>
               </div>
 
