@@ -1,8 +1,6 @@
 <cfoutput>
   <cfset local.BCrypt = new modules.shop.components.BCrypt()>
 
-  <cfdump var="#form#" expand="false">
-
   <!--- STUB --->
   <!--- <cfif structKeyExists(form, "fieldnames")>
     <cfif form["email"] EQ "admin" AND form.password EQ "password">
@@ -19,45 +17,45 @@
         <p class="error">Invalid email or password. Please try again.</p>
       </cfif>
 
-      <p>Login</p>
+      <h2>Login</h2>
       <form id="loginForm" method="post" action="?login=1">
-        <input type="hidden" id="registertype" name="type" value="login">
+        <input class="form-control" type="hidden" id="registertype" name="type" value="login">
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" id="email" name="email" required value="meow+testing@emotions.ch">
+          <input class="form-control" type="text" id="email" name="email" required value="meow+testing@emotions.ch">
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" required value="meowpassword69">
+          <input class="form-control" type="password" id="password" name="password" required value="meowpassword69">
         </div>
-        <button type="submit">Login</button>
+        <button class="btn btn-primary" type="submit">Login</button>
       </form>
     </div>
 
     <div id="register">
-      <p>Don't have an account?</p>
+      <h2>Don't have an account?</h2>
       <form id="loginForm" method="post" action="?login=1">
-        <input type="hidden" id="logintype" name="type" value="register">
+        <input class="form-control" type="hidden" id="logintype" name="type" value="register">
         <div class="form-group">
           <label for="registrationFirstname">First Name</label>
-          <input type="text" id="registrationFirstname" name="registrationFirstname" required>
+          <input class="form-control" type="text" id="registrationFirstname" name="registrationFirstname" required>
         </div>
         <div class="form-group">
           <label for="registrationLastname">Last Name</label>
-          <input type="text" id="registrationLastname" name="registrationLastname" required>
+          <input class="form-control" type="text" id="registrationLastname" name="registrationLastname" required>
         </div>
         <div class="form-group">
           <label for="registrationEmail">Email</label>
-          <input type="email" id="registrationEmail" name="registrationEmail" required>
+          <input class="form-control" type="email" id="registrationEmail" name="registrationEmail" required>
         </div>
         <div class="form-group">
           <label for="registrationPassword">Password</label>
-          <input type="password" id="registrationPassword" name="registrationPassword" required>
+          <input class="form-control" type="password" id="registrationPassword" name="registrationPassword" required>
 
           <label for="confirmRegistrationPassword">Confirm Password</label>
-          <input type="password" id="confirmRegistrationPassword" name="confirmRegistrationPassword" required>
+          <input class="form-control" type="password" id="confirmRegistrationPassword" name="confirmRegistrationPassword" required>
         </div>
-        <button type="submit">Register</button>
+        <button class="btn btn-primary" type="submit">Register</button>
       </form>
     </div>
   </div>
