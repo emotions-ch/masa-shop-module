@@ -8,15 +8,21 @@ $(function () {
    */
   $('.product-action .article-to-cart').on('click', function (e) {
     e.preventDefault();
-    addToCart($(this));
+    let locked;
 
-    var originalText = $(this).html();
-    var originalWidth = $(this).outerWidth();
+    if (!locked) {
+      locked = true; // Lock to prevent multiple clicks
+      addToCart($(this));
 
-    $(this).html('<span class="checkmark">&#10004;</span>').css({'background-color':'green','color':'white', 'width': originalWidth + "px"});
-    setTimeout(() => {
+      var originalText = $(this).html();
+      var originalWidth = $(this).outerWidth();
+
+      $(this).html('<span class="checkmark">&#10004;</span>').css({'background-color':'green','color':'white', 'width': originalWidth + "px"});
+      setTimeout(() => {
       $(this).html(originalText).css({'background-color':'','color':'', 'width': ''});
-    }, 2000);
+      }, 2000);
+      locked = false; // Unlock after the operation
+    }
   });
 
   // todo: other cart functions
