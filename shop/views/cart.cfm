@@ -21,6 +21,7 @@
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <a href="#local.article.getUrl()#" target="_blank"><h2>#local.article.getTitle()#</h2></a>
+              <p class="article-variant">Variante: #m.getBean('category').loadBy(categoryid=local.article.getVariant()).getName()#</p>
               <div class="item-pricing">
                 <p id="item-price">Einzelpreis: CHF #NumberFormat(local.article.getPrice(), '.00')#</p>
                 <p id="total-item-price">Gesamt: CHF #NumberFormat(local.article.getTotalPrice(), '.00')#</p>
