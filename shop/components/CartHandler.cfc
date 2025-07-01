@@ -49,7 +49,7 @@ component
       local.set = true;
     }
 
-    local.article = new CartArticle(id=url.articleId, quantity=url.quantity);
+    local.article = new CartArticle(id=url.articleId, quantity=url.quantity, variant=url.variant);
     session.cart.updateArticle(local.article, local.set);
     local.out = {
       "ArticleId":#url.articleId#,

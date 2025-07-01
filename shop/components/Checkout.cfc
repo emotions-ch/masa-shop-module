@@ -19,7 +19,6 @@ component
   ) {
     if (structKeyExists(arguments.session, "customer") AND arguments.session.customer.getEmail() EQ arguments.orderForm.email) {
       local.customer = arguments.session.customer;
-      // writeDump("loaded existing customer from arguments.session");
     } else {
       local.customer = entityNew("customer",
         {
@@ -51,7 +50,6 @@ component
     local.addressExists = entityLoadByExample(local.address, true);
     if (structKeyExists(local, "addressExists")) {
       local.address = local.addressExists;
-      writeDump("loaded existing address");
     } else {
       local.address.setCreated(now());
       entitySave(local.address, true);
@@ -82,7 +80,6 @@ component
       local.shippingAddressExists = entityLoadByExample(local.shippingAddress, true);
       if (structKeyExists(local, "shippingAddressExists")) {
         local.shippingAddress = local.shippingAddressExists;
-        // writeDump("loaded existing Shippingaddress");
       } else {
         local.shippingAddress.setCreated(now());
         entitySave(local.shippingAddress, true);
@@ -128,7 +125,7 @@ component
       local.storedCustomerData.lastname = arguments.session.customer.getLastname() & "";
       local.ordersArray = arguments.session.customer.getOrders();
 
-      if ( !isNull(local.ordersArray) && isArray(local.ordersArray) && arrayLen(local.ordersArray) > 0 ) {
+      if (arguments.session.customer.hasOrders()) {
         local.lastOrder = local.ordersArray.last();
         local.latestBillingAddressObject =  local.lastOrder.getAdressId();
 

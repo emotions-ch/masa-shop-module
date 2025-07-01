@@ -17,6 +17,19 @@
             <p id="amount">Menge: #local.productContent.get("articleAmount")#</p>
           </cfif>
 
+          <cfset local.productContent.categoryIterator = local.productContent.getCategoriesIterator()>
+          <cfif local.productContent.categoryIterator.hasNext()>
+            <h3>Variationen:</h3>
+            <select name="variations" id="productVariations" class="form-select">
+              <cfloop condition="local.productContent.categoryIterator.hasNext()">
+                <cfset local.category = local.productContent.categoryIterator.next()>
+                <option value="#local.category.get('categoryId')#">
+                  #local.category.get('name')#
+                </option>
+              </cfloop>
+            </select>
+          </cfif>
+
             <p>#local.productContent.get('summary')#</p>
           <span id="price">CHF #NumberFormat(local.productContent.get("articlePrice") ,'.00')#</span>
           

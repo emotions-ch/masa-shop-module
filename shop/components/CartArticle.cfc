@@ -14,10 +14,12 @@ component
    */
   public component function init(
     required String id,
-    required numeric quantity
+    required numeric quantity,
+    string variant = "",
   ){
     variables.id = arguments.id;
     variables.quantity = arguments.quantity;
+    variables.variant = arguments.variant;
     variables.articleBean = getArticleBean();
     variables.articleNumber = getArticleNumber();
 
@@ -57,6 +59,10 @@ component
   public string function getTitle(){
     return variables.articleBean.get("title");
   }
+
+	public string function getVariant(){
+		return variables.variant
+	};
 
   public string function getImageUrl(
     string size="small"

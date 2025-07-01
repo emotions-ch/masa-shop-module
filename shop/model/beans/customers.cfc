@@ -23,4 +23,12 @@ component
 
   // relationships
   property name="orders" fieldType="one-to-many" cfc="orders" fkColumn="customerId" singularName="order" lazy="false";
+
+  public boolean function hasOrders() {
+    ordered = false;
+    if (isArray(getOrders()) && arrayLen(getOrders()) > 0) {
+      ordered = true;
+    }
+    return ordered;
+  }
 }

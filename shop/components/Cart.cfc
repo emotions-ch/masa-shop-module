@@ -26,7 +26,7 @@ component
     boolean set = false
     ){
     local.currentArticleId = arguments.article.getId();
-    if (hasArticle(local.currentArticleId)) {
+    if (hasArticle(local.currentArticleId, arguments.article.getVariant())) {
       local.cartArticle = getArticleById(local.currentArticleId);
 
       if (arguments.article.getQuantity() == 0) {
@@ -66,9 +66,9 @@ component
    * @hint check if article exists
    * @return boolean
    */
-  private boolean function hasArticle(required String id){
+  private boolean function hasArticle(required String id, required String variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id) {
+      if (local.article.getId() == arguments.id && local.article.getVariation() == arguments.variation) {
         return true;
       }
     }
@@ -122,7 +122,8 @@ component
       }
       local.json &= serializeJSON({
         "id": local.article.getId(),
-        "quantity": local.article.getQuantity()
+        "quantity": local.article.getQuantity(),
+        "variant": local.article.getVariant()
       });
     }
 

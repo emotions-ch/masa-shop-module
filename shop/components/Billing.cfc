@@ -27,6 +27,7 @@ component
             <tr>
               <th scope="col">Produktname</th>
               <th scope="col">Modell</th>
+              <th scope="col">Variante</th>
               <th scope="col">Menge</th>
               <th scope="col">Einzelpreis</th>
               <th scope="col">Summe</th>
@@ -40,6 +41,7 @@ component
             <tr>
               <td>#local.article.getTitle()#</td>
               <td>#local.article.getArticleNumber()#</td>
+              <td>#application.serviceFactory.getBean('m').getBean('category').loadBy(categoryid=local.article.getVariant()).getName()#</td>
               <td>#local.article.getQuantity()#</td>
               <td>CHF #decimalFormat(local.article.getPrice())#</td>
               <td>CHF #decimalFormat(local.article.getPrice()*local.article.getQuantity())#</td>

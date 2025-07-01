@@ -12,7 +12,8 @@ $(function () {
 
     if (!locked) {
       locked = true; // Lock to prevent multiple clicks
-      addToCart($(this));
+      let variation = document.querySelector("#productVariations");
+      addToCart($(this), variation);
 
       var originalText = $(this).html();
       var originalWidth = $(this).outerWidth();
@@ -89,11 +90,17 @@ $(function () {
   }
 });
 
-function addToCart(article) {
-  var quantity = article.closest('.product-action').find('.quantity input').val();
-  var articleId = article.attr('article-id');
-  var set = article.attr('setter') || '0';
-  var url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}&set=${set}`;
+function addToCart(article, variation) {
+  let quantity = article.closest('.product-action').find('.quantity input').val();
+  let articleId = article.attr('article-id');
+  let set = article.attr('setter') || '0';
+  if (variation === null || variation === undefined) {
+    variation = '';
+  } else {
+    variation = variation.value
+  }
+
+  let url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}&set=${set}&variant=${variation}`;
 
   $.ajax({
     type: "GET",
@@ -119,6 +126,8 @@ function updateCart(input, price, articleId) {
   // Update total cart price
   const articles = document.querySelectorAll('.article');
   let cartTotal = 0;
+
+  let variation = document.querySelector("#productVariations");
   
   articles.forEach(article => {
     const itemTotalText = article.querySelector('#total-item-price').textContent;
@@ -128,7 +137,8 @@ function updateCart(input, price, articleId) {
   document.querySelector('.total-price').textContent = 'Gesamtpreis: CHF ' + cartTotal.toFixed(2);
   if (input) {
   }
-  addToCart($(input));
+
+  addToCart($(input), variation);
 }
 
 function removeFromCart(articleId) {
