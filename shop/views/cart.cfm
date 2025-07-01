@@ -38,15 +38,10 @@
         </cfloop>
       </div>
 
-      <p class="total-price">Gesamtpreis: CHF #NumberFormat(session.cart.getTotalPrice(), '.00')#</p>
-      
-      <!--- Add more actions or information as needed --->
-      
       <div class="cart-actions">
+        <p class="total-price">Gesamtpreis: CHF #NumberFormat(session.cart.getTotalPrice(), '.00')#</p>
         <a class="btn btn-primary" href="#local.cleanRequestUrl#?checkout=1">Zur Kasse</a>
       </div>
-        <!--- <p><a href="#local.cleanRequestUrl#?clear=1">Warenkorb leeren</a></p> --->
-      
     </cfif>
   </div>
 </cfoutput>
