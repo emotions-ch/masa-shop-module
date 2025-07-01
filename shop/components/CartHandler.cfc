@@ -51,13 +51,6 @@ component
 
     local.article = new CartArticle(id=url.articleId, quantity=url.quantity, variant=url.variant);
     session.cart.updateArticle(local.article, local.set);
-    local.out = {
-      "ArticleId":#url.articleId#,
-      "Quantity":#url.quantity#
-    }
-
-    // writeOutput(serializeJSON(local.out));
-    // abort;
   }
 
   /**

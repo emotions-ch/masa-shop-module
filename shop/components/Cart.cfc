@@ -25,9 +25,8 @@ component
     required component article,
     boolean set = false
     ){
-    local.currentArticleId = arguments.article.getId();
-    if (hasArticle(local.currentArticleId, arguments.article.getVariant())) {
-      local.cartArticle = getArticleById(local.currentArticleId);
+    if (hasArticle(arguments.article.getId(), arguments.article.getVariant())) {
+      local.cartArticle = getArticleByIds(arguments.article.getId(), arguments.article.getVariant());
 
       if (arguments.article.getQuantity() == 0) {
         local.removed = removeArticle(local.cartArticle);
@@ -53,13 +52,13 @@ component
    * @hint remove article from cart
    * @return article component
    */
-  private component function getArticleById(required String id){
+  private component function getArticleByIds(required String id, required String variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id) {
+      if (local.article.getId() == arguments.id && local.article.getVariant() == arguments.variation) {
         return local.article;
       }
     }
-    return new CartArticle(id=arguments.id, quantity=0);
+    return new CartArticle(id=arguments.id, quantity=0 , variant=arguments.variation);
   }
 
   /**
@@ -68,7 +67,7 @@ component
    */
   private boolean function hasArticle(required String id, required String variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id && local.article.getVariation() == arguments.variation) {
+      if (local.article.getId() == arguments.id && local.article.getVariant() == arguments.variation) {
         return true;
       }
     }
