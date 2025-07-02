@@ -47,8 +47,8 @@
 					<cfset local.sortingArray = [
 						{"direction":"asc","attribute":"name","name":"Produktname (A - Z)"},
 						{"direction":"desc","attribute":"name","name":"Produktname (Z - A)"},
-						{"direction":"asc","attribute":"price","name":"Produkt Preis (Niedrig > Hoch)"},
-						{"direction":"desc","attribute":"price","name":"Produkt Preis (Hoch > Niedrig)"}
+						{"direction":"asc","attribute":"price","name":"Produkt Preis (Niedrig  Hoch)"},
+						{"direction":"desc","attribute":"price","name":"Produkt Preis (Hoch  Niedrig)"}
 					]>
 					<div class="dropdown-menu">
 						<cfloop array="#local.sortingArray#" index="local.sorting">

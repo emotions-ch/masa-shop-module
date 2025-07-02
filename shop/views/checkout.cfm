@@ -27,6 +27,7 @@
             </div>
           </div>
 
+
           <h2 class="form-title">Warenkorb bestellen</h2>
           <form onsubmit="submitOrder(this); return false;" class="form" method="POST">
             <label for="firstname">Vorname*</label>

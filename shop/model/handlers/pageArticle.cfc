@@ -48,14 +48,14 @@ component extends='core.mura.cfobject' {
 			local.attribute.save();
 	}
 
-	public void function onAfterPageArticleSave() {
-		cfparam(name="request.onAfterPageArticleSave", default="true");
-		if (request.onAfterPageArticleSave && StructKeyExists(form, 'contentId')) {
-			request.onAfterPageArticleSave = "false";
-			local.content = m.getBean('content').loadBy(contentid=form.contentid, siteid=m.event('siteid'));
-
-			local.content.setIsNav(0);
-			local.content.save();
-		}
-	}
+//	public void function onAfterPageArticleSave() {
+	//	cfparam(name="request.onAfterPageArticleSave", default="true");
+		//if (request.onAfterPageArticleSave && StructKeyExists(form, 'contentId')) {
+			//request.onAfterPageArticleSave = "false";
+//			local.content = m.getBean('content').loadBy(contentid=form.contentid, siteid=m.event('siteid'));
+//
+//			local.content.setIsNav(0);
+//			local.content.save();
+//		}
+//	}
 }
