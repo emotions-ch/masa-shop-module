@@ -192,8 +192,8 @@
             <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <p>Hi #form.firstname#</p>
               <p>#objectParams.emailText#</p>
-              <p><b>Shippingadress:</b><br>
-        
+              <p><b>Lieferadresse:</b><br>
+
               <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
                 <cfif form.shippingAddresszusatz neq "">
                   #form.shippingAddresszusatz#<br>
@@ -202,17 +202,17 @@
                 #form.shippingFirstname# #form.shippingLastname#<br>
                 #form.shippingAddress#<br>
                 #form.shippingZip# #form.shippingCity#<br></p>
-        
-                <p><b>Billingadress:</b><br>
-        
+
+								<p><b>Rechnungsadresse:</b><br>
+
                 <cfif form.addresszusatz neq "">
                   #form.addresszusatz#<br>
                 </cfif>
-        
+
                 #form.firstname# #form.lastname#<br>
                 #form.address#<br>
                 #form.zip# #form.city#<br></p>
-        
+
               <cfelse>
                 <cfif form.addresszusatz neq "">
                   #form.addresszusatz#<br>

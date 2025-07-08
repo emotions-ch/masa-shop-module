@@ -6,7 +6,7 @@
     <cfif form["email"] EQ "admin" AND form.password EQ "password">
       <cfset session.secret = createUUID()>
       <cfset session.email = form.email>
-      <!--- <cflocation url="#local.cleanRequestUrl#"> --->
+      <cflocation url="#local.cleanRequestUrl#"> 
       <cfdump var="#session#">
     </cfif>
   </cfif> --->
@@ -14,7 +14,7 @@
   <div class="main-wrapper login-wrapper">
     <div id="login">
       <cfif (structKeyExists(url, "error") AND url.error EQ "invalid_credentials")>
-        <p class="error">Invalid email or password. Please try again.</p>
+        <p class="error">Ihre Login angaben sind nicht korrekt.</p>
       </cfif>
 
       <h2>Login</h2>
@@ -33,15 +33,15 @@
     </div>
 
     <div id="register">
-      <h2>Don't have an account?</h2>
+      <h2>Noch keinen Account bei uns?</h2>
       <form id="loginForm" method="post" action="?login=1">
         <input class="form-control" type="hidden" id="logintype" name="type" value="register">
         <div class="form-group">
-          <label for="registrationFirstname">First Name</label>
+          <label for="registrationFirstname">Vorname</label>
           <input class="form-control" type="text" id="registrationFirstname" name="registrationFirstname" required>
         </div>
         <div class="form-group">
-          <label for="registrationLastname">Last Name</label>
+          <label for="registrationLastname">Nachname</label>
           <input class="form-control" type="text" id="registrationLastname" name="registrationLastname" required>
         </div>
         <div class="form-group">
@@ -49,13 +49,14 @@
           <input class="form-control" type="email" id="registrationEmail" name="registrationEmail" required>
         </div>
         <div class="form-group">
-          <label for="registrationPassword">Password</label>
+          <label for="registrationPassword">Passwort</label>
           <input class="form-control" type="password" id="registrationPassword" name="registrationPassword" required>
 
-          <label for="confirmRegistrationPassword">Confirm Password</label>
+          <label for="confirmRegistrationPassword">Passwort wiederholen</label>
           <input class="form-control" type="password" id="confirmRegistrationPassword" name="confirmRegistrationPassword" required>
         </div>
-        <button class="btn btn-primary" type="submit">Register</button>
+
+        <button class="btn btn-primary" type="submit">Registrieren</button>
       </form>
     </div>
   </div>
@@ -124,14 +125,11 @@
       }
 
       local.customer = entityLoad("customer", {email=form.email})[1];
-
-      // writeDump(var="#local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())#", abort=true);
-
       if (!local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())) {
         cflocation(url="#local.cleanRequestUrl#?login=1&error=invalid_credentials");
       } else {
         session.customer = local.customer;
-
+			
         // Redirect to the home page or dashboard
         cflocation(url="#local.cleanRequestUrl#");
       }
