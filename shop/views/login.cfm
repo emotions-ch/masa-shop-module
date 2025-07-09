@@ -8,16 +8,6 @@
     </div>
   </nav>
  
-  <!--- STUB --->
-  <!--- <cfif structKeyExists(form, "fieldnames")>
-    <cfif form["email"] EQ "admin" AND form.password EQ "password">
-      <cfset session.secret = createUUID()>
-      <cfset session.email = form.email>
-      <cflocation url="#local.cleanRequestUrl#"> 
-      <cfdump var="#session#">
-    </cfif>
-  </cfif> --->
-
   <div class="main-wrapper login-wrapper">
     <div id="login">
       <cfif (structKeyExists(url, "error") AND url.error EQ "invalid_credentials")>
@@ -97,12 +87,10 @@
         throw(type="ValidationError", message="Passwords do not match.");
 
       } else if (entityLoad("customer", {email=form.registrationEmail}).len() ) {
-        writeDump(entityLoad("customer", {email=form.registrationEmail}));
         abort;
 
       } else {
         var local.hashedPassword = local.BCrypt.toBCryptHash(form.registrationPassword);
-        writeDump(var="#local.hashedPassword#", label="Hashed Password");
 
         local.customer = entityNew("customer",
           {
@@ -126,7 +114,6 @@
       // Redirect to the home page or dashboard
       cflocation(url="#local.cleanRequestUrl#");
     } else if (structKeyExists(form, "type") AND form.type EQ "login") {
-      // Handle login logic here
       if (form.email EQ "" OR form.password EQ "") {
         throw(type="ValidationError", message="Email and password are required.");
       }
