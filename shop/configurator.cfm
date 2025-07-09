@@ -32,7 +32,7 @@
 			</div>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Subject Line</label>
+				<label class="mura-control-label">Betreff</label>
 				<input type="text" id="emailSubjectLine" name="emailSubjectLine" class="objectParam" value="#esapiEncode('html_attr',objectparams.emailSubjectLine)#" required></input>
 			</div>
 
@@ -44,32 +44,32 @@
 			<p>Payment info</p>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Creditor Name</label>
+				<label class="mura-control-label">Kreditor Name</label>
 				<input type="text" id="creditorName" name="creditorName" class="objectParam" value="#esapiEncode('html_attr',objectparams.creditorName)#" required></input>
 			</div>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Creditor Street</label>
+				<label class="mura-control-label">Kreditor Strasse</label>
 				<input type="text" id="creditorStreet" name="creditorStreet" class="objectParam" value="#esapiEncode('html_attr',objectparams.creditorStreet)#" required></input>
 			</div>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Creditor House No</label>
+				<label class="mura-control-label">Kreditor Hausnummer</label>
 				<input type="text" id="creditorHouseNo" name="creditorHouseNo" class="objectParam" value="#esapiEncode('html_attr',objectparams.creditorHouseNo)#" required></input>
 			</div>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Creditor Postal Code</label>
+				<label class="mura-control-label">Kreditor Postleitzahl</label>
 				<input type="text" id="creditorPostalCode" name="creditorPostalCode" class="objectParam" value="#esapiEncode('html_attr',objectparams.creditorPostalCode)#" required></input>
 			</div>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Creditor Town</label>
+				<label class="mura-control-label">Kreditor Stadt</label>
 				<input type="text" id="creditorTown" name="creditorTown" class="objectParam" value="#esapiEncode('html_attr',objectparams.creditorTown)#" required></input>
 			</div>
 
 			<div class="mura-control-group">
-				<label class="mura-control-label">Creditor Country Code</label>
+				<label class="mura-control-label">Kreditor lämdercode (CH)</label>
 				<input type="text" id="creditorCountryCode" name="creditorCountryCode" class="objectParam" value="#esapiEncode('html_attr',objectparams.creditorCountryCode)#" required></input>
 			</div>
 
