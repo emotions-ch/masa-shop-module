@@ -19,4 +19,11 @@
       }
     }
   }
+
+  @media (max-width: 880px) {
+    flex-direction: column; 
+    & > div {
+      width: 100%;
+    }
+  }
 }
