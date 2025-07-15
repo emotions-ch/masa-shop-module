@@ -37,12 +37,12 @@ body.shop main{
 
     &-size{
         color: $primary_color;
-        margin-bottom: 17px;
+        margin-bottom: ($shop-margin-medium + 2px);
     }
 
     &-description{
         color: $gray_color_dark;
-        margin-bottom: 14px;
+        margin-bottom: ($shop-margin-medium - 1px);
     }
 
     &-price{
@@ -58,7 +58,7 @@ body.shop main{
         flex-shrink: 0;
         .input-group{
             margin-bottom: 0!important;
-            margin-right: 15px;
+            margin-right: $shop-margin-medium;
             .form-control{
                 flex-grow: 0;
                 text-align: center;
@@ -109,12 +109,12 @@ body.shop main{
 
 .product-list{
     >.row{
-        margin-left: -10px;
-        margin-right: -10px;
+        margin-left: -$shop-margin-small;
+        margin-right: -$shop-margin-small;
     }
     [class*="col-"]{
-        padding-left: 10px;
-        padding-right: 10px;
+        padding-left: $shop-margin-small;
+        padding-right: $shop-margin-small;
         margin-bottom: 35px;
     }
 }

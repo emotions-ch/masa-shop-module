@@ -167,4 +167,10 @@ $breakpoint-desktop-small: 1024px;
 $breakpoint-desktop: 1200px;
 $breakpoint-desktop-large: 1201px;
 
+//shop variables
+$product-action-padding: 0.9375rem;
+$shop-border-radius: 0.25rem;
+$shop-margin-small: 10px;
+$shop-margin-medium: 15px;
+
 @import "bootstrap/scss/variables";

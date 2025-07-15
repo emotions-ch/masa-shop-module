@@ -8,11 +8,11 @@
   justify-content: space-evenly;
   gap: 10px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: $breakpoint-desktop) {
     grid-template-columns: auto auto;
   }
 
-  @media (max-width: 991px) {
+  @media (max-width: $breakpoint-tablet) {
     grid-template-columns: auto;
   }
 
@@ -35,13 +35,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-left: 0.9375rem;
-      padding-right: 0.9375rem;
+      padding: 0, $product-action-padding;
       border-top: none;
       border-radius: 0;
 
       input:first-child {
-        border-radius: 0.25rem 0 0 0.25rem;
+        border-radius: $shop-border-radius 0 0 $shop-border-radius;
         width: unset;
       }
 
@@ -49,7 +48,7 @@
         transition: background-color 0.3s ease, color 0.3s ease;
 
         &:last-child {
-          border-radius: 0 0.25rem 0.25rem 0;
+          border-radius: 0 $shop-border-radius $shop-border-radius 0;
         }
 
         &:hover {
@@ -63,10 +62,10 @@
 }
 
 .form-box {
-  margin-bottom: 15px;
+  margin-bottom: $shop-margin-medium;
 
   label:not(:first-child) {
-    margin-top: 15px;
+    margin-top: $shop-margin-medium;
   }
 
   input {
@@ -78,7 +77,7 @@
   .form-row-2 {
     display: flex;
     flex-wrap: wrap;
-    margin: 15px 0 0 0;
+    margin: $shop-margin-medium 0 0 0;
 
     &> {
       * {
@@ -95,21 +94,21 @@
 
       &:first-child {
         input {
-          border-radius: 0.25rem 0 0 0.25rem;
+          border-radius: $shop-border-radius 0 0 $shop-border-radius;
           border-right: none;
         }
       }
 
       &:last-child {
         input {
-          border-radius: 0 0.25rem 0.25rem 0;
+          border-radius: 0 $shop-border-radius $shop-border-radius 0;
         }
       }
     }
   }
 
   .table-responsive {
-    margin-bottom: 15px;
+    margin-bottom: $shop-margin-medium;
   }
 }
 
@@ -126,7 +125,7 @@ a:hover {
 div.breadcrumb {
   padding: 10px 0;
 
-  // !!!!!!!!!!!!!! TEMP BIS FILTER UND SORET BACK !!!!!!!!!!!!!!
+  // !!!!!!!!!!!!!! TEMP BIS FILTER UND SORT BACK !!!!!!!!!!!!!!
   background-color: unset;
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 }
