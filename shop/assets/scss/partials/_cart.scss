@@ -5,6 +5,10 @@
       width: 100%;
       align-items: center;
 
+      @media (max-width: $breakpoint-tablet) {
+        flex-direction: column;
+      }
+
       &:not(:last-child) {
         border-bottom: 2px solid $gray-500;
       }
@@ -13,6 +17,10 @@
         width: 80px;
         height: 80px;
         margin-right: 1vw;
+
+        @media (max-width: $breakpoint-tablet) {
+          margin-bottom: $shop-margin-small;
+        }
       }
 
       h2 {
@@ -24,9 +32,18 @@
       }
 
       .item-details {
+
+        @media (max-width: $breakpoint-tablet) {
+          align-self: flex-start;
+        }
+
         .item-pricing {
           display: flex;
           flex-direction: row;
+
+          @media (max-width: $breakpoint-tablet) {
+            flex-direction: column;
+          }
 
           p:first-child {
             margin-right: 1vw;
@@ -41,6 +58,14 @@
         justify-content: center;
         margin-left: auto;
         padding-right: 0;
+
+        @media (max-width: $breakpoint-tablet) {
+          // flex-direction: row;
+          justify-content: space-between;
+          margin-left: unset;
+          width: 100%;
+          padding: $shop-margin-small 0 $shop-margin-medium 0;
+        }
 
         input, button {
           width: 125px;
