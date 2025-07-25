@@ -1,0 +1,69 @@
+html {
+  height: 250mm;
+}
+
+div#pdf-head {
+  img.logo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+  }
+
+  #header-pad {
+    height: 110px;
+  }
+}
+
+main {
+  p {
+    &.small {
+      font-size: 10pt;
+      color: #808080;
+      text-decoration: underline;
+    }
+
+    &.right {
+      text-align: right;
+    }
+  }
+
+  &,
+  #payment {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #payment {
+    height: max-content;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12pt;
+
+      th,
+      td {
+        border: 1px solid black;
+        padding: 5px;
+      }
+    }
+
+    img#invoice {
+      display:inline !important;
+      position: absolute;
+      top: 143mm;
+      margin-top: 20px;
+
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! DO NOT TOUCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      // size according to Swiss Implementation Guidelines QR-bill from November 20, 2023
+      width: 210mm !important;
+      height: 105mm !important;
+      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! you can touch once again !!!!!!!!!!!!!!!!!!!!!!
+    }
+  }
+}

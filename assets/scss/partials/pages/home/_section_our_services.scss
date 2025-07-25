@@ -1,0 +1,19 @@
+.section-our-services{
+    padding: 3.75rem 0 4.0625rem;
+    position: relative;
+
+    &:after{
+        position: absolute;
+        content: "";
+        background-color: $background_color_6;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 270px;
+        z-index: -1;
+    }
+
+    .service-item{
+        margin-top: 55px;
+    }
+}

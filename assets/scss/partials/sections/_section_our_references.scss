@@ -1,0 +1,14 @@
+.section-our-references {
+    .col-content {
+        @include media-breakpoint-up(md) {
+            min-height: 20.875rem;
+        }
+    }
+
+    .section-description {
+        margin-bottom: 0;
+    }
+    .section-btn {
+        margin-top: 2.3125rem;
+    }
+}
