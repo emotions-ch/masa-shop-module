@@ -11,7 +11,6 @@
 	<cfparam name="objectParams.creditorCountryCode" default="CH">
 	<cfparam name="objectParams.iban" default="">
 
-
 	<!--- Url params --->
 	<cfparam name="url.product" default="00000000000000000000000000000000001">
 	<cfparam name="url.checkout" default="0">
@@ -28,10 +27,6 @@
 
 	<cfif url.logout eq "1">
 		<cfset session.clear()>
-	</cfif>
-
-	<cfif structKeyExists(session, "customer")>
-		<!--- <cfdump var="#session.customer#" label="Session Customer"> --->
 	</cfif>
 
 	<cfset local.modulePath = "/modules/shop">
