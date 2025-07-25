@@ -113,7 +113,7 @@
 				<!--- Product start --->
 				<div class="product" id="#local.articles["contentid"]#">
 					<div class="product-image">
-						<a href="#local.cleanRequestUrl#?product=#local.articles["contentid"]#">
+						<a href="?product=#local.articles["contentid"]#">
 							<img class="img-fluid d-block mx-auto" src="#local.articles['image']#" alt=""></img>
 						</a>
 					</div>
@@ -121,7 +121,7 @@
 					<div class="product-info">
 						<div>
 							<h4 class="product-name text-uppercase">
-								<a href="#local.cleanRequestUrl#?product=#local.articles["contentid"]#">#local.articles["name"]#</a>
+								<a href="?product=#local.articles["contentid"]#">#local.articles["name"]#</a>
 							</h4>
 							<cfif local.articles["amount"].len()>
 								<p class="product-size">
