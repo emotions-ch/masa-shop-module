@@ -15,6 +15,11 @@
   width: 100%;
   margin-top: 50px;
 
+  --additional-row-padding: unset;
+  --initial-row-padding: unset;
+  --absolute-row-padding: unset;
+  --row-padding: unset;
+
   @media (max-width: $breakpoint-desktop) {
     flex-direction: column;
   }
@@ -38,7 +43,6 @@
 
   #product-info {
     width: 100%;
-
 
     @media (max-width: $breakpoint-desktop) {
       border-top: $border_color 1px solid;
@@ -86,6 +90,10 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 0;
+  --additional-row-padding: unset;
+  --initial-row-padding: unset;
+  --absolute-row-padding: unset;
+  --row-padding: unset;
 }
 
 .highlight {
