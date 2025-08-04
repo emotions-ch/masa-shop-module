@@ -19,11 +19,9 @@
 	<cfparam name="url.logout" default="0">
 	<cfparam name="url.cart" default="0">
 
-	<cfif cgi.query_string.len()>
-		<cfset local.cleanRequestUrl = left(cgi.request_url, "-" & "#cgi.query_string.len()+1#")>
-	<cfelse>
-		<cfset local.cleanRequestUrl = cgi.request_url>
-	</cfif>
+	<cfset local.contentBean = m.getBean('content').loadBy(filename=cgi.path_info.left(-1).right(-1))>
+	<cfset local.cleanRequestUrl = local.contentBean.get('url')>
+
 
 	<cfif url.logout eq "1">
 		<cfset session.clear()>

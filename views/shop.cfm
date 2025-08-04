@@ -78,7 +78,7 @@
 				.getIterator(liveonly=false)
 			>
 		<cfelse>
-			<cfset local.articleIterator = m.getBean('content').loadBy(filename=cgi.path_info.left(-1).right(-1)).getKidsIterator(liveonly=false)>
+			<cfset local.articleIterator = local.contentBean.getKidsIterator(liveonly=false)>
 		</cfif>
 		<cfset local.articleIterator.setNextN(0)>
 
