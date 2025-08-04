@@ -19,11 +19,11 @@
         <input class="form-control" type="hidden" id="registertype" name="type" value="login">
         <div class="form-group">
           <label for="email">Email</label>
-          <input class="form-control" type="text" id="email" name="email" required value="meow+testing@emotions.ch">
+          <input class="form-control" type="text" id="email" name="email" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input class="form-control" type="password" id="password" name="password" required value="meowpassword69">
+          <input class="form-control" type="password" id="password" name="password" required>
         </div>
         <button class="btn btn-primary" type="submit">Login</button>
       </form>
