@@ -7,7 +7,7 @@
         <button class="btn btn-primary mt-3"  onclick="window.location.href='#local.cleanRequestUrl#'">&##8592; Zurück zum Shop</button>
       </div>
 
-      <div class="row">
+      <div class="shop-row">
         <picture id="product-image" style="background-image: url(#local.productContent.getImageUrl()#)"></picture>
 
         <div id="product-info">

@@ -6,7 +6,7 @@
   justify-content: flex-end;
 }
 
-.row {
+.shop-row {
   display: flex;
   flex-wrap: no-wrap;
   justify-content: center;
@@ -15,7 +15,7 @@
   width: 100%;
   margin-top: 50px;
 
-  @media (max-width: 1200px) {
+  @media (max-width: $breakpoint-desktop) {
     flex-direction: column;
   }
 
@@ -26,7 +26,7 @@
 
     width: 100%;
     height: 20vw;
-    margin: 0 0 25px 0;
+    margin: 0 $shop-margin-medium 25px 0;
 
     @media (max-width: 1200px) {
       width: 100%;
@@ -37,8 +37,12 @@
   }
 
   #product-info {
-    border-top: $border_color 1px solid;
     width: 100%;
+
+
+    @media (max-width: $breakpoint-desktop) {
+      border-top: $border_color 1px solid;
+    }
 
     h1 {
       margin: 0 0 13px 0;
