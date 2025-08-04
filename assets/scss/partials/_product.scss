@@ -15,10 +15,10 @@
   width: 100%;
   margin-top: 50px;
 
-  --additional-row-padding: unset;
-  --initial-row-padding: unset;
-  --absolute-row-padding: unset;
-  --row-padding: unset;
+  --additional-row-padding: none;
+  --initial-row-padding: none;
+  --absolute-row-padding: none;
+  --row-padding: none;
 
   @media (max-width: $breakpoint-desktop) {
     flex-direction: column;
@@ -90,10 +90,10 @@
   flex-direction: column;
   align-items: flex-start;
   margin-top: 0;
-  --additional-row-padding: unset;
-  --initial-row-padding: unset;
-  --absolute-row-padding: unset;
-  --row-padding: unset;
+  --additional-row-padding: none;
+  --initial-row-padding: none;
+  --absolute-row-padding: none;
+  --row-padding: none;
 }
 
 .highlight {
