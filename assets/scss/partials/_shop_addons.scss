@@ -1,21 +1,10 @@
 @import 'variables';
 
 .product-list {
-  display: grid;
-  grid-template-columns: auto auto auto;
   justify-items: stretch;
   align-content: space-evenly;
   justify-content: space-evenly;
   gap: 10px;
-
-  @media (max-width: $breakpoint-desktop) {
-    grid-template-columns: auto auto;
-  }
-
-  @media (max-width: $breakpoint-tablet) {
-    grid-template-columns: auto;
-    justify-content: unset;
-  }
 
   .product {
     background-color: $background_color_5;
