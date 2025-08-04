@@ -108,7 +108,7 @@
 			</cfif>
 		</cfif>
 
-		<div class="product-list">
+		<div class="product-list grid-container" style="--grid-column-count: 3; --grid-item--min-width: 280px;">
 			<cfloop query = "local.articles">
 				<!--- Product start --->
 				<div class="product" id="#local.articles["contentid"]#">
