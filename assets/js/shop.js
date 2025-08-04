@@ -141,25 +141,24 @@ function updateCart(input, price, articleId) {
   addToCart($(input), variation);
 }
 
-function removeFromCart(articleId) {
+function removeFromCart(articleId, variant) {
   // Ask for confirmation before removing the item
   if (!confirm('Are you sure you want to remove this item from your cart?')) {
     return; // User canceled the operation
   }
+
+	if (variant === null || variant === undefined) {
+    variant = '';
+  }
   
-  var url = `?ajax=updateCart&articleId=${articleId}&quantity=0`;
+  var url = `?ajax=updateCart&articleId=${articleId}&quantity=0&variant=${variant}`;
 
   $.ajax({
     type: "GET",
     url: url,
     data: {},
     success: function (data) {
-      data = getJsonFromBody(data);
-
-      // console.log(data.trim());
-      document.querySelector('.article[article-id="' + articleId + '"]').remove();
-      console.log(document.querySelector('.article[article-id="' + articleId + '"] .quantity input'));
-      updateCart(document.querySelector('.article[article-id="' + articleId + '"] .quantity input'), 0, articleId);
+      document.querySelector('.article[article-id="' + articleId + '"][variant="' + variant + '"]').remove();
     },
   });
 }

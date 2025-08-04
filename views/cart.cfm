@@ -17,7 +17,7 @@
       
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
-          <div class="article" article-id="#local.article.getId()#">
+          <div class="article" article-id="#local.article.getId()#" variant="#local.article.getVariant()#">
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <a href="#local.article.getUrl()#" target="_blank"><h2>#local.article.getTitle()#</h2></a>
@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="product-action">
-              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#');">Entfernen</button>
+              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#local.article.getVariant()#');">Entfernen</button>
               <div class="quantity">
                 <p>Anzahl:</p>
                 <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#local.article.getId()#'); ">
