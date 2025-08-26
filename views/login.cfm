@@ -118,11 +118,11 @@
         throw(type="ValidationError", message="Email and password are required.");
       }
 
-      local.customer = entityLoad("customer", {email=form.email})[1];
-      if (!local.BCrypt.checkBCryptHash(form.password, local.customer.getPassword())) {
+      local.customer = entityLoad("customer", {email=form.email});
+      if (local,customer.len() = 0 || !local.BCrypt.checkBCryptHash(form.password, local.customer[1].getPassword())) {
         cflocation(url="#local.cleanRequestUrl#?login=1&error=invalid_credentials");
       } else {
-        session.customer = local.customer;
+        session.customer = local.customer[1];
 			
         // Redirect to the home page or dashboard
         cflocation(url="#local.cleanRequestUrl#");
