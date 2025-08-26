@@ -57,7 +57,7 @@
 <cfoutput>
 	<div id="shop-modul-object">
 
-		<cfset local.productContent = m.content().loadBy(contentid=url.product)>
+		<cfset local.productContent = m.getBean('content').loadBy(contentid=url.product)>
 
 		<cfif url.product neq "" && local.productContent.get('contentid') neq "00000000000000000000000000000000001">
 			<cfinclude template="views/product.cfm">
