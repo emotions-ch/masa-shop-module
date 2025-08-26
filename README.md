@@ -14,3 +14,13 @@ This module requires these two library's that are present under `modules/shop/li
 this.javaSettings.loadPaths = [getDirectoryFromPath(getCurrentTemplatePath()) & "shop/lib/"];
 this.javaSettings.reloadOnChange=true;
 ```
+## ORM
+This module makes use of the built in coldfusion ORM so you will have ti enable that via `/config/cfapplication.cfc`
+```java
+this.ormEnabled = true;
+this.ORMSettings = {
+    datasource = "[YOUR DATASOURCE HERE]",
+    dbcreate = "dropcreate",
+    cfclocation = ["/modules/shop/model/beans"],
+};
+```
