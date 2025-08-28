@@ -119,7 +119,7 @@
       }
 
       local.customer = entityLoad("customer", {email=form.email});
-      if (local.customer.len() = 0 || !local.BCrypt.checkBCryptHash(form.password, local.customer[1].getPassword())) {
+      if (local.customer.len() == 0 || !local.BCrypt.checkBCryptHash(form.password, local.customer[1].getPassword())) {
         cflocation(url="#local.cleanRequestUrl#?login=1&error=invalid_credentials");
       } else {
         session.customer = local.customer[1];
