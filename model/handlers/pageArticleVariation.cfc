@@ -13,6 +13,7 @@ component extends='core.mura.cfobject' {
 		local.subType.setHasAssocFile(1);
 		local.subType.setHasSummary(1);
 		local.subType.setHasBody(1);
+		local.subType.setAvailableSubtypes('Page/FiggDiniMuetter');
 		local.subType.setBaseTable('tcontent');
 		local.subType.setBaseKeyField('contentHistId');
 		local.subType.save();
