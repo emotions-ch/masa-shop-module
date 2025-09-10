@@ -5,7 +5,7 @@ component extends='core.mura.cfobject' {
 		//  ==================== START PAGE / default ====================
 		local.subType = application.configBean.getClassExtensionManager().getSubTypeBean();
 		local.subType.setType('Page');
-		local.subType.setSubtype('Article');
+		local.subType.setSubtype('ArticleVariation');
 		local.subType.setSiteId('#m.siteConfig("siteId")#');
 		local.subType.load();
 
@@ -18,7 +18,7 @@ component extends='core.mura.cfobject' {
 		local.subType.save();
 
 		//  EXTENDED ATTRIBUTES SET 1
-		local.extendSet = local.subType.getExtendSetByName('Article');
+		local.extendSet = local.subType.getExtendSetByName('ArticleVariation');
 		local.extendSet.setContainer('Basic');
 		local.extendSet.setOrderNo(1);
 		local.extendSet.save()
@@ -35,7 +35,7 @@ component extends='core.mura.cfobject' {
 			local.attribute = local.extendSet.getAttributeByName('articlePrice');
 			local.attribute.setLabel('Preis');
 			local.attribute.setType('textbox');
-			local.attribute.setRequired(true);
+			local.attribute.setRequired(false);
 			local.attribute.setOrderNo(local.orderNo);
 			local.attribute.save();
 
@@ -43,32 +43,8 @@ component extends='core.mura.cfobject' {
 			local.attribute = local.extendSet.getAttributeByName('articleNumber');
 			local.attribute.setLabel('Arikelnummer');
 			local.attribute.setType('textbox');
-			local.attribute.setRequired(true);
+			local.attribute.setRequired(false);
 			local.attribute.setOrderNo(local.orderNo);
 			local.attribute.save();
-	}
-
-	public void function onAfterPageArticleSave() {
-		cfparam(name="request.onAfterPageArticleSave", default="true");
-		if (request.onAfterPageArticleSave && StructKeyExists(form, 'contentId')) {
-			request.onAfterPageArticleSave = "false";
-			local.content = m.getBean('content').loadBy(siteid=m.event('siteid'));
-			local.content.setTitle('Variationen');
-			local.content.setSiteId(m.event('siteid'));
-			local.content.setType('Folder');
-			local.content.setSubtype('Variations');
-			local.content.setParentId(form.contentId);
-
-			local.content.save();
-
-			local.content = m.getBean('content').loadBy(siteid=m.event('siteid'));
-			local.content.setSiteId(m.event('siteid'));
-			local.content.setTitle('Farben');
-			local.content.setType('Folder');
-			local.content.setSubtype('Images');
-			local.content.setParentId(form.contentId);
-
-			local.content.save();
-		}
 	}
 }
