@@ -48,9 +48,14 @@ component extends='core.mura.cfobject' {
 			local.attribute.save();
 	}
 
+	public void function onBeforePageArticleSave() {
+		request.isNew = m.getBean('content').loadBy(contentId = form.contentId).getIsNew();
+	}
+
 	public void function onAfterPageArticleSave() {
+		cfparam(name="request.isNew", default="false");
 		cfparam(name="request.onAfterPageArticleSave", default="true");
-		if (request.onAfterPageArticleSave && StructKeyExists(form, 'contentId')) {
+		if (request.onAfterPageArticleSave && StructKeyExists(form, 'contentId') && request.isNew) {
 			request.onAfterPageArticleSave = "false";
 			local.content = m.getBean('content').loadBy(siteid=m.event('siteid'));
 			local.content.setTitle('Variationen');
