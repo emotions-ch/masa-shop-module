@@ -22,7 +22,7 @@ component extends='core.mura.cfobject' {
 		local.extendSet = local.subType.getExtendSetByName('Article');
 		local.extendSet.setContainer('Basic');
 		local.extendSet.setOrderNo(1);
-		local.extendSet.save()
+		local.extendSet.save();
 
 			local.orderNo = 1;
 			local.attribute = local.extendSet.getAttributeByName('articleAmount');
