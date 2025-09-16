@@ -61,6 +61,7 @@
 
 		<cfif url.product neq "" && local.productContent.get('contentid') neq "00000000000000000000000000000000001">
 			<cfinclude template="views/product.cfm">
+			<script src="#local.modulePath#/assets/js/product.js" defer></script>
 		<cfelseif url.checkout eq "1">
 			<cfinclude template="views/checkout.cfm">
 		<cfelseif url.login eq "1">
@@ -74,5 +75,12 @@
 		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
 		<script src="#local.modulePath#/assets/js/jquery-3.7.1.min.js"></script>
 		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
+		<script src="#cgi.request_url.listFirst(":")#://#cgi.http_host#/core/modules/v1/core_assets/js/mura.min.js"></script>
+		<script>
+			Mura.init({
+				siteid:'#m.content().get('siteId')#',
+				rootpath:'#cgi.request_url.listFirst(":")#://#cgi.http_host#'
+			});
+		</script>
 	</div>
 </cfoutput>

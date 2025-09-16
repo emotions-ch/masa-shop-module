@@ -62,33 +62,4 @@
     </article>
   </div>
 
-<!--- 	TEMP STUFF WHILE DEV --->
-	<script src="#cgi.request_url.listFirst(":")#://#cgi.http_host#/core/modules/v1/core_assets/js/mura.min.js"></script>
-	<script>
-		Mura.init({
-			siteid:'#m.content().get('siteId')#',
-			rootpath:'#cgi.request_url.listFirst(":")#://#cgi.http_host#'
-		});
-
-		document.querySelectorAll('select[id^="productVariation-"]').forEach(function(select) {
-			select.addEventListener('change', function(event) {
-				let selectedOption = event.target.selectedOptions[0];
-				let cType = selectedOption.getAttribute('cType');
-				
-				if (cType === "File/Default") {
-					Mura.getEntity('content').loadBy('contentid', event.target.value)
-					.then(function(item){
-						let image = item.get('images').source;
-
-						document.getElementById('product-image').style.backgroundImage = 'url(' + image + ')';
-					});	
-				}
-			});
-		});
-
-		Mura.getEntity('content').loadBy('contentid','#local.productContent.get('contentId')#')
-    .then(function(item){
-      console.log(item.get('title'));
-    });
-	</script>
 </cfoutput>
