@@ -17,17 +17,27 @@
             <p id="amount">Menge: #local.productContent.get("articleAmount")#</p>
           </cfif>
 
-          <cfset local.productContent.categoryIterator = local.productContent.getCategoriesIterator()>
-          <cfif local.productContent.categoryIterator.hasNext()>
-            <h3>Variationen:</h3>
-            <select name="variations" id="productVariations" class="form-select">
-              <cfloop condition="local.productContent.categoryIterator.hasNext()">
-                <cfset local.category = local.productContent.categoryIterator.next()>
-                <option value="#local.category.get('categoryId')#">
-                  #local.category.get('name')#
-                </option>
-              </cfloop>
-            </select>
+          <cfset local.productContent.kidsIterator = local.productContent.getKidsIterator()>
+          <cfif local.productContent.kidsIterator.hasNext()>
+						<cfloop condition=local.productContent.kidsIterator.hasNext()>
+							<cfset local.variationContent = local.productContent.kidsIterator.next()>
+							<cfset local.variantsContentKidsIterator = local.variationContent.getKidsIterator()>
+
+							<cfif local.variantsContentKidsIterator.hasNext()>
+								<div>
+									<h3>#local.variationContent.get('title')#</h3>
+
+									<select name="variations" id="productVariation-#local.variationContent.get('contentId')#" class="form-select">
+										<cfloop condition=local.variantsContentKidsIterator.hasNext()>
+											<cfset local.variant = local.variantsContentKidsIterator.next()>
+											<option value="#local.variant.get('contentId')#">
+												#local.variant.get('title')#
+											</option>
+										</cfloop>
+									</select>
+								</div>
+							</cfif>
+						</cfloop>
           </cfif>
 
 					<p>#local.productContent.get('summary')#</p>
@@ -36,7 +46,6 @@
 					<cfelse>
 						<span id="price">CHF #local.productContent.get("articlePrice")#</span>
 					</cfif>
-						
           
           <div class="product-action">
             <div class="quantity">
