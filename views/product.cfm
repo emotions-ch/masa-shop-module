@@ -30,8 +30,13 @@
             </select>
           </cfif>
 
-            <p>#local.productContent.get('summary')#</p>
-          <span id="price">CHF #NumberFormat(local.productContent.get("articlePrice") ,'.00')#</span>
+					<p>#local.productContent.get('summary')#</p>
+					<cfif condition=isNumeric(local.productContent.get("articlePrice"))>
+						<span id="price">CHF #NumberFormat(local.productContent.get("articlePrice") ,'.00')#</span>
+					<cfelse>
+						<span id="price">CHF #local.productContent.get("articlePrice")#</span>
+					</cfif>
+						
           
           <div class="product-action">
             <div class="quantity">
