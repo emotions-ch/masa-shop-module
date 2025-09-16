@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			let selectedOption = event.target.selectedOptions[0];
 			let cType = selectedOption.getAttribute('cType');
 
+			// Async image loader
 			if (cType === "File/Default") {
 				Mura.getEntity('content').loadBy('contentid', event.target.value)
 					.then(function(item){
