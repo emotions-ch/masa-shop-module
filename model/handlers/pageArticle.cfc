@@ -64,6 +64,8 @@ component extends='core.mura.cfobject' {
 			local.content.setType('Folder');
 			local.content.setSubtype('Variations');
 			local.content.setParentId(form.contentId);
+			local.content.setDisplay(1);
+			local.content.setApproved(1);
 
 			local.content.save();
 
@@ -73,6 +75,8 @@ component extends='core.mura.cfobject' {
 			local.content.setType('Folder');
 			local.content.setSubtype('Images');
 			local.content.setParentId(form.contentId);
+			local.content.setDisplay(1);
+			local.content.setApproved(1);
 
 			local.content.save();
 		}
