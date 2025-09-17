@@ -77,8 +77,9 @@
 		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
 		<script src="#cgi.request_url.listFirst(":")#://#cgi.http_host#/core/modules/v1/core_assets/js/mura.min.js"></script>
 		<script>
+			const siteId = '#m.content().get('siteId')#';
 			Mura.init({
-				siteid:'#m.content().get('siteId')#',
+				siteid:siteId,
 				rootpath:'#cgi.request_url.listFirst(":")#://#cgi.http_host#'
 			});
 		</script>
