@@ -68,8 +68,8 @@ component extends='core.mura.cfobject' {
 			local.content.save();
 
 			local.content = m.getBean('content').loadBy(siteid=m.event('siteid'));
-			local.content.setSiteId(m.event('siteid'));
 			local.content.setTitle('Farben');
+			local.content.setSiteId(m.event('siteid'));
 			local.content.setType('Folder');
 			local.content.setSubtype('Images');
 			local.content.setParentId(form.contentId);
