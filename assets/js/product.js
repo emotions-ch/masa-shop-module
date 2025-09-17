@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
 						document.getElementById('product-image').style.backgroundImage = 'url(' + image + ')';
 				});
 			} else if (cType === "Page/ArticleVariation") {
-				// async info
+				// async info using a custom component due to Mura-Js not providing a way to get extended attributes
 				let url = `/modules/shop/components/Variant.cfm?variant=${event.target.value}&site=${siteId}`
 				fetch(url)
 					.then(response => response.json())
 					.then(data => {
 
 						if (data.price !== "") {
-							document.getElementById('price').innerHTML = `CHF ${data.price}`;
+							document.getElementById('price').innerHTML = isNaN(data.price) ? `CHF ${data.price}` : `CHF ${parseFloat(data.price).toFixed(2)}`;
 						}
 						if (data.amount !== "") {
 							document.getElementById('amount').innerHTML = `Menge: ${data.amount}`;
