@@ -17,18 +17,18 @@
       
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
-          <div class="article" article-id="#local.article.getId()#" variant="#local.article.getVariant()#">
+          <div class="article" article-id="#local.article.getId()#" variant="#local.article.getVariants().toJSON()#">
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <a href="#local.article.getUrl()#" target="_blank"><h2>#local.article.getTitle()#</h2></a>
-              <p class="article-variant">Variante: #m.getBean('category').loadBy(categoryid=local.article.getVariant()).getName()#</p>
+              <p class="article-variant">Variante: #right(left(local.article.getVariantNames().toString(),-1),-1)#</p>
               <div class="item-pricing">
                 <p id="item-price">Einzelpreis: CHF #NumberFormat(local.article.getPrice(), '.00')#</p>
                 <p id="total-item-price">Gesamt: CHF #NumberFormat(local.article.getTotalPrice(), '.00')#</p>
               </div>
             </div>
             <div class="product-action">
-              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#local.article.getVariant()#');">Entfernen</button>
+              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#local.article.getVariants().toJSON()#');">Entfernen</button>
               <div class="quantity">
                 <p>Anzahl:</p>
                 <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#local.article.getId()#'); ">

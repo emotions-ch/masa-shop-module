@@ -41,7 +41,7 @@ component
             <tr>
               <td>#local.article.getTitle()#</td>
               <td>#local.article.getArticleNumber()#</td>
-              <td>#application.serviceFactory.getBean('m').getBean('category').loadBy(categoryid=local.article.getVariant()).getName()#</td>
+              <td>#right(left(local.article.getVariantNames().toString(),-1),-1)#</td>
               <td>#local.article.getQuantity()#</td>
               <td>CHF #decimalFormat(local.article.getPrice())#</td>
               <td>CHF #decimalFormat(local.article.getPrice()*local.article.getQuantity())#</td>

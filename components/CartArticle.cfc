@@ -7,6 +7,7 @@ component
   property type="String" name="id";
   property type="numeric" name="quantity";
   property type="String" name="articleNumber";
+	property type="struct" name="variants";
 
   /**
    * @hint initialize component
@@ -15,11 +16,11 @@ component
   public component function init(
     required String id,
     required numeric quantity,
-    string variant = "",
+    struct variants = {}
   ){
     variables.id = arguments.id;
     variables.quantity = arguments.quantity;
-    variables.variant = arguments.variant;
+    variables.variants = arguments.variants;
     variables.articleBean = getArticleBean();
     variables.articleNumber = getArticleNumber();
 
@@ -60,9 +61,18 @@ component
     return variables.articleBean.get("title");
   }
 
-	public string function getVariant(){
-		return variables.variant
+	public struct function getVariants(){
+		return variables.variants
 	};
+
+	public array function getVariantNames() {
+		local.names = [];
+		for (local.variant in getVariants()) {
+			arrayAppend(local.names, getContentBean().loadBy(contentid=getVariants()[local.variant]).get('title'));
+		}
+
+		return local.names;
+	}
 
   public string function getImageUrl(
     string size="small"
@@ -70,16 +80,20 @@ component
     return variables.articleBean.getImageUrl(arguments.size);
   }
 
-  private component function getArticleBean(){
-    return application.serviceFactory.getBean('m').getBean('content').loadBy(contentid=variables.id);
-  }
+	private component function getArticleBean(){
+		return getContentBean().loadBy(contentid=variables.id);
+	}
 
-  /**
-   * set quantity
-   */
-  public void function setQuantity(
-    required numeric quantity
-  ){
-    variables.quantity = arguments.quantity;
-  }
+  private component function getContentBean(){
+		return application.serviceFactory.getBean('m').getBean('content');
+	}
+
+	/**
+	 * set quantity
+	 */
+	public void function setQuantity(
+		required numeric quantity
+	){
+		variables.quantity = arguments.quantity;
+	}
 }

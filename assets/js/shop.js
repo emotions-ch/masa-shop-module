@@ -12,8 +12,15 @@ $(function () {
 
     if (!locked) {
       locked = true; // Lock to prevent multiple clicks
-      let variation = document.querySelector("#productVariations");
-      addToCart($(this), variation);
+      let variations = document.querySelectorAll('select[id^="productVariation-"]');
+      let variationValues = {};
+      Array.from(variations).forEach(v => {
+				let selectedOption = v.selectedOptions[0];
+				let cType = selectedOption.getAttribute('cType');
+        variationValues[cType] = v.value;
+      });
+
+      addToCart($(this), variationValues);
 
       var originalText = $(this).html();
       var originalWidth = $(this).outerWidth();
@@ -90,17 +97,13 @@ $(function () {
   }
 });
 
-function addToCart(article, variation) {
+function addToCart(article, variations) {
   let quantity = article.closest('.product-action').find('.quantity input').val();
   let articleId = article.attr('article-id');
   let set = article.attr('setter') || '0';
-  if (variation === null || variation === undefined) {
-    variation = '';
-  } else {
-    variation = variation.value
-  }
+	let variationParam = encodeURIComponent(JSON.stringify(variations));
 
-  let url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}&set=${set}&variant=${variation}`;
+  let url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}&set=${set}&variants=${variationParam}`;
 
   $.ajax({
     type: "GET",

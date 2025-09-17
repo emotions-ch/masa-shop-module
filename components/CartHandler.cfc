@@ -43,13 +43,14 @@ component
   /**
    * update cart with actions
    */
-  private void function updateCart(){
+  private void function updateCart() {
     local.set = false;
     if (structKeyExists(url, "set") && url.set == 1) {
       local.set = true;
     }
+		local.variants = deserializeJSON(urlDecode(url.variants));
 
-    local.article = new CartArticle(id=url.articleId, quantity=url.quantity, variant=url.variant);
+    local.article = new CartArticle(id=url.articleId, quantity=url.quantity, variants=local.variants);
     session.cart.updateArticle(local.article, local.set);
   }
 

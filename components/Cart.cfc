@@ -25,8 +25,8 @@ component
     required component article,
     boolean set = false
     ){
-    if (hasArticle(arguments.article.getId(), arguments.article.getVariant())) {
-      local.cartArticle = getArticleByIds(arguments.article.getId(), arguments.article.getVariant());
+    if (hasArticle(arguments.article.getId(), arguments.article.getVariants())) {
+      local.cartArticle = getArticleByIds(arguments.article.getId(), arguments.article.getVariants());
 
       if (arguments.article.getQuantity() == 0) {
         local.removed = removeArticle(local.cartArticle);
@@ -54,7 +54,7 @@ component
    */
   private component function getArticleByIds(required String id, required String variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id && local.article.getVariant() == arguments.variation) {
+      if (local.article.getId() == arguments.id && local.article.getVariants() == arguments.variation) {
         return local.article;
       }
     }
@@ -65,9 +65,9 @@ component
    * @hint check if article exists
    * @return boolean
    */
-  private boolean function hasArticle(required String id, required String variation) {
+  private boolean function hasArticle(required String id, required struct variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id && local.article.getVariant() == arguments.variation) {
+      if (local.article.getId() == arguments.id && local.article.getVariants() == arguments.variation) {
         return true;
       }
     }
@@ -122,7 +122,7 @@ component
       local.json &= serializeJSON({
         "id": local.article.getId(),
         "quantity": local.article.getQuantity(),
-        "variant": local.article.getVariant()
+        "variant": local.article.getVariants()
       });
     }
 
