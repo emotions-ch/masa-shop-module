@@ -17,7 +17,7 @@
       
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
-          <div class="article" article-id="#local.article.getId()#" variant="#local.article.getVariants().toJSON()#">
+          <div class="article" article-id="#local.article.getId()#" variant="#encodeForHTMLAttribute(local.article.getVariants().toJSON())#">
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <a href="#local.article.getUrl()#" target="_blank"><h2>#local.article.getTitle()#</h2></a>

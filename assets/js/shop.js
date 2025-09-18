@@ -145,9 +145,8 @@ function updateCart(input, price) {
 }
 
 function removeFromCart(articleId, variant) {
-  // Ask for confirmation before removing the item
   if (!confirm('Are you sure you want to remove this item from your cart?')) {
-    return; // User canceled the operation
+    return;
   }
 
 	let variationParam = encodeURIComponent(variant);

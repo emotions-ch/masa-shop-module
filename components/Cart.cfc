@@ -52,13 +52,13 @@ component
    * @hint remove article from cart
    * @return article component
    */
-  private component function getArticleByIds(required String id, required String variation) {
+  private component function getArticleByIds(required String id, required Struct variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id && local.article.getVariants() == arguments.variation) {
+      if (local.article.getId() == arguments.id && local.article.getVariants().equals(arguments.variation)) {
         return local.article;
       }
     }
-    return new CartArticle(id=arguments.id, quantity=0 , variant=arguments.variation);
+    return new CartArticle(id=arguments.id, quantity=0 , variants=arguments.variation);
   }
 
   /**
