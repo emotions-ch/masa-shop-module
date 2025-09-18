@@ -77,7 +77,7 @@ component
 
 	public struct function getVariants(){
 		return variables.variants
-	};
+	}
 
 	public array function getVariantNames() {
 		local.names = [];
@@ -98,8 +98,10 @@ component
 		return getContentBean().loadBy(contentid=variables.id);
 	}
 
-  private component function getContentBean(){
-		return application.serviceFactory.getBean('m').getBean('content');
+  private component function getContentBean(
+		string siteId = session.siteid 
+	) {
+		return application.serviceFactory.getBean('m').getBean('content').loadBy(siteId=arguments.siteId);
 	}
 
 	/**

@@ -28,7 +28,7 @@ component
               <th scope="col">Produktname</th>
               <th scope="col">Modell</th>
               <th scope="col">Variante</th>
-              <th scope="col">Menge</th>
+              <th scope="col">Anzahl</th>
               <th scope="col">Einzelpreis</th>
               <th scope="col">Summe</th>
             </tr>
@@ -44,7 +44,7 @@ component
               <td>#right(left(local.article.getVariantNames().toString(),-1),-1)#</td>
               <td>#local.article.getQuantity()#</td>
               <td>CHF #decimalFormat(local.article.getPrice())#</td>
-              <td>CHF #decimalFormat(local.article.getPrice()*local.article.getQuantity())#</td>
+              <td>CHF #decimalFormat(local.article.getTotalPrice())#</td>
             </tr>
         ");
       };
