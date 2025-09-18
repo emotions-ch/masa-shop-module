@@ -33,6 +33,9 @@
   creditor=local.creditor
 )>
 
+<cfif NOT directoryExists("./tmp")>
+  <cfdirectory action="create" directory="./tmp">
+</cfif>
 <cffile action="write" file="./tmp/#local.billId#.png" output="#local.qrInvoice#" nameconflict="overwrite">
 
 <cfsavecontent variable="local.bill">
