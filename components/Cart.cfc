@@ -67,7 +67,7 @@ component
    */
   private boolean function hasArticle(required String id, required struct variation) {
     for (local.article in variables.articles) {
-      if (local.article.getId() == arguments.id && local.article.getVariants() == arguments.variation) {
+      if (local.article.getId() == arguments.id && local.article.getVariants().equals(arguments.variation)) {
         return true;
       }
     }
