@@ -46,6 +46,12 @@ component
   }
 
   public string function getPrice(){
+		for (local.variant in getVariants()) {
+			local.variantBean = getContentBean().loadBy(contentid=getVariants()[local.variant]);
+			if (local.variantBean.get('subtype') == "ArticleVariation" && local.variantBean.get("articlePrice") != "") {
+				return local.variantBean.get("articlePrice");
+			}
+		}
     return variables.articleBean.get("articlePrice");
   }
 
