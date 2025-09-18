@@ -19,6 +19,7 @@ $(function () {
 				let cType = selectedOption.getAttribute('cType');
         variationValues[cType] = v.value;
       });
+			variationValues = JSON.stringify(variationValues);
 
       addToCart($(this), variationValues);
 
@@ -101,7 +102,7 @@ function addToCart(article, variations) {
   let quantity = article.closest('.product-action').find('.quantity input').val();
   let articleId = article.attr('article-id');
   let set = article.attr('setter') || '0';
-	let variationParam = encodeURIComponent(JSON.stringify(variations));
+	let variationParam = encodeURIComponent(variations);
 
   let url = `?ajax=updateCart&articleId=${articleId}&quantity=${quantity}&set=${set}&variants=${variationParam}`;
 
@@ -149,11 +150,9 @@ function removeFromCart(articleId, variant) {
     return; // User canceled the operation
   }
 
-	if (variant === null || variant === undefined) {
-    variant = '';
-  }
+	let variationParam = encodeURIComponent(variant);
   
-  var url = `?ajax=updateCart&articleId=${articleId}&quantity=0&variant=${variant}`;
+  var url = `?ajax=updateCart&articleId=${articleId}&quantity=0&variants=${variationParam}`;
 
   $.ajax({
     type: "GET",

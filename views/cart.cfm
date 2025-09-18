@@ -28,7 +28,7 @@
               </div>
             </div>
             <div class="product-action">
-              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#local.article.getVariants().toJSON()#');">Entfernen</button>
+              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#encodeForHTMLAttribute(local.article.getVariants().toJSON())#');">Entfernen</button>
               <div class="quantity">
                 <p>Anzahl:</p>
                 <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#local.article.getId()#'); ">

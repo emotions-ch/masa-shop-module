@@ -24,7 +24,7 @@ component
   public void function updateArticle(
     required component article,
     boolean set = false
-    ){
+  ){
     if (hasArticle(arguments.article.getId(), arguments.article.getVariants())) {
       local.cartArticle = getArticleByIds(arguments.article.getId(), arguments.article.getVariants());
 
