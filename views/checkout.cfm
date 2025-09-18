@@ -165,7 +165,7 @@
               #form.zip# #form.city#<br>
             </p>
           </cfif>
-          <button class="btn btn-primary mt-3" onclick="window.location.href='/?clear=1'">Zurück zum shop</button>
+          <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?clear=1'">Zurück zum shop</button>
 
           <cfsilent>
             <cfset local.recipitent = m.siteConfig('contactEmail')>
@@ -234,7 +234,7 @@
           <!--- store customer in bean --->
           <cfscript>
             local.checkout.storeOrder(form, session);
-            session.customer = entityLoad("customer", {email=form.email}, true);
+            session.customer = entityLoad("customer", {email=form.email})[1];
           </cfscript>
         </cfif>
       </div>
