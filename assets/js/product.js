@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				});
 			} else if (cType === "Page/ArticleVariation") {
 				// async info using a custom component due to Mura-Js not providing a way to get extended attributes
-				let url = `/modules/shop/components/Variant.cfm?variant=${event.target.value}&site=${siteId}`
+				let url = `/modules/shop/components/Variant.cfm?variant=${event.target.value}&site=${window.siteId}`
 				fetch(url)
 					.then(response => response.json())
 					.then(data => {
