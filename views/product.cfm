@@ -27,7 +27,7 @@
 								<div>
 									<h3>#local.variationContent.get('title')#</h3>
 
-									<select name="variations" id="productVariation-#local.variationContent.get('contentId')#" class="form-select">
+									<select name="variations-#lCase(local.variationContent.get('title'))#" id="productVariation-#local.variationContent.get('contentId')#" class="form-select">
 									<option value="" selected>Please Choose</option>
 										<cfloop condition=local.variantsContentKidsIterator.hasNext()>
 											<cfset local.variant = local.variantsContentKidsIterator.next()>

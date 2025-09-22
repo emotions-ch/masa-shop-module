@@ -118,3 +118,16 @@
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
 }
+
+select[id^="productVariation-"] {
+  margin-bottom: $shop-margin-medium;
+  padding: $input-padding-y-lg $input-padding-x-lg;
+  
+  option {
+    padding: $input-padding-y-lg $shop-margin-small;
+    
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+}
