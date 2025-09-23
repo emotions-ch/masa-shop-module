@@ -75,11 +75,24 @@
 		<link rel="stylesheet" href="#local.modulePath#/assets/css/shop.css">
 		<script src="#local.modulePath#/assets/js/jquery-3.7.1.min.js"></script>
 		<script src="#local.modulePath#/assets/js/shop.js" defer></script>
-		<script src="#cgi.request_url.listFirst(":")#://#cgi.http_host#/core/modules/v1/core_assets/js/mura.min.js"></script>
 		<script>
-			if (typeof window.siteId === 'undefined') {
-				window.siteId = '#m.content().get('siteId')#';
-			}
+			document.addEventListener('DOMContentLoaded', function() {
+				if (typeof window.siteId === 'undefined') {
+					window.siteId = '#m.content().get('siteId')#';
+				}
+
+				if (typeof Mura === 'undefined') {
+					fetch('#cgi.request_url.listFirst(":")#://#cgi.http_host#/core/modules/v1/core_assets/js/mura.min.js')
+						.then(response => response.text())
+						.then(code => eval(code))
+						.then(() => {
+							Mura.init({
+								siteid:window.siteId,
+								rootpath:'#cgi.request_url.listFirst(":")#://#cgi.http_host#'
+							});
+						});
+				}
+			});
 		</script>
 	</div>
 </cfoutput>
