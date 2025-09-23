@@ -80,10 +80,6 @@
 			if (typeof window.siteId === 'undefined') {
 				window.siteId = '#m.content().get('siteId')#';
 			}
-			Mura.init({
-				siteid:window.siteId,
-				rootpath:'#cgi.request_url.listFirst(":")#://#cgi.http_host#'
-			});
 		</script>
 	</div>
 </cfoutput>
