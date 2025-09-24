@@ -24,7 +24,7 @@ body.shop main{
     }
 
     &-info{
-        padding: 1.3125rem 0.9375rem;
+        padding: $shop-page-padding 0;
     }
 
     &-name{
@@ -56,7 +56,7 @@ body.shop main{
     }
 
     &-action{
-        padding: 1.25rem 1.5625rem;
+        padding: $shop-page-padding;
         border-top: 1px solid $background_color_7;
         flex-grow: 0;
         flex-shrink: 0;
