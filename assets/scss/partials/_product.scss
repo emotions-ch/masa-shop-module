@@ -4,6 +4,10 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  
+  button.btn.btn-primary.mt-3 {
+    margin-top: 0 !important;
+  }
 }
 
 .shop-row {
@@ -13,7 +17,7 @@
   align-items: center;
   flex-direction: row;
   width: 100%;
-  margin-top: 50px;
+  margin-top: 25px;
 
   --additional-row-padding: none;
   --initial-row-padding: none;
@@ -83,13 +87,19 @@
         }
       }
     }
+
+    #price {
+        color: $primary_color;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
   }
 }
 
 #product-description {
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 0;
+  margin-top: $shop-margin-medium;
   --additional-row-padding: none;
   --initial-row-padding: none;
   --absolute-row-padding: none;

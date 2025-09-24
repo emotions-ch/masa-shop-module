@@ -4,7 +4,7 @@
 
       <br>
       <div class="right">
-        <button class="btn btn-primary mt-3"  onclick="window.location.href='#local.cleanRequestUrl#'">&##8592; Zurück zum Shop</button>
+        <button class="btn btn-primary" onclick="window.location.href='#local.cleanRequestUrl#'">&##8592; Zurück zum Shop</button>
       </div>
 
       <div class="shop-row">
