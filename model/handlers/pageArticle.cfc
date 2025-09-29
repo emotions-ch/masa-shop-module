@@ -47,6 +47,16 @@ component extends='core.mura.cfobject' {
 			local.attribute.setRequired(true);
 			local.attribute.setOrderNo(local.orderNo);
 			local.attribute.save();
+
+			local.orderNo += 1;
+			local.attribute = local.extendSet.getAttributeByName('shippingCostCategory');
+			local.attribute.setLabel('Versandkosten Kategorie');
+			local.attribute.setType('RadioGroup');
+			local.attribute.setOptionList("2^8.5^11.5^20.5");
+			local.attribute.setOptionLabelList("Grossbrief (B4, <1000g)^Standardpaket (<2kg)^Standardpaket (<10kg)^Standardpaket (<30kg)");
+			local.attribute.setRequired(true);
+			local.attribute.setOrderNo(local.orderNo);
+			local.attribute.save();
 	}
 
 	public void function onBeforePageArticleSave() {
