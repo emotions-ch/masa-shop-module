@@ -23,7 +23,7 @@
 
             <div class="spread">
               <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
-              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?clear=1'">Warenkorb leeren</button>
+              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?cart=1'">zum Warenkorb</button>
             </div>
           </div>
 
