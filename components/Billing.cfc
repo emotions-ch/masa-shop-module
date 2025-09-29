@@ -55,7 +55,7 @@ component
               <td>CHF #decimalFormat(arguments.cart.getTotalPrice())#</td>
             </tr>
             <tr>
-              <td colspan="4" class="text-right">B-Post Economy, Schweiz:</td>
+              <td colspan="4" class="text-right">B-Post Economy, Schweiz (4-10 Arbeitstage):</td>
               <td>CHF #decimalFormat(arguments.shippingCost)#</td>
             </tr>
             <tr>
