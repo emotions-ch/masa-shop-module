@@ -5,6 +5,10 @@
       <br>
       <div class="right">
         <button class="btn btn-primary" onclick="window.location.href='#local.cleanRequestUrl#'">&##8592; Zurück zum Shop</button>
+
+				<div class="ml-sm-auto">
+					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1">Zum Warenkorb</a>
+				</div>
       </div>
 
       <div class="shop-row">
