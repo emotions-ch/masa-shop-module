@@ -92,7 +92,7 @@
             </div>
 
             <div class="form-row-2" style="margin-top: 1rem;">
-              <label for="agb"><a href="#objectParams.agbUrl#">AGB</a>- Terms & Conditions*/label>
+              <label for="agb"><a href="#objectParams.agbUrl#">AGB</a>- Terms & Conditions*</label>
 							<input type="checkbox" class="" id="agb" name="accept AGB" required> 
 							<p id="agbText">#objectParams.agbText#</p>
             </div>
