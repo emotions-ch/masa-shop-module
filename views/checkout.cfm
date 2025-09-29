@@ -3,7 +3,7 @@
   <cfset local.checkout = new modules.shop.components.Checkout()>
   <cfparam name="form.alternateShippingAddress" default="">
 
-  <div class="container">
+  <div class="container checkout">
     <h2 class="heading-line text-primary mt-4">KASSE</h2>
 
     <div class="form-box">
@@ -26,7 +26,6 @@
               <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?cart=1'">zum Warenkorb</button>
             </div>
           </div>
-
 
           <h2 class="form-title">Warenkorb bestellen</h2>
           <form onsubmit="submitOrder(this); return false;" class="form" method="POST">
@@ -90,6 +89,12 @@
 
               <label for="shippingAddresszusatz">Adresszusatz</label>
               <input type="text" class="form-control" id="shippingAddresszusatz" name="shippingAddresszusatz">
+            </div>
+
+            <div class="form-row-2" style="margin-top: 1rem;">
+              <label for="agb"><a href="#objectParams.agbUrl#">AGB</a>- Terms & Conditions*/label>
+							<input type="checkbox" class="" id="agb" name="accept AGB" required> 
+							<p id="agbText">#objectParams.agbText#</p>
             </div>
 
             <input type="submit" class="btn btn-primary mt-3" value="Bestellung abschicken">

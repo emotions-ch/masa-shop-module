@@ -53,7 +53,7 @@
 
       .product-action {
         display: flex;
-        flex-direction: column;
+        flex-direction: row-reverse;
         align-items: flex-end;
         justify-content: center;
         margin-left: auto;
@@ -68,7 +68,8 @@
         }
 
         input, button {
-          width: 125px;
+          // width: 125px;
+          margin-left: $shop-margin-small;
         }
 
         .quantity {
@@ -83,7 +84,7 @@
           }
 
           input {
-            appearance: textfield;
+            // appearance: textfield;
           }
         }
       }

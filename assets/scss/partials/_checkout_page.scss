@@ -1,16 +1,9 @@
 @import 'variables';
 @import 'mixins';
 
-.checkout{
-    .checkout-btn-navigator-group{
-        .btn{
-            min-width: auto;
-            line-height: 1;
-        }
-        
-        i{
-            font-size: 1.5rem;
-            line-height: 1;
-        }
+.checkout {
+    p#agbText {
+      margin-top: $shop-margin-small;
+      width: 100%;
     }
 }

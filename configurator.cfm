@@ -1,16 +1,6 @@
 <!--- license goes here --->
 <cfsilent>
-	<cfparam name="objectParams.view" default="shop">
-	<cfparam name="objectParams.emailSender" default="">
-	<cfparam name="objectParams.emailSubjectLine" default="Order confirmation">
-	<cfparam name="objectParams.emailText" default="">
-	<cfparam name="objectParams.creditorName" default="">
-	<cfparam name="objectParams.creditorStreet" default="">
-	<cfparam name="objectParams.creditorHouseNo" default="">
-	<cfparam name="objectParams.creditorPostalCode" default="">
-	<cfparam name="objectParams.creditorTown" default="">
-	<cfparam name="objectParams.creditorCountryCode" default="CH">
-	<cfparam name="objectParams.iban" default="">
+	<cfinclude template="objectParams.cfm">
 </cfsilent>
 
 
@@ -31,6 +21,16 @@
 				<div class="mura-control-group">
 					<label class="mura-control-label">Email Text</label>
 					<textarea id="emailText" name="emailText" class="objectParam" required>#esapiEncode('html',objectparams.emailText)#</textarea>
+				</div>
+
+				<div class="mura-control-group">
+					<label class="mura-control-label">AGB link</label>
+					<input type="text"id="agbUrl" name="agbUrl" class="objectParam" required value="#esapiEncode('html',objectparams.agbUrl)#"></input>
+				</div>
+
+				<div class="mura-control-group">
+					<label class="mura-control-label">AGB Text</label>
+					<textarea id="agbText" name="agbText" class="objectParam" required>#esapiEncode('html',objectparams.agbText)#</textarea>
 				</div>
 
 				<p>Payment info</p>
