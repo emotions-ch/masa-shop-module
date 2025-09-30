@@ -8,10 +8,10 @@
 	<cfparam name="url.login" default="0">
 	<cfparam name="url.logout" default="0">
 	<cfparam name="url.cart" default="0">
+	<cfparam name="url.pickup" default="">
 
 	<cfset local.contentBean = m.getBean('content').loadBy(filename=cgi.path_info.left(-1).right(-1))>
 	<cfset local.cleanRequestUrl = local.contentBean.get('url')>
-
 
 	<cfif url.logout eq "1">
 		<cfset session.clear()>
@@ -30,6 +30,10 @@
 		</cfloop>
 	
 		<cfset session.delete("cart")>
+	</cfif>
+
+	<cfif url.pickup neq "">
+		<cfset session.cart.setIsPickup(url.pickup)>
 	</cfif>
 
 	<!--- Create creditor struct with all creditor parameters --->

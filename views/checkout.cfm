@@ -64,6 +64,11 @@
               <input type="checkbox" id="alternateShippingAddress" name="alternateShippingAddress" #local.storedCustomerData.shippingAddress.active#>
             </div>
 
+						<div class="form-row-2" style="margin-top: 1rem;">
+							<label for="pickup">Abholung?</label>
+							<input type="checkbox" class="" id="pickup" name="pickup">
+						</div>
+
             <div class="shipping-address">
               <h4>Lieferadresse</h4>
               <label for="shippingFirstname">Vorname*</label>

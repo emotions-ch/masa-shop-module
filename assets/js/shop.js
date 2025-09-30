@@ -96,6 +96,23 @@ $(function () {
       scrollLeft: breadcrumb.find('.active').offset().left
     }, 0);
   }
+
+  // Set pickup checkbox based on URL parameter
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('pickup') === '1') {
+    $('#pickup').prop('checked', true);
+  }
+
+  // Handle pickup checkbox changes
+  $('#pickup').on('change', function() {
+    var url = new URL(window.location);
+    if ($(this).is(':checked')) {
+      url.searchParams.set('pickup', '1');
+    } else {
+      url.searchParams.set('pickup', '0');
+    }
+    window.location.href = url.toString();
+  });
 });
 
 function addToCart(article, variations) {
