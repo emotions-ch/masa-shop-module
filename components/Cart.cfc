@@ -5,6 +5,7 @@ component
   output="true"
 {
   property type="array" name="articles";
+	property type="boolean" name="isPickup";
 
   /**
    * @hint initialize component
@@ -12,6 +13,7 @@ component
    */
   public component function init(){
     variables.articles = [];
+		variables.isPickup = false;
 
     return this;
   }
@@ -129,14 +131,28 @@ component
   }
 
 	public numeric function getMaxShippingPrice() {
-		local.shippingPrice = 0;
+		if (!isPickup) {
+			local.shippingPrice = 0;
 
-		for (local.article in getArticles()) {
-			local.articleShippingPrice = local.article.getShippingPrice();
+			for (local.article in getArticles()) {
+				local.articleShippingPrice = local.article.getShippingPrice();
 
-			local.shippingPrice = ((local.articleShippingPrice >= local.shippingPrice) ? local.articleShippingPrice : local.shippingPrice);
+				local.shippingPrice = ((local.articleShippingPrice >= local.shippingPrice) ? local.articleShippingPrice : local.shippingPrice);
+			}
+
+			return local.shippingPrice;
 		}
 
-		return local.shippingPrice;
+		return 0;
+	}
+
+	public void function setIsPickup(
+		required boolean isPickup
+	) {
+		variables.isPickup = arguments.isPickup;
+	}
+
+	public boolean function getIsPickup() {
+		return variables.isPickup
 	}
 }
