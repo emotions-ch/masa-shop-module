@@ -188,7 +188,7 @@
                 </cfif>
               </cfloop>
               <br>
-              #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+              #local.billing.generateBillingTable(session.cart)#
 
               <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
             </cfmail>
@@ -229,7 +229,7 @@
               </cfif>
         
               <p><b>Artikel</b><br>
-              #local.billing.generateBillingTable(session.cart, session.shippingCost)#</p>
+              #local.billing.generateBillingTable(session.cart)#</p>
               <p>#m.siteconfig('contactname')#</p>
 
               <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 

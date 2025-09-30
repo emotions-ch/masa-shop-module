@@ -4,10 +4,6 @@
   <cfset local.illegalCall = true>
 </cfif>
 
-<cfif !isDefined("session.shippingCost")>
-  <cfset local.illegalCall = true>
-</cfif>
-
 <cfif local.illegalCall>
   <cflocation url="/" addtoken="false">
 </cfif>
@@ -28,7 +24,7 @@
 <cfset local.qrInvoice = local.billing.getQrInvoice(
   cart=session.cart,
   unstructuredMessage="Bestellung vom #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#",
-  shippingCost=session.shippingCost,
+  shippingCost=session.cart.getMaxShippingPrice(),
   iban=session.creditor.iban,
   creditor=local.creditor
 )>
