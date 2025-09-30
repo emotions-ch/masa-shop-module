@@ -18,3 +18,5 @@ this.ORMSettings = {
     cfclocation = ["/modules/shop/model/beans"],
 };
 ```
+## Shipping cost's
+The default shipping categories are based of [swiss postal inland pricing](https://www.post.ch/-/media/post/pk/dokumente/das-angebot-im-ueberblick.pdf). To change or expand this one needs to edit the `OptionList` & `OptionLabelList` for `shippingCostCategory` in both [pageArticle.cfc](./model/handlers/pageArticle.cfc) & [pageArticleVariation](./model/handlers/pageArticleVariation.cfc)
