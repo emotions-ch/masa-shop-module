@@ -187,7 +187,7 @@
             <cfset local.sender = objectParams.emailSender>
 
             <!--- mail to melanie --->
-            <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#<cfif structKeyExists(form, 'pickup') AND form.pickup EQ 'on'> - ABHOLUNG</cfif>" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+            <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
                 <p><strong>*** ABHOLUNG - Keine Lieferung erforderlich ***</strong></p>
                 <br>
@@ -208,7 +208,7 @@
             </cfmail>
 
             <!--- mail to customer --->
-            <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#<cfif structKeyExists(form, 'pickup') AND form.pickup EQ 'on'> - Abholung</cfif>" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+            <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <p>Hi #form.firstname#</p>
               <p>#objectParams.emailText#</p>
               <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
