@@ -125,14 +125,14 @@ function addToCart(article, variations) {
 function updateCart(input, price, variant) {
   const quantity = $(input).val();
   const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
-  $(input).closest('.article').find('#total-item-price').text('Gesamt: CHF ' + totalPrice);
+  $(input).closest('.article').find('#total-item-price').text('CHF ' + totalPrice);
 
   const articles = document.querySelectorAll('.article');
   let cartTotal = 0;
 
   articles.forEach(article => {
     const itemTotalText = article.querySelector('#total-item-price').textContent;
-    const itemTotal = parseFloat(itemTotalText.replace('Gesamt: CHF ', ''));
+    const itemTotal = parseFloat(itemTotalText.replace('CHF ', ''));
     cartTotal += itemTotal;
   });
   document.querySelector('.total-price').textContent = 'Gesamtpreis: CHF ' + cartTotal.toFixed(2);
