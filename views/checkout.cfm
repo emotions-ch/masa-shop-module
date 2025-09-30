@@ -140,7 +140,12 @@
         <cfelse>
           <h2 class="form-title">Bestellbestätigung</h2>
           <p>Vielen Dank für Ihre Bestellung, #form.firstname# #form.lastname#!</p>
-          <p>Ihre Bestellung wird an folgende Adresse geliefert:</p>
+          <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
+            <p><strong>Ihre Bestellung wird zur Abholung bereitgestellt.</strong> Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
+            <p>Rechnungsadresse:</p>
+          <cfelse>
+            <p>Ihre Bestellung wird an folgende Adresse geliefert:</p>
+          </cfif>
           <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
             <p>
               <b>Lieferadresse:</b><br>
@@ -182,7 +187,11 @@
             <cfset local.sender = objectParams.emailSender>
 
             <!--- mail to melanie --->
-            <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+            <cfmail to="#local.recipitent#" from="#local.sender#" subject="#m.siteconfig('contactname')# Order #lsDateTimeFormat(now(), 'dd.M.yyyy HH:nn:ss')#<cfif structKeyExists(form, 'pickup') AND form.pickup EQ 'on'> - ABHOLUNG</cfif>" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+              <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
+                <p><strong>*** ABHOLUNG - Keine Lieferung erforderlich ***</strong></p>
+                <br>
+              </cfif>
               <cfloop collection="#form#" item="key">
                 <cfif key neq "fieldnames" and key neq "alternateShippingAddress" and not isEmpty(form[key])>
                   <cfif form.alternateShippingAddress EQ "on" AND reMatchNoCase("shipping[a-zA-Z]+", key).len() EQ 1>
@@ -199,38 +208,50 @@
             </cfmail>
 
             <!--- mail to customer --->
-            <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
+            <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#<cfif structKeyExists(form, 'pickup') AND form.pickup EQ 'on'> - Abholung</cfif>" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
               <p>Hi #form.firstname#</p>
               <p>#objectParams.emailText#</p>
-              <p><b>Lieferadresse:</b><br>
-
-              <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
-                <cfif form.shippingAddresszusatz neq "">
-                  #form.shippingAddresszusatz#<br>
-                </cfif>
+              <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
+                <p><b>ABHOLUNG:</b> Ihre Bestellung wird zur Abholung bereitgestellt. Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
                 
-                #form.shippingFirstname# #form.shippingLastname#<br>
-                #form.shippingAddress#<br>
-                #form.shippingZip# #form.shippingCity#<br></p>
-
-								<p><b>Rechnungsadresse:</b><br>
-
+                <p><b>Rechnungsadresse:</b><br>
                 <cfif form.addresszusatz neq "">
                   #form.addresszusatz#<br>
                 </cfif>
-
                 #form.firstname# #form.lastname#<br>
                 #form.address#<br>
                 #form.zip# #form.city#<br></p>
-
               <cfelse>
-                <cfif form.addresszusatz neq "">
-                  #form.addresszusatz#<br>
+                <p><b>Lieferadresse:</b><br>
+
+                <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
+                  <cfif form.shippingAddresszusatz neq "">
+                    #form.shippingAddresszusatz#<br>
+                  </cfif>
+                  
+                  #form.shippingFirstname# #form.shippingLastname#<br>
+                  #form.shippingAddress#<br>
+                  #form.shippingZip# #form.shippingCity#<br></p>
+
+								  <p><b>Rechnungsadresse:</b><br>
+
+                  <cfif form.addresszusatz neq "">
+                    #form.addresszusatz#<br>
+                  </cfif>
+
+                  #form.firstname# #form.lastname#<br>
+                  #form.address#<br>
+                  #form.zip# #form.city#<br></p>
+
+                <cfelse>
+                  <cfif form.addresszusatz neq "">
+                    #form.addresszusatz#<br>
+                  </cfif>
+          
+                  #form.firstname# #form.lastname#<br>
+                  #form.address#<br>
+                  #form.zip# #form.city#<br></p>
                 </cfif>
-        
-                #form.firstname# #form.lastname#<br>
-                #form.address#<br>
-                #form.zip# #form.city#<br></p>
               </cfif>
         
               <p><b>Artikel</b><br>
