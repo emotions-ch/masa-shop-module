@@ -88,6 +88,24 @@ component
 		return local.names;
 	}
 
+	public numeric function getShippingPrice() {
+		local.shippingCost = 0;
+
+		if (getVariantNames().len() == 0) {
+			return variables.articleBean.get("shippingCostCategory");
+		} else {
+			for (local.variant in getVariants()) {
+				local.variantBean = getContentBean().loadBy(contentid=getVariants()[local.variant]);
+
+				if (local.variantBean.get('subtype') == "ArticleVariation" && local.variantBean.get("shippingCostCategory") != "") {
+					return local.variantBean.get("shippingCostCategory");
+				} else if (local.variantBean.get('subtype') == "ArticleVariation") {
+					return variables.articleBean.get("shippingCostCategory");
+				}
+			}
+		}
+	}
+
   public string function getImageUrl(
     string size="small"
   ){

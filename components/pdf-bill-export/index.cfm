@@ -52,7 +52,7 @@
 
         <h1>Rechnung</h1>
         <div id="payment">
-          #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+          #local.billing.generateBillingTable(session.cart)#
           <img id="invoice" src="./tmp/#local.billId#.png" alt="QR Rechnung">
         </div>
       </main>

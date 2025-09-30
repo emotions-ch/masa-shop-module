@@ -127,5 +127,17 @@ component
     }
 
     return local.json;
-  };
+  }
+
+	public numeric function getMaxShippingPrice() {
+		local.shippingPrice = 0;
+
+		for (local.article in getArticles()) {
+			local.articleShippingPrice = local.article.getShippingPrice();
+
+			local.shippingPrice = ((local.articleShippingPrice >= local.shippingPrice) ? local.articleShippingPrice : local.shippingPrice);
+		}
+
+		return local.shippingPrice;
+	}
 }

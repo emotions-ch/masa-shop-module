@@ -18,7 +18,7 @@
           <h2 class="form-title">Ihr Warenkorb</h2>
           <div class="table-responsive">
             <!--- billing table --->
-            #local.billing.generateBillingTable(session.cart, session.shippingCost)#
+            #local.billing.generateBillingTable(session.cart)#
             <!--- billing table done --->
 
             <div class="spread">

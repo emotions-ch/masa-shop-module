@@ -17,8 +17,7 @@ component
    * @hint 
    */
   public string function generateBillingTable(
-    required component cart,
-    numeric shippingCost=0
+    required component cart
   ) output=true {
     savecontent variable="local.billingTable" {
       writeOutput('
@@ -56,11 +55,11 @@ component
             </tr>
             <tr>
               <td colspan="4" class="text-right">B-Post Economy, Schweiz (4-10 Arbeitstage):</td>
-              <td>CHF #decimalFormat(arguments.shippingCost)#</td>
+              <td>CHF #decimalFormat(arguments.cart.getMaxShippingPrice())#</td>
             </tr>
             <tr>
               <td colspan="4" class="text-right"><b>Summe:</b></td>
-              <td><b>CHF #decimalFormat(arguments.cart.getTotalPrice(arguments.shippingCost))#</b></td>
+              <td><b>CHF #decimalFormat(arguments.cart.getTotalPrice(arguments.cart.getMaxShippingPrice()))#</b></td>
             </tr>
           </tbody>
         </table>
@@ -86,7 +85,7 @@ component
 
     local.bill = local.main.createBill(
       arguments.iban,
-      #arguments.cart.getTotalPrice(arguments.shippingCost)#,
+      #arguments.cart.getTotalPrice(arguments.cart.getMaxShippingPrice())#,
       "CHF"
     );
 
