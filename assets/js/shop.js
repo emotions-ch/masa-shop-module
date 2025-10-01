@@ -34,9 +34,6 @@ $(function () {
     }
   });
 
-  // todo: other cart functions
-
-
   // vietnam template
   //=== SHOP ===//
   var quantity = $('.quantity');
@@ -97,14 +94,10 @@ $(function () {
     }, 0);
   }
 
-  // Set pickup checkbox based on URL parameter
-  var urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('pickup') === '1') {
-    $('#pickup').prop('checked', true);
-  }
-
   // Handle pickup checkbox changes
   $('#pickup').on('change', function() {
+    saveFormDataToLocalStorage();
+
     var url = new URL(window.location);
     if ($(this).is(':checked')) {
       url.searchParams.set('pickup', '1');
@@ -113,6 +106,15 @@ $(function () {
     }
     window.location.href = url.toString();
   });
+
+  // Set pickup checkbox based on URL parameter (after event handler is bound)
+  var urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('pickup') === '1') {
+    $('#pickup').prop('checked', true);
+  }
+
+  restoreFormDataFromLocalStorage();
+  setupCheckboxMutualExclusion();
 });
 
 function addToCart(article, variations) {
@@ -191,10 +193,119 @@ async function submitOrder(f) {
   })
   .then(data => {
     console.log('Success:', data);
+    // Clear localStorage on successful submission
+    clearCheckoutFormData();
     f.submit();
   })
   .catch((error) => {
     console.error('Error:', error);
     alert('Es ist ein Fehler aufgetreten. Bitte überprüfen Sie ihre Angaben versuchen Sie es erneut.');
   });
+}
+
+/**
+ * Save checkout form data to localStorage
+ */
+function saveFormDataToLocalStorage() {
+  const form = document.querySelector('.checkout form');
+  if (!form) return;
+
+  const formData = {};
+  const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="checkbox"]');
+
+  inputs.forEach(input => {
+    if (input.type === 'checkbox') {
+      formData[input.name] = input.checked;
+    } else {
+      formData[input.name] = input.value;
+    }
+  });
+
+  localStorage.setItem('checkoutFormData', JSON.stringify(formData));
+  console.log('Form data saved to localStorage');
+}
+
+/**
+ * Restore checkout form data from localStorage
+ */
+function restoreFormDataFromLocalStorage() {
+  const savedData = localStorage.getItem('checkoutFormData');
+  if (!savedData) return;
+
+  try {
+    const formData = JSON.parse(savedData);
+    const form = document.querySelector('.checkout form');
+    if (!form) return;
+
+    Object.keys(formData).forEach(fieldName => {
+      const field = form.querySelector(`[name="${fieldName}"]`);
+      if (field) {
+        if (field.type === 'checkbox') {
+          field.checked = formData[fieldName];
+          // Don't trigger change event for pickup checkbox to avoid reload loop
+          // Only trigger change event for other checkboxes that need UI updates
+          if (fieldName !== 'pickup') {
+            field.dispatchEvent(new Event('change'));
+          }
+        } else {
+          field.value = formData[fieldName];
+        }
+      }
+    });
+
+    console.log('Form data restored from localStorage');
+  } catch (error) {
+    console.error('Error restoring form data:', error);
+    clearCheckoutFormData();
+  }
+}
+
+/**
+ * Clear checkout form data from localStorage
+ */
+function clearCheckoutFormData() {
+  localStorage.removeItem('checkoutFormData');
+  console.log('Checkout form data cleared from localStorage');
+}
+
+/**
+ * Setup mutual exclusion between pickup and alternate shipping address checkboxes
+ */
+function setupCheckboxMutualExclusion() {
+  const pickupCheckbox = $('#pickup');
+  const alternateShippingCheckbox = $('#alternateShippingAddress');
+  const pickupRow = pickupCheckbox.closest('.form-row-2');
+  const alternateShippingRow = alternateShippingCheckbox.closest('.form-row-2');
+
+  // Initial state check
+  updateCheckboxVisibility();
+
+  // Handle alternate shipping address changes
+  alternateShippingCheckbox.on('change', function() {
+    if ($(this).is(':checked')) {
+      pickupRow.hide();
+      pickupCheckbox.prop('checked', false);
+    } else {
+      pickupRow.show();
+    }
+  });
+
+  // Handle pickup changes (but don't trigger reload for visibility changes)
+  pickupCheckbox.on('change', function() {
+    if ($(this).is(':checked')) {
+      alternateShippingRow.hide();
+      alternateShippingCheckbox.prop('checked', false);
+      alternateShippingCheckbox.trigger('change');
+    } else {
+      alternateShippingRow.show();
+    }
+  });
+
+  function updateCheckboxVisibility() {
+    if (pickupCheckbox.is(':checked')) {
+      alternateShippingRow.hide();
+    } else if (alternateShippingCheckbox.is(':checked')) {
+      pickupRow.hide();
+    }
+  }
 }
