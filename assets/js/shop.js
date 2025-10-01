@@ -117,6 +117,11 @@ $(function () {
   setupCheckboxMutualExclusion();
 });
 
+/**
+ * Adds an article to the cart via AJAX request
+ * @param {jQuery} article - The article element containing cart information
+ * @param {string} variations - JSON string of product variations
+ */
 function addToCart(article, variations) {
   let quantity = article.closest('.product-action').find('.quantity input').val();
   let articleId = article.attr('article-id');
@@ -159,6 +164,11 @@ function updateCart(input, price, variant) {
   addToCart($(input), variant);
 }
 
+/**
+ * Removes an article from the cart after user confirmation
+ * @param {string} articleId - The ID of the article to remove
+ * @param {string} variant - The variant specification of the article
+ */
 function removeFromCart(articleId, variant) {
   if (!confirm('Are you sure you want to remove this item from your cart?')) {
     return;
@@ -178,6 +188,11 @@ function removeFromCart(articleId, variant) {
   });
 }
 
+/**
+ * Extracts and returns the body content from HTML string data
+ * @param {string} data - HTML string to parse
+ * @returns {string} The innerHTML content of the body element
+ */
 function getJsonFromBody(data) {
   var parser = new DOMParser();
   var doc = parser.parseFromString(data, 'text/html');
@@ -186,6 +201,10 @@ function getJsonFromBody(data) {
   return data;
 }
 
+/**
+ * Submits the order form asynchronously and handles the response
+ * @param {HTMLFormElement} f - The form element to submit
+ */
 async function submitOrder(f) {
   await fetch('/modules/shop/components/pdf-bill-export/index.cfm', {
     method: 'POST',
@@ -269,7 +288,8 @@ function clearCheckoutFormData() {
 }
 
 /**
- * Setup mutual exclusion between pickup and alternate shipping address checkboxes
+ * Sets up mutual exclusion between pickup and alternate shipping address checkboxes
+ * Ensures only one option can be selected at a time and manages visibility
  */
 function setupCheckboxMutualExclusion() {
   const pickupCheckbox = $('#pickup');
@@ -301,6 +321,9 @@ function setupCheckboxMutualExclusion() {
     }
   });
 
+  /**
+   * Updates the visibility of checkboxes based on current state
+   */
   function updateCheckboxVisibility() {
     if (pickupCheckbox.is(':checked')) {
       alternateShippingRow.hide();
