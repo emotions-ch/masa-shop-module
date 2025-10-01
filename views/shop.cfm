@@ -148,7 +148,7 @@
 						</div>
 						<p class="product-price">
 							<cfif condition=isNumeric(local.articles["price"])>
-								<span>CHF #NumberFormat(local.articles["price"] ,'.00')#</span>
+								<span>#((local.articles["hasVariants"]) ? "Ab ":"")#CHF #NumberFormat(local.articles["price"] ,'.00')#</span>
 							<cfelse>
 								<span>CHF #local.articles["price"]#</span>
 							</cfif>	
