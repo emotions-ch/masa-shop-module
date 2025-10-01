@@ -1,7 +1,51 @@
+/**
+ * Validates variation selections and updates UI accordingly
+ */
+function validateVariations() {
+  let variations = document.querySelectorAll('select[id^="productVariation-"]');
+  let addToCartButton = document.querySelector('.product-action .article-to-cart');
+  
+  if (variations.length === 0) {
+    // No variations, button should be enabled
+    if (addToCartButton) {
+      addToCartButton.classList.remove('disabled');
+    }
+    return true;
+  }
+  
+  let hasEmptyVariation = false;
+  Array.from(variations).forEach(v => {
+    if (v.value === "" || v.value === null) {
+      hasEmptyVariation = true;
+      v.classList.add('is-invalid');
+    } else {
+      v.classList.remove('is-invalid');
+    }
+  });
+  
+  if (addToCartButton) {
+    if (hasEmptyVariation) {
+      addToCartButton.classList.add('disabled');
+    } else {
+      addToCartButton.classList.remove('disabled');
+    }
+  }
+  
+  return !hasEmptyVariation;
+}
+
 // jquery ready
 $(function () {
 
   console.log('cart.js loaded');
+
+  // Initial validation on page load
+  validateVariations();
+
+  // Add change event listeners to all variation dropdowns
+  document.querySelectorAll('select[id^="productVariation-"]').forEach(function(select) {
+    select.addEventListener('change', validateVariations);
+  });
 
   /**
    * add article to cart
@@ -10,8 +54,21 @@ $(function () {
     e.preventDefault();
     let locked;
 
+    // Check if button is disabled
+    if ($(this).hasClass('disabled')) {
+      return;
+    }
+
     if (!locked) {
       locked = true; // Lock to prevent multiple clicks
+      
+      // Final validation check
+      if (!validateVariations()) {
+        alert('Bitte wählen Sie alle Produktvariationen aus, bevor Sie das Produkt in den Warenkorb legen.');
+        locked = false;
+        return;
+      }
+      
       let variations = document.querySelectorAll('select[id^="productVariation-"]');
       let variationValues = {};
       Array.from(variations).forEach(v => {

@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function() {
 							console.error('Error fetching variation info:', error);
 						});
 				}
+				
+				// Trigger validation update (if validateVariations function exists)
+				if (typeof validateVariations === 'function') {
+					validateVariations();
+				}
 			});
 		});
 	});
