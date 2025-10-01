@@ -99,7 +99,6 @@
 				})>
 			</cfif>
 		</cfloop>
-		<!--- <cfdump var="#local.articles#" label="local.articles" abort="false"> --->
 
 		<cfif StructKeyExists(url, "sort")>
 			<cfset local.filter = deserializeJSON(decodeFromURL(url.sort))>
