@@ -82,10 +82,22 @@
 		</cfif>
 		<cfset local.articleIterator.setNextN(0)>
 
-		<cfset local.columns = "contentid,name,summary,price,amount,image,url">
+		<cfset local.columns = "contentid,name,summary,price,amount,image,url,hasVariants">
 		<cfset local.articles = QueryNew(local.columns)>
 		<cfloop condition="local.articleIterator.hasNext()">
 			<cfset local.article = local.articleIterator.next()>
+			<cfset local.article.hasVariants = false>
+
+			<cfset local.article.kidsIterator = local.article.getKidsIterator()>
+			<cfif local.article.kidsIterator.hasNext()>
+				<cfloop condition=local.article.kidsIterator.hasNext()>
+					<cfset local.variationContent = local.article.kidsIterator.next()>
+					<cfset local.variantsContentKidsIterator = local.variationContent.getKidsIterator()>
+					<cfif local.variantsContentKidsIterator.hasNext()>
+						<cfset local.article.hasVariants = true>
+					</cfif>
+				</cfloop>
+			</cfif>
 
 			<cfif local.article.get("display")>
 				<cfset queryAddRow(local.articles, {
@@ -95,7 +107,8 @@
 					"price":local.article.get("articlePrice"),
 					"amount":local.article.get("articleAmount"),
 					"image":local.article.getImageUrl("shop"),
-					"url":local.article.get("url")
+					"url":local.article.get("url"),
+					"hasVariants":local.article.hasVariants
 				})>
 			</cfif>
 		</cfloop>
@@ -143,10 +156,14 @@
 					</div>
 
 					<div class="product-action d-flex align-items-center mt-auto">
-						<div class="quantity">
-							<input type="number" class="form-control" value="1" min="1" max="99">
-						</div> <!-- quantity -->
-						<button href="##" class="article-to-cart form-control" article-id="#local.articles['contentId']#">In den Warenkorb</button>
+						<cfif NOT local.articles["hasVariants"]>
+							<div class="quantity">
+								<input type="number" class="form-control" value="1" min="1" max="99">
+							</div> <!-- quantity -->
+							<button type="button" class="article-to-cart form-control" article-id="#local.articles['contentId']#">In den Warenkorb</button>
+						<cfelse>
+							<button type="button" class="form-control" onclick="window.location.href='?product=#local.articles["contentid"]#'">Variante ausw&auml;hlen</button>
+						</cfif>
 					</div> <!-- product-action -->
 				</div> <!-- product -->
 				<!--- product end --->

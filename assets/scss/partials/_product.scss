@@ -132,12 +132,30 @@
 select[id^="productVariation-"] {
   margin-bottom: $shop-margin-medium;
   padding: $input-padding-y-lg $input-padding-x-lg;
-  
+
   option {
     padding: $input-padding-y-lg $shop-margin-small;
-    
+
     &:last-child {
       padding-bottom: 0;
     }
+  }
+
+  &.is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  }
+}
+
+// Add to cart button disabled state
+.article-to-cart.disabled,
+.article-to-cart:disabled {
+  pointer-events: none;
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+
+  &:hover {
+    background-color: initial !important;
+    color: initial !important;
   }
 }

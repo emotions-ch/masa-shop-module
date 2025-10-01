@@ -37,7 +37,7 @@
       button {
         transition: background-color 0.3s ease, color 0.3s ease;
 
-        &:last-child {
+        &:last-child.article-to-cart {
           border-radius: 0 $shop-border-radius $shop-border-radius 0;
         }
 
