@@ -208,7 +208,12 @@ function updateCart(input, price, variant) {
   const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
   $(input).closest('.article').find('#total-item-price').text('CHF ' + totalPrice);
 
-  const articles = document.querySelectorAll('.article');
+  updateCartPrice()
+  addToCart($(input), variant);
+}
+
+function updateCartPrice() {
+	const articles = document.querySelectorAll('.article');
   let cartTotal = 0;
 
   articles.forEach(article => {
@@ -217,8 +222,6 @@ function updateCart(input, price, variant) {
     cartTotal += itemTotal;
   });
   document.querySelector('.total-price').textContent = 'Gesamtpreis: CHF ' + cartTotal.toFixed(2);
-
-  addToCart($(input), variant);
 }
 
 /**
@@ -240,7 +243,14 @@ function removeFromCart(articleId, variant) {
     url: url,
     data: {},
     success: function () {
-      document.querySelector('.article[article-id="' + articleId + '"][variant="' + variant + '"]').remove();
+      // Find element by iterating through articles since variant contains JSON with quotes
+      const articles = document.querySelectorAll('.article[article-id="' + articleId + '"]');
+      articles.forEach(article => {
+        if (article.getAttribute('variant') === variant) {
+          article.remove();
+        }
+      });
+			updateCartPrice()
     },
   });
 }

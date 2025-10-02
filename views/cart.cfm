@@ -18,7 +18,9 @@
             <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <a href="#local.article.getUrl()#" target="_blank"><h3>#local.article.getTitle()#</h3></a>
-              <p class="article-variant">Variante: #right(left(local.article.getVariantNames().toString(),-1),-1)#</p>
+							<cfif local.article.getVariantNames().len() NEQ 0 >
+								<p class="article-variant">Variante: #right(left(local.article.getVariantNames().toString(),-1),-1)#</p>
+							</cfif>
               <div class="item-pricing">
                 <p id="total-item-price">CHF #NumberFormat(local.article.getTotalPrice(), '.00')#</p>
               </div>
