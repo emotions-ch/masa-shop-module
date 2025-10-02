@@ -208,7 +208,7 @@ function updateCart(input, price, variant) {
   const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
   $(input).closest('.article').find('#total-item-price').text('CHF ' + totalPrice);
 
-  updateCartPrice()
+  updateCartPrice();
   addToCart($(input), variant);
 }
 
@@ -250,7 +250,7 @@ function removeFromCart(articleId, variant) {
           article.remove();
         }
       });
-			updateCartPrice()
+			updateCartPrice();
     },
   });
 }
