@@ -1,21 +1,26 @@
-html {
-  height: 250mm;
-}
-
-div#pdf-head {
-  img.logo {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 100px;
-  }
-
-  #header-pad {
-    height: 110px;
-  }
-}
+$bill-width: 210mm;
+$bill-height: 105mm;
+$A4-height: 297mm; // A4 page height
+$page-margin-top: 1cm;
+$page-margin-bottom: 1cm;
+$page-margin-vertical: $page-margin-top + $page-margin-bottom;
 
 main {
+  height: $A4-height - $page-margin-vertical;
+
+  div#pdf-head {
+    img.logo {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+    }
+
+    #header-pad {
+      height: 110px;
+    }
+  }
+
   p {
     &.small {
       font-size: 10pt;
@@ -28,16 +33,13 @@ main {
     }
   }
 
-  &,
   #payment {
-    height: 100%;
     display: flex;
     flex-direction: column;
   }
 
   #payment {
-    height: max-content;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     flex-grow: 1;
 
@@ -52,18 +54,26 @@ main {
         padding: 5px;
       }
     }
+  }
+}
 
-    img#invoice {
-      display:inline !important;
-      position: absolute;
-      top: 143mm;
-      margin-top: 20px;
+.page-break {
+  page-break-before: always;
+  height: $A4-height - $page-margin-vertical;
+  box-sizing: border-box;
 
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! DO NOT TOUCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      // size according to Swiss Implementation Guidelines QR-bill from November 20, 2023
-      width: 210mm !important;
-      height: 105mm !important;
-      // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! you can touch once again !!!!!!!!!!!!!!!!!!!!!!
-    }
+  img#invoice {
+    display: block !important;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-top: $A4-height - $page-margin-vertical - $bill-height;
+    padding-bottom: 3mm;
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! DO NOT TOUCH !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // size according to Swiss Implementation Guidelines QR-bill from November 20, 2023
+    width: $bill-width !important;
+    height: $bill-height !important;
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! you can touch once again !!!!!!!!!!!!!!!!!!!!!!
   }
 }

@@ -37,24 +37,27 @@
 <cfsavecontent variable="local.bill">
   <cfoutput>
     <html>
-      <div id="pdf-head">
-        <img class="logo" src="modules/shop/assets/images/logo.png">
-        <div id="header-pad"></div>
-      </div>
-
       <main>
+				<div id="pdf-head">
+					<img class="logo" src="/modules/shop/assets/images/logo.png">
+					<div id="header-pad"></div>
+				</div>
         <p class="small">#session.creditor.name# / #session.creditor.street# #session.creditor.houseNo# / #session.creditor.postalCode# #session.creditor.town#</p>
         <p class="right">#session.creditor.town#, #lsDateFormat(now(), "d.m.yyyy")#</p>
 
         <h1>Rechnung</h1>
         <div id="payment">
           #local.billing.generateBillingTable(session.cart)#
-          <img id="invoice" src="./tmp/#local.billId#.png" alt="QR Rechnung">
         </div>
+        
       </main>
 
+			<div class="page-break">
+				<img id="invoice" src="./tmp/#local.billId#.png" alt="QR Rechnung">
+			</div>
+
       <style>
-        @import url('styles.css');
+        @import url('./styles.css');
       </style>
     </html>
   </cfoutput>
@@ -75,6 +78,6 @@
 </cfif>
 <!--- END DEV SHIT --->
 
-<cfdocument format="PDF" filename="#ExpandPath('./tmp/#local.billId#.pdf')#" overwrite="yes">
+<cfdocument format="PDF" pagetype="A4" filename="#ExpandPath('./tmp/#local.billId#.pdf')#" overwrite="yes" unit="cm" margin="#{top:1,bottom:1,left:1,right:1}#">
   <cfoutput>#local.bill#</cfoutput>
 </cfdocument>
