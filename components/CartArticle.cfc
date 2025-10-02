@@ -92,15 +92,15 @@ component
 		local.shippingCost = 0;
 
 		if (getVariantNames().len() == 0) {
-			return variables.articleBean.get("shippingCostCategory");
+			return ((variables.articleBean.get("shippingCostCategory") != "") ? variables.articleBean.get("shippingCostCategory") : 0);
 		} else {
 			for (local.variant in getVariants()) {
 				local.variantBean = getContentBean().loadBy(contentid=getVariants()[local.variant]);
 
 				if (local.variantBean.get('subtype') == "ArticleVariation" && local.variantBean.get("shippingCostCategory") != "") {
-					return local.variantBean.get("shippingCostCategory");
+					return ((variables.variantBean.get("shippingCostCategory") != "") ? variables.variantBean.get("shippingCostCategory") : 0);
 				} else if (local.variantBean.get('subtype') == "ArticleVariation") {
-					return variables.articleBean.get("shippingCostCategory");
+					return ((variables.articleBean.get("shippingCostCategory") != "") ? variables.articleBean.get("shippingCostCategory") : 0);
 				}
 			}
 		}
