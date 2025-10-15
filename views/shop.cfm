@@ -107,7 +107,7 @@
 					"price":local.article.get("articlePrice"),
 					"amount":local.article.get("articleAmount"),
 					"image":local.article.getImageUrl("shop"),
-					"url":local.article.get("url"),
+					"url":"?product=#local.article.get("contentid")#",
 					"hasVariants":local.article.hasVariants
 				})>
 			</cfif>
@@ -125,7 +125,7 @@
 				<!--- Product start --->
 				<div class="product" id="#local.articles["contentid"]#">
 					<div class="product-image">
-						<a href="?product=#local.articles["contentid"]#">
+						<a href="#local.articles["url"]#">
 							<img class="img-fluid d-block mx-auto" src="#local.articles['image']#" alt=""></img>
 						</a>
 					</div>
@@ -133,7 +133,7 @@
 					<div class="product-info">
 						<div>
 							<h4 class="product-name text-uppercase">
-								<a href="?product=#local.articles["contentid"]#">#local.articles["name"]#</a>
+								<a href="#local.articles["url"]#">#local.articles["name"]#</a>
 							</h4>
 							<cfif local.articles["amount"].len()>
 								<p class="product-size">
