@@ -82,11 +82,12 @@
 		</cfif>
 		<cfset local.articleIterator.setNextN(0)>
 
-		<cfset local.columns = "contentid,name,summary,price,amount,image,url,hasVariants">
+		<cfset local.columns = "contentid,name,summary,price,amount,image,url,hasVariants,hasVariantPricing">
 		<cfset local.articles = QueryNew(local.columns)>
 		<cfloop condition="local.articleIterator.hasNext()">
 			<cfset local.article = local.articleIterator.next()>
 			<cfset local.article.hasVariants = false>
+			<cfset local.article.hasVariantPricing = false>
 
 			<cfset local.article.kidsIterator = local.article.getKidsIterator()>
 			<cfif local.article.kidsIterator.hasNext()>
@@ -95,6 +96,14 @@
 					<cfset local.variantsContentKidsIterator = local.variationContent.getKidsIterator()>
 					<cfif local.variantsContentKidsIterator.hasNext()>
 						<cfset local.article.hasVariants = true>
+						<cfset local.price = local.article.get('articlePrice')>
+
+						<cfloop condition="#local.variantsContentKidsIterator.hasNext() AND (local.variationContent.get('subtype') EQ 'Variations')#">
+							<cfset local.variantsContentKid = local.variantsContentKidsIterator.next()>
+							<cfif local.variantsContentKid.get('articlePrice') NEQ local.price>
+								<cfset local.article.hasVariantPricing = true>
+							</cfif>
+						</cfloop>
 					</cfif>
 				</cfloop>
 			</cfif>
@@ -108,10 +117,12 @@
 					"amount":local.article.get("articleAmount"),
 					"image":local.article.getImageUrl("shop"),
 					"url":"?product=#local.article.get("contentid")#",
-					"hasVariants":local.article.hasVariants
+					"hasVariants":local.article.hasVariants,
+					"hasVariantPricing":local.article.hasVariantPricing
 				})>
 			</cfif>
 		</cfloop>
+		<cfdump var="#local.articles#">
 
 		<cfif StructKeyExists(url, "sort")>
 			<cfset local.filter = deserializeJSON(decodeFromURL(url.sort))>
@@ -148,7 +159,7 @@
 						</div>
 						<p class="product-price">
 							<cfif condition=isNumeric(local.articles["price"])>
-								<span>#((local.articles["hasVariants"]) ? "Ab ":"")#CHF #NumberFormat(local.articles["price"] ,'.00')#</span>
+								<span>#((local.articles["hasVariantPricing"]) ? "Ab ":"")#CHF #NumberFormat(local.articles["price"] ,'.00')#</span>
 							<cfelse>
 								<span>CHF #local.articles["price"]#</span>
 							</cfif>	
