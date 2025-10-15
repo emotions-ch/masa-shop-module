@@ -102,6 +102,7 @@
 							<cfset local.variantsContentKid = local.variantsContentKidsIterator.next()>
 							<cfif local.variantsContentKid.get('articlePrice') NEQ local.price>
 								<cfset local.article.hasVariantPricing = true>
+								<cfbreak>
 							</cfif>
 						</cfloop>
 					</cfif>
