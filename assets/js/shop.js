@@ -1,73 +1,3 @@
-/**
- * Handles category dropdown changes and redirects to filtered page
- * @param {string} categoryValue - The category ID to filter by
- */
-function handleCategoryChange(categoryValue) {
-  let url = new URL(window.location);
-  
-  if (categoryValue === "") {
-    // Remove category parameter if "Alle Kategorien" is selected
-    url.searchParams.delete('category');
-  } else {
-    // Set category parameter
-    url.searchParams.set('category', categoryValue);
-  }
-  
-  window.location.href = url.toString();
-}
-
-/**
- * Handles sort dropdown changes and redirects to sorted page
- * @param {string} sortValue - The encoded sort parameters
- * @param {string} paramPrefix - URL prefix with existing parameters
- */
-function handleSortChange(sortValue, paramPrefix) {
-  if (sortValue === "") {
-    // Remove sort parameter if "default" is selected
-    let url = new URL(window.location);
-    url.searchParams.delete('sort');
-    window.location.href = url.toString();
-  } else {
-    window.location.href = paramPrefix + 'sort=' + sortValue;
-  }
-}
-
-/**
- * Validates variation selections and updates UI accordingly
- */
-function validateVariations() {
-  let variations = document.querySelectorAll('select[id^="productVariation-"]');
-  let addToCartButton = document.querySelector('.product-action .article-to-cart');
-  
-  if (variations.length === 0) {
-    // No variations, button should be enabled
-    if (addToCartButton) {
-      addToCartButton.classList.remove('disabled');
-    }
-    return true;
-  }
-  
-  let hasEmptyVariation = false;
-  Array.from(variations).forEach(v => {
-    if (v.value === "" || v.value === null) {
-      hasEmptyVariation = true;
-      v.classList.add('is-invalid');
-    } else {
-      v.classList.remove('is-invalid');
-    }
-  });
-  
-  if (addToCartButton) {
-    if (hasEmptyVariation) {
-      addToCartButton.classList.add('disabled');
-    } else {
-      addToCartButton.classList.remove('disabled');
-    }
-  }
-  
-  return !hasEmptyVariation;
-}
-
 // jquery ready
 $(function () {
 
@@ -432,4 +362,74 @@ function setupCheckboxMutualExclusion() {
       pickupRow.hide();
     }
   }
+}
+
+/**
+ * Handles category dropdown changes and redirects to filtered page
+ * @param {string} categoryValue - The category ID to filter by
+ */
+function handleCategoryChange(categoryValue) {
+  let url = new URL(window.location);
+
+  if (categoryValue === "") {
+    // Remove category parameter if "Alle Kategorien" is selected
+    url.searchParams.delete('category');
+  } else {
+    // Set category parameter
+    url.searchParams.set('category', categoryValue);
+  }
+
+  window.location.href = url.toString();
+}
+
+/**
+ * Handles sort dropdown changes and redirects to sorted page
+ * @param {string} sortValue - The encoded sort parameters
+ * @param {string} paramPrefix - URL prefix with existing parameters
+ */
+function handleSortChange(sortValue, paramPrefix) {
+  if (sortValue === "") {
+    // Remove sort parameter if "default" is selected
+    let url = new URL(window.location);
+    url.searchParams.delete('sort');
+    window.location.href = url.toString();
+  } else {
+    window.location.href = paramPrefix + 'sort=' + sortValue;
+  }
+}
+
+/**
+ * Validates variation selections and updates UI accordingly
+ */
+function validateVariations() {
+  let variations = document.querySelectorAll('select[id^="productVariation-"]');
+  let addToCartButton = document.querySelector('.product-action .article-to-cart');
+
+  if (variations.length === 0) {
+    // No variations, button should be enabled
+    if (addToCartButton) {
+      addToCartButton.classList.remove('disabled');
+    }
+    return true;
+  }
+
+  let hasEmptyVariation = false;
+  Array.from(variations).forEach(v => {
+    if (v.value === "" || v.value === null) {
+      hasEmptyVariation = true;
+      v.classList.add('is-invalid');
+    } else {
+      v.classList.remove('is-invalid');
+    }
+  });
+
+  if (addToCartButton) {
+    if (hasEmptyVariation) {
+      addToCartButton.classList.add('disabled');
+    } else {
+      addToCartButton.classList.remove('disabled');
+    }
+  }
+
+  return !hasEmptyVariation;
 }
