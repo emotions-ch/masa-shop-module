@@ -1,3 +1,20 @@
+
+/**
+ * Handles sort dropdown changes and redirects to sorted page
+ * @param {string} sortValue - The encoded sort parameters
+ * @param {string} paramPrefix - URL prefix with existing parameters
+ */
+function handleSortChange(sortValue, paramPrefix) {
+  if (sortValue === "") {
+    // Remove sort parameter if "default" is selected
+    let url = new URL(window.location);
+    url.searchParams.delete('sort');
+    window.location.href = url.toString();
+  } else {
+    window.location.href = paramPrefix + 'sort=' + sortValue;
+  }
+}
+
 /**
  * Validates variation selections and updates UI accordingly
  */

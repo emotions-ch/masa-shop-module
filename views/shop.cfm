@@ -12,10 +12,6 @@
 					</div>
 				</cfif>
 
-				<!--- <div class="dropdown">
-					<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-						Kategorie
-					</button>
 
 					<!--- the ID's used in this array to define categorys, are masa category ID's that product's can be assigned to--->
 					<cfset local.filterArray = [
@@ -56,13 +52,44 @@
 						</cfloop>
 					</div>
 
-				</div> <!-- dropdown --> --->
+				<div class="sort-filter ml-sm-auto">
+					<cfif CGI.query_string.length() AND !FindNoCase("sort", CGI.query_string)>
+						<cfset local.paramPrefix = "?#CGI.query_string#&">
+					<cfelse>
+						<cfset local.paramPrefix = "?">
+					</cfif>
+
+					<cfset local.sortingArray = [
+						{"direction":"","attribute":"","name":"Sortierung wählen"},
+						{"direction":"asc","attribute":"name","name":"Produktname (A - Z)"},
+						{"direction":"desc","attribute":"name","name":"Produktname (Z - A)"},
+						{"direction":"asc","attribute":"price","name":"Produkt Preis (Niedrig → Hoch)"},
+						{"direction":"desc","attribute":"price","name":"Produkt Preis (Hoch → Niedrig)"}
+					]>
+					
+					<label for="sort-select" class="sr-only">Sortierung wählen</label>
+					<select id="sort-select" class="form-select" onchange="handleSortChange(this.value, '#local.paramPrefix#')">
+						<cfloop array="#local.sortingArray#" index="local.sorting">
+							<cfset local.sortValue = (local.sorting.direction NEQ "" AND local.sorting.attribute NEQ "") ? encodeForURL(serializeJSON({"direction":local.sorting.direction, "attribute":local.sorting.attribute})) : "">
+							<cfset local.isSelected = false>
+							<cfif StructKeyExists(url, "sort")>
+								<cfset local.currentSort = deserializeJSON(decodeFromURL(url.sort))>
+								<cfif local.currentSort.direction EQ local.sorting.direction AND local.currentSort.attribute EQ local.sorting.attribute>
+									<cfset local.isSelected = true>
+								</cfif>
+							<cfelseif local.sorting.direction EQ "" AND local.sorting.attribute EQ "">
+								<cfset local.isSelected = true>
+							</cfif>
+							<option value="#local.sortValue#" <cfif local.isSelected>selected</cfif>>#local.sorting.name#</option>
+						</cfloop>
+					</select>
+				</div>
 				
 				<div class="ml-sm-auto">
 					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1">Zum Warenkorb</a>
 				</div>
-			</div> <!-- breadcrumb -->
-		</nav> <!-- breadcrumb -->
+			</div> <!--- breadcrumb --->
+		</nav> <!--- breadcrumb --->
 
 		<cfif StructKeyExists(url, "category")>
 			<cfset local.articleIterator = m.getFeed("content")
