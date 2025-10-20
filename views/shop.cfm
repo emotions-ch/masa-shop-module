@@ -12,7 +12,7 @@
 					</div>
 				</cfif>
 
-
+				<div class="sort-filter ml-sm-auto">
 					<!--- the ID's used in this array to define categorys, are masa category ID's that product's can be assigned to--->
 					<cfset local.filterArray = [
 						{"category":"C1D25879-9502-4F30-9100D3B85202E46E", "name":"Bekleidung Mensch"},
@@ -28,29 +28,7 @@
 							<a class="dropdown-item" href="?category=#local.filter.category#">#local.filter.name#</a>
 						</cfloop>
 					</div>
-				</div> <!-- dropdown -->
-
-				<div class="dropdown ml-sm-auto">
-					<button class="btn btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-						Sort
-					</button>
-					<cfif CGI.query_string.length() AND !FindNoCase("sort", CGI.query_string)>
-						<cfset local.paramPrefix = "?#CGI.query_string#&">
-					<cfelse>
-						<cfset local.paramPrefix = "?">
-					</cfif>
-
-					<cfset local.sortingArray = [
-						{"direction":"asc","attribute":"name","name":"Produktname (A - Z)"},
-						{"direction":"desc","attribute":"name","name":"Produktname (Z - A)"},
-						{"direction":"asc","attribute":"price","name":"Produkt Preis (Niedrig  Hoch)"},
-						{"direction":"desc","attribute":"price","name":"Produkt Preis (Hoch  Niedrig)"}
-					]>
-					<div class="dropdown-menu">
-						<cfloop array="#local.sortingArray#" index="local.sorting">
-							<a class="dropdown-item" href="#local.paramPrefix#sort=#encodeForURL(serializeJSON(local.sorting))#">#local.sorting.name#</a>
-						</cfloop>
-					</div>
+				</div>
 
 				<div class="sort-filter ml-sm-auto">
 					<cfif CGI.query_string.length() AND !FindNoCase("sort", CGI.query_string)>
