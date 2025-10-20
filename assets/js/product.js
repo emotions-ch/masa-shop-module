@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 							let image = item.get('images').source;
 							document.getElementById('product-image').style.backgroundImage = 'url(' + image + ')';
 					});
-				} else if (cType === "Page/ArticleVariation") {
+				} else if (cType === "Page/ArticleVariation" || cType === 'parent') {
 					// async info using a custom component due to Mura-Js not providing a way to get extended attributes
 					let url = `/modules/shop/components/Variant.cfm?variant=${event.target.value}&site=${window.siteId}`
 					fetch(url)
@@ -25,6 +25,9 @@ document.addEventListener('DOMContentLoaded', function() {
 							}
 							if (data.amount !== "") {
 								document.getElementById('amount').innerHTML = `Menge: ${data.amount}`;
+							}
+							if (data.body !== "") {
+								document.getElementById('product-description').innerHTML = data.body;
 							}
 						})
 						.catch(error => {

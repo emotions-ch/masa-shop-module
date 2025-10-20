@@ -415,7 +415,10 @@ function validateVariations() {
 
   let hasEmptyVariation = false;
   Array.from(variations).forEach(v => {
-    if (v.value === "" || v.value === null) {
+    let selectedOption = v.selectedOptions[0];
+    let cType = selectedOption ? selectedOption.getAttribute('cType') : null;
+    
+    if (cType === 'parent') {
       hasEmptyVariation = true;
       v.classList.add('is-invalid');
     } else {
