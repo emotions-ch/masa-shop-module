@@ -128,3 +128,37 @@ body.shop main{
     margin-top: 2.1875rem;
     margin-bottom: 0;
 }
+
+.category-filter {
+    select {
+        min-width: 180px;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid $border_color;
+        border-radius: $border-radius;
+        background-color: white;
+        color: $gray_color_dark;
+
+        &:focus {
+            border-color: $primary_color;
+            box-shadow: 0 0 0 0.2rem rgba($primary_color, 0.25);
+            outline: none;
+        }
+    }
+}
+
+.sort-filter {
+    select {
+        min-width: 200px;
+        padding: 0.375rem 0.75rem;
+        border: 1px solid $border_color;
+        border-radius: $border-radius;
+        background-color: white;
+        color: $gray_color_dark;
+
+        &:focus {
+            border-color: $primary_color;
+            box-shadow: 0 0 0 0.2rem rgba($primary_color, 0.25);
+            outline: none;
+        }
+    }
+}
