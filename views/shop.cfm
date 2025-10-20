@@ -13,21 +13,14 @@
 				</cfif>
 
 				<div class="sort-filter ml-sm-auto">
-					<!--- the ID's used in this array to define categorys, are masa category ID's that product's can be assigned to--->
-					<cfset local.filterArray = [
-						{"category":"C1D25879-9502-4F30-9100D3B85202E46E", "name":"Bekleidung Mensch"},
-						{"category":"4AABA5AB-303A-4EAA-97D83CA750E571BC", "name":"Geschirr"},
-						{"category":"97E9C0C6-9F94-449E-AC6B9EB261E71645", "name":"Hundefutter"},
-						{"category":"721AE871-B6E9-481A-B24E146168EE389B", "name":"Leinen"},
-						{"category":"DACF4173-9E34-407E-9DAE2A53CDA8B326", "name":"Snacks/belohnung"},
-						{"category":"04BE8F1A-A051-4C4E-A859B222B5CB0049", "name":"Spielzeug"}
-					]>
+					<cfset local.filterQuery = m.getBean('category').loadBy(name='shopArticleCategorys').getKidsQuery()>
 
-					<div class="dropdown-menu">
-						<cfloop array="#local.filterArray#" index="local.filter">
-							<a class="dropdown-item" href="?category=#local.filter.category#">#local.filter.name#</a>
+					<select id="sort-select" class="form-select" onchange="handleCategoryChange(this.value)">
+						<option value="" #((decodeFromURL(url.category) == "") ? "selected" : "")#>Alle</option>
+						<cfloop query="#local.filterQuery#">
+							<option value="#local.filterQuery['categoryID']#" #((decodeFromURL(url.category) == local.filterQuery['categoryID']) ? "selected" : "")#>#local.filterQuery['name']#</option>
 						</cfloop>
-					</div>
+					</select>
 				</div>
 
 				<div class="sort-filter ml-sm-auto">
@@ -69,7 +62,7 @@
 			</div> <!--- breadcrumb --->
 		</nav> <!--- breadcrumb --->
 
-		<cfif StructKeyExists(url, "category")>
+		<cfif url.category NEQ "">
 			<cfset local.articleIterator = m.getFeed("content")
 				.where()
 				.prop("tContent.parentId")
@@ -137,7 +130,7 @@
 		</cfif>
 
 		<div class="product-list grid-container" style="--grid-column-count: 3; --grid-item--min-width: 280px;">
-			<cfloop query = "local.articles">
+			<cfloop query="local.articles">
 				<!--- Product start --->
 				<div class="product" id="#local.articles["contentid"]#">
 					<div class="product-image">

@@ -1,3 +1,20 @@
+/**
+ * Handles category dropdown changes and redirects to filtered page
+ * @param {string} categoryValue - The category ID to filter by
+ */
+function handleCategoryChange(categoryValue) {
+  let url = new URL(window.location);
+  
+  if (categoryValue === "") {
+    // Remove category parameter if "Alle Kategorien" is selected
+    url.searchParams.delete('category');
+  } else {
+    // Set category parameter
+    url.searchParams.set('category', categoryValue);
+  }
+  
+  window.location.href = url.toString();
+}
 
 /**
  * Handles sort dropdown changes and redirects to sorted page

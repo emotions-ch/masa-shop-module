@@ -9,6 +9,7 @@
 	<cfparam name="url.logout" default="0">
 	<cfparam name="url.cart" default="0">
 	<cfparam name="url.pickup" default="">
+	<cfparam name="url.category" default="">
 
 	<cfset local.contentBean = m.getBean('content').loadBy(filename=cgi.path_info.left(-1).right(-1))>
 	<cfset local.cleanRequestUrl = local.contentBean.get('url')>
