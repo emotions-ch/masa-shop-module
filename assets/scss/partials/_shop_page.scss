@@ -129,25 +129,35 @@ body.shop main{
     margin-bottom: 0;
 }
 
-.category-filter {
-    select {
-        min-width: 180px;
-        padding: 0.375rem 0.75rem;
-        border: 1px solid $border_color;
-        border-radius: $border-radius;
-        background-color: white;
-        color: $gray_color_dark;
+.filters {
+  display: flex;
+  flex-direction: column;
 
-        &:focus {
-            border-color: $primary_color;
-            box-shadow: 0 0 0 0.2rem rgba($primary_color, 0.25);
-            outline: none;
-        }
+  .search-filter {
+    border-radius: $border-radius;
+    margin: 0 0 calc($shop-margin-small / 2) !important;
+
+    input {
+      width: 75%;
+      border-radius: $shop-border-radius 0 0 $shop-border-radius;
     }
-}
+    button {
+      width: 25%;
+      border-radius: 0 $shop-border-radius $shop-border-radius 0;
+    }
+    * {
+      margin: 0 !important;
+    }
+  }
 
-.sort-filter {
-    select {
+  div {
+    display: inherit;
+    flex-direction: row;
+
+    .sort-filter {
+      width: 50%;
+      select {
+        width: 100%;
         min-width: 200px;
         padding: 0.375rem 0.75rem;
         border: 1px solid $border_color;
@@ -156,9 +166,11 @@ body.shop main{
         color: $gray_color_dark;
 
         &:focus {
-            border-color: $primary_color;
-            box-shadow: 0 0 0 0.2rem rgba($primary_color, 0.25);
-            outline: none;
+          border-color: $primary_color;
+          box-shadow: 0 0 0 0.2rem rgba($primary_color, 0.25);
+          outline: none;
         }
+      }
     }
+  }
 }
