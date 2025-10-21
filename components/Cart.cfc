@@ -137,7 +137,9 @@ component
 			for (local.article in getArticles()) {
 				local.articleShippingPrice = local.article.getShippingPrice();
 
-				local.shippingPrice = ((local.articleShippingPrice >= local.shippingPrice) ? local.articleShippingPrice : local.shippingPrice);
+				if (isDefined(local.articleShippingPrice)) {
+					local.shippingPrice = ((local.articleShippingPrice >= local.shippingPrice) ? local.articleShippingPrice : local.shippingPrice);
+				}
 			}
 
 			return local.shippingPrice;

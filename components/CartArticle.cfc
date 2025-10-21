@@ -98,7 +98,7 @@ component
 				local.variantBean = getContentBean().loadBy(contentid=getVariants()[local.variant]);
 
 				if (local.variantBean.get('subtype') == "ArticleVariation" && local.variantBean.get("shippingCostCategory") != "") {
-					return ((variables.variantBean.get("shippingCostCategory") != "") ? variables.variantBean.get("shippingCostCategory") : 0);
+					return ((local.variantBean.get("shippingCostCategory") != "") ? local.variantBean.get("shippingCostCategory") : 0);
 				} else if (local.variantBean.get('subtype') == "ArticleVariation") {
 					return ((variables.articleBean.get("shippingCostCategory") != "") ? variables.articleBean.get("shippingCostCategory") : 0);
 				}
