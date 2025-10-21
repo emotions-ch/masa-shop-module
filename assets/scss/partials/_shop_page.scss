@@ -144,6 +144,7 @@ body.shop main{
     button {
       width: 25%;
       border-radius: 0 $shop-border-radius $shop-border-radius 0;
+      border-right: none;
     }
     * {
       margin: 0 !important;

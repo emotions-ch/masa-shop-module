@@ -4,10 +4,10 @@
 
       <br>
       <div class="right">
-        <button class="btn btn-primary" onclick="window.location.href='#local.cleanRequestUrl#'">&##8592; Zurück zum Shop</button>
+        <button class="btn btn-primary" onclick="window.location.href='#local.cleanRequestUrl#'"><i class="fas fa-arrow-left"></i> Zurück zum Shop</button>
 
 				<div class="ml-sm-auto">
-					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1">Zum Warenkorb</a>
+					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1"><i class="fas fa-shopping-cart"></i> Zum Warenkorb</a>
 				</div>
       </div>
 
@@ -56,7 +56,7 @@
             <div class="quantity">
               <input type="number" class="form-control" value="1" min="1" max="99">
             </div> <!-- quantity -->
-            <button href="##" class="article-to-cart form-control" article-id="#local.productContent.get('contentId')#">In den Warenkorb</button>
+            <button href="##" class="article-to-cart form-control" article-id="#local.productContent.get('contentId')#"><i class="fas fa-cart-plus"></i> In den Warenkorb</button>
           </div> <!-- product-action -->
         </div>
       </div>

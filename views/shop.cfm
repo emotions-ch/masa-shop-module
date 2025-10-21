@@ -58,16 +58,16 @@
 			<div class="breadcrumb mt-3 flex-column flex-sm-row">
 				<cfif StructKeyExists(session, "customer")>
 					<div class="mr-sm-auto">
-						<a class="btn btn-primary" href="#local.cleanRequestUrl#?logout=1">Logout</a>
+						<a class="btn btn-primary" href="#local.cleanRequestUrl#?logout=1"><i class="fas fa-sign-out-alt"></i> Logout</a>
 					</div>
 				<cfelse>
 					<div class="mr-sm-auto">
-						<a class="btn btn-primary" href="#local.cleanRequestUrl#?login=1">Login</a>
+						<a class="btn btn-primary" href="#local.cleanRequestUrl#?login=1"><i class="fas fa-sign-in-alt"></i> Login</a>
 					</div>
 				</cfif>
 				
 				<div class="ml-sm-auto">
-					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1">Zum Warenkorb</a>
+					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1"><i class="fas fa-shopping-cart"></i> Zum Warenkorb</a>
 				</div>
 			</div> <!--- breadcrumb --->
 		</nav> <!--- breadcrumb --->
@@ -214,9 +214,9 @@
 							<div class="quantity">
 								<input type="number" class="form-control" value="1" min="1" max="99">
 							</div> <!-- quantity -->
-							<button type="button" class="article-to-cart form-control" article-id="#local.articles['contentId']#">In den Warenkorb</button>
+							<button type="button" class="article-to-cart form-control" article-id="#local.articles['contentId']#"><i class="fas fa-cart-plus"></i> In den Warenkorb</button>
 						<cfelse>
-							<button type="button" class="form-control" onclick="window.location.href='?product=#local.articles["contentid"]#'">Variante ausw&auml;hlen</button>
+							<button type="button" class="form-control" onclick="window.location.href='?product=#local.articles["contentid"]#'"><i class="fas fa-list"></i> Variante ausw&auml;hlen</button>
 						</cfif>
 					</div> <!-- product-action -->
 				</div> <!-- product -->

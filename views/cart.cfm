@@ -2,7 +2,7 @@
   <nav aria-label="breadcrumb">
     <div class="breadcrumb mt-3 flex-column flex-sm-row">
       <div class="ml-sm-auto">
-        <a class="btn btn-primary" href="#local.cleanRequestUrl#">Zurück zum Shop</a>
+        <a class="btn btn-primary" href="#local.cleanRequestUrl#"><i class="fas fa-arrow-left"></i> Zurück zum Shop</a>
       </div>
     </div>
   </nav>
@@ -10,7 +10,7 @@
     <h1>Warenkorb</h1>
     <cfif session.cart.getTotalQuantity() eq 0>
       <p>Ihr Warenkorb ist leer.</p>
-      <p><a href="#local.cleanRequestUrl#">Zurück zum Shop</a></p>
+      <p><a href="#local.cleanRequestUrl#"><i class="fas fa-arrow-left"></i> Zurück zum Shop</a></p>
     <cfelse>
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
@@ -26,7 +26,7 @@
               </div>
             </div>
             <div class="product-action">
-              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#encodeForHTMLAttribute(local.article.getVariants().toJSON())#');">Entfernen</button>
+              <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#encodeForHTMLAttribute(local.article.getVariants().toJSON())#');"><i class="fas fa-trash-alt"></i> Entfernen</button>
               <div class="quantity">
                 <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#encodeForHTMLAttribute(local.article.getVariants().toJSON())#'); ">
               </div> <!-- quantity -->
@@ -37,7 +37,7 @@
 
       <div class="cart-actions">
         <p class="total-price">Gesamtpreis: CHF #NumberFormat(session.cart.getTotalPrice(), '.00')#</p>
-        <a class="btn btn-primary" href="#local.cleanRequestUrl#?checkout=1">Zur Kasse</a>
+        <a class="btn btn-primary" href="#local.cleanRequestUrl#?checkout=1"><i class="far fa-credit-card"></i> Zur Kasse</a>
       </div>
     </cfif>
   </div>

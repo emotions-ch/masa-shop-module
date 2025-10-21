@@ -3,7 +3,7 @@
   <nav aria-label="breadcrumb">
     <div class="breadcrumb mt-3 flex-column flex-sm-row">
       <div class="ml-sm-auto">
-        <a class="btn btn-primary" href="#local.cleanRequestUrl#">Zurück zum Shop</a>
+        <a class="btn btn-primary" href="#local.cleanRequestUrl#"><i class="fas fa-arrow-left"></i> Zurück zum Shop</a>
       </div>
     </div>
   </nav>
@@ -25,7 +25,7 @@
           <label for="password">Password</label>
           <input class="form-control" type="password" id="password" name="password" required>
         </div>
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
       </form>
     </div>
 
@@ -53,7 +53,7 @@
           <input class="form-control" type="password" id="confirmRegistrationPassword" name="confirmRegistrationPassword" required>
         </div>
 
-        <button class="btn btn-primary" type="submit">Registrieren</button>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-user-plus"></i> Registrieren</button>
       </form>
     </div>
   </div>

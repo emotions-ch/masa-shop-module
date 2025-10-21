@@ -11,7 +11,7 @@
         <cfif session.cart.getTotalQuantity() eq 0 AND isEmpty(form)>
           <h2 class="form-title">Ihr Warenkorb ist leer</h2>
           <p>Gehen Sie doch zurück zu unserem Shop und füllen Sie Ihren Warenkorb :)</p>
-          <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
+          <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'"><i class="fas fa-arrow-left"></i> Zurück zum Shop</button>
         <cfelseif !structKeyExists(form, "fieldnames")>
           <cfset local.storedCustomerData = local.checkout.retriveCustomerData(session)>
 
@@ -22,8 +22,8 @@
             <!--- billing table done --->
 
             <div class="spread">
-              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'">Zurück zum Shop</button>
-              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?cart=1'">zum Warenkorb</button>
+              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'"><i class="fas fa-arrow-left"></i> Zurück zum Shop</button>
+              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?cart=1'"><i class="fas fa-shopping-cart"></i> zum Warenkorb</button>
             </div>
           </div>
 
