@@ -90,6 +90,7 @@
 				.orProp("tContent.summary")
 				.containsValue(decodeFromURL(url.search))
 				.closeGrouping()
+				.showNavOnly(0)
 				.getIterator(liveonly=false)
 			>
 		<cfelseif url.category NEQ "">
@@ -104,6 +105,7 @@
 					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
 				.prop("tContentCategoryAssign.categoryId")
 				.isEQ(url.category)
+				.showNavOnly(0)
 				.getIterator(liveonly=false)
 			>
 		<cfelseif StructKeyExists(url, "search") AND url.search NEQ "">
@@ -118,6 +120,7 @@
 				.orProp("tContent.summary")
 				.containsValue(decodeFromURL(url.search))
 				.closeGrouping()
+				.showNavOnly(0)
 				.getIterator(liveonly=false)
 			>
 		<cfelse>
