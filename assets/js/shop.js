@@ -399,10 +399,41 @@ function handleSortChange(sortValue, paramPrefix) {
 }
 
 /**
- * Handles search button click
+ * Handles unified filter submission (search + category + sort)
  */
-function handleSearchClick() {
-  performSearch();
+function handleFilterSubmit() {
+  const searchInput = document.getElementById('search-input');
+  const categorySelect = document.getElementById('category-select');
+  const sortSelect = document.getElementById('sort-select');
+  
+  const searchValue = searchInput.value.trim();
+  const categoryValue = categorySelect.value;
+  const sortValue = sortSelect.value;
+  
+  let url = new URL(window.location);
+  
+  // Handle search parameter
+  if (searchValue === "") {
+    url.searchParams.delete('search');
+  } else {
+    url.searchParams.set('search', encodeURIComponent(searchValue));
+  }
+  
+  // Handle category parameter
+  if (categoryValue === "") {
+    url.searchParams.delete('category');
+  } else {
+    url.searchParams.set('category', categoryValue);
+  }
+  
+  // Handle sort parameter
+  if (sortValue === "") {
+    url.searchParams.delete('sort');
+  } else {
+    url.searchParams.set('sort', sortValue);
+  }
+  
+  window.location.href = url.toString();
 }
 
 /**
@@ -412,27 +443,8 @@ function handleSearchClick() {
 function handleSearchKeypress(event) {
   if (event.key === 'Enter') {
     event.preventDefault();
-    performSearch();
+    handleFilterSubmit();
   }
-}
-
-/**
- * Performs the actual search by navigating to the filtered page
- */
-function performSearch() {
-  const searchInput = document.getElementById('search-input');
-  const searchValue = searchInput.value;
-  let url = new URL(window.location);
-  
-  if (searchValue.trim() === "") {
-    // Remove search parameter if input is empty
-    url.searchParams.delete('search');
-  } else {
-    // Set search parameter
-    url.searchParams.set('search', encodeURIComponent(searchValue.trim()));
-  }
-  
-  window.location.href = url.toString();
 }
 
 /**

@@ -4,14 +4,14 @@
 			<div class="filters">
 				<div class="search-filter mb-3 d-flex">
 					<input type="text" id="search-input" class="form-control" placeholder="Produkte suchen..." value="#StructKeyExists(url, "search") ? HTMLEditFormat(decodeFromURL(url.search)) : ""#" onkeypress="handleSearchKeypress(event)">
-					<button type="button" id="search-button" class="btn btn-primary ml-2" onclick="handleSearchClick()"><i class="fas fa-search"></i> Suchen</button>
+					<button type="button" id="search-button" class="btn btn-primary ml-2" onclick="handleFilterSubmit()"><i class="fas fa-search"></i> Suchen</button>
 				</div>
 
 				<div>
 					<div class="sort-filter ml-sm-auto">
 						<cfset local.filterQuery = m.getBean('category').loadBy(name='shopArticleCategorys').getKidsQuery()>
 
-						<select id="sort-select" class="form-select" onchange="handleCategoryChange(this.value)">
+						<select id="category-select" class="form-select">
 							<option value="" #((decodeFromURL(url.category) == "") ? "selected" : "")#>Alle Kategorien</option>
 							<cfloop query="#local.filterQuery#">
 								<option value="#local.filterQuery['categoryID']#" #((decodeFromURL(url.category) == local.filterQuery['categoryID']) ? "selected" : "")#>#local.filterQuery['name']#</option>
@@ -35,7 +35,7 @@
 						]>
 						
 						<label for="sort-select" class="sr-only">Sortierung wählen</label>
-						<select id="sort-select" class="form-select" onchange="handleSortChange(this.value, '#local.paramPrefix#')">
+						<select id="sort-select" class="form-select">
 							<cfloop array="#local.sortingArray#" index="local.sorting">
 								<cfset local.sortValue = (local.sorting.direction NEQ "" AND local.sorting.attribute NEQ "") ? encodeForURL(serializeJSON({"direction":local.sorting.direction, "attribute":local.sorting.attribute})) : "">
 								<cfset local.isSelected = false>
