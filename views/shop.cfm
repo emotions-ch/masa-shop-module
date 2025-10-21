@@ -1,6 +1,11 @@
 <cfoutput>
 	<div class="container">
 		<nav aria-label="breadcrumb">
+			<div class="search-filter mb-3 d-flex">
+				<input type="text" id="search-input" class="form-control" placeholder="Produkte suchen..." value="#StructKeyExists(url, "search") ? HTMLEditFormat(decodeFromURL(url.search)) : ""#" onkeypress="handleSearchKeypress(event)">
+				<button type="button" id="search-button" class="btn btn-primary ml-2" onclick="handleSearchClick()">Suchen</button>
+			</div>
+			
 			<div class="breadcrumb mt-3 flex-column flex-sm-row">
 				<cfif StructKeyExists(session, "customer")>
 					<div class="mr-sm-auto">
@@ -62,7 +67,8 @@
 			</div> <!--- breadcrumb --->
 		</nav> <!--- breadcrumb --->
 
-		<cfif url.category NEQ "">
+		<cfif url.category NEQ "" AND StructKeyExists(url, "search") AND url.search NEQ "">
+			<!--- category filter & search --->
 			<cfset local.articleIterator = m.getFeed("content")
 				.where()
 				.prop("tContent.parentId")
@@ -73,6 +79,40 @@
 					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
 				.prop("tContentCategoryAssign.categoryId")
 				.isEQ(url.category)
+				.andOpenGrouping()
+				.prop("tContent.title")
+				.containsValue(decodeFromURL(url.search))
+				.orProp("tContent.summary")
+				.containsValue(decodeFromURL(url.search))
+				.closeGrouping()
+				.getIterator(liveonly=false)
+			>
+		<cfelseif url.category NEQ "">
+			<!--- just category filter --->
+			<cfset local.articleIterator = m.getFeed("content")
+				.where()
+				.prop("tContent.parentId")
+				.isEQ(m.content().get("contentId"))
+				.addJoin(
+					jointype="inner",
+					table="tContentCategoryAssign",
+					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
+				.prop("tContentCategoryAssign.categoryId")
+				.isEQ(url.category)
+				.getIterator(liveonly=false)
+			>
+		<cfelseif StructKeyExists(url, "search") AND url.search NEQ "">
+			<!--- just a search --->
+			<cfset local.articleIterator = m.getFeed("content")
+				.where()
+				.prop("tContent.parentId")
+				.isEQ(m.content().get("contentId"))
+				.andOpenGrouping()
+				.prop("tContent.title")
+				.containsValue(decodeFromURL(url.search))
+				.orProp("tContent.summary")
+				.containsValue(decodeFromURL(url.search))
+				.closeGrouping()
 				.getIterator(liveonly=false)
 			>
 		<cfelse>

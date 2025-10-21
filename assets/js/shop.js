@@ -399,6 +399,43 @@ function handleSortChange(sortValue, paramPrefix) {
 }
 
 /**
+ * Handles search button click
+ */
+function handleSearchClick() {
+  performSearch();
+}
+
+/**
+ * Handles Enter key press in search input
+ * @param {Event} event - The keypress event
+ */
+function handleSearchKeypress(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    performSearch();
+  }
+}
+
+/**
+ * Performs the actual search by navigating to the filtered page
+ */
+function performSearch() {
+  const searchInput = document.getElementById('search-input');
+  const searchValue = searchInput.value;
+  let url = new URL(window.location);
+  
+  if (searchValue.trim() === "") {
+    // Remove search parameter if input is empty
+    url.searchParams.delete('search');
+  } else {
+    // Set search parameter
+    url.searchParams.set('search', encodeURIComponent(searchValue.trim()));
+  }
+  
+  window.location.href = url.toString();
+}
+
+/**
  * Validates variation selections and updates UI accordingly
  */
 function validateVariations() {
