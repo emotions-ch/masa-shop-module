@@ -12,4 +12,5 @@
 	<cfparam name="objectParams.iban" default="">
 	<cfparam name="objectParams.AgbUrl" default="/agb">
 	<cfparam name="objectParams.AgbText" default="">
+	<cfparam name="objectParams.fontawsomeKitId" default="">
 </cfoutput>

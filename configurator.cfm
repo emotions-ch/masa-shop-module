@@ -33,7 +33,7 @@
 					<textarea id="agbText" name="agbText" class="objectParam" required>#esapiEncode('html',objectparams.agbText)#</textarea>
 				</div>
 
-				<p>Payment info</p>
+				<h2>Payment info</h2>
 
 				<div class="mura-control-group">
 					<label class="mura-control-label">Kreditor Name</label>
@@ -68,6 +68,14 @@
 				<div class="mura-control-group">
 					<label class="mura-control-label">IBAN</label>
 					<input type="text" id="iban" name="iban" class="objectParam" value="#esapiEncode('html_attr',objectparams.iban)#" required></input>
+				</div>
+
+				<h2>Advanced </h2>
+				<p>(don`t touch if you don`t know what your`re doing!)</p>
+
+				<div class="mura-control-group">
+					<label class="mura-control-label">FontAwesome Kit Id</label>
+					<input type="text" id="fontawsomeKitId" name="fontawsomeKitId" class="objectParam" value="#esapiEncode('html_attr',objectparams.fontawsomeKitId)#" required></input>
 				</div>
 			</div>
 		</div>
