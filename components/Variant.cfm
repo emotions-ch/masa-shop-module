@@ -6,7 +6,7 @@
 		"price":local.variantContent.get("articlePrice"),
 		"amount":local.variantContent.get("articleAmount"),
 		"articleNumber":local.variantContent.get("ArticleNumber"),
-		"body":local.variantContent.get("body")
+		"body":((local.variantContent.get('body') != '') ? local.variantContent.get('body') : local.variantContent.getParent().getParent().get('body') )
 	};
 
 	writeOutput( local.variationInfo.toJSON() );	
