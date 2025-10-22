@@ -365,40 +365,6 @@ function setupCheckboxMutualExclusion() {
 }
 
 /**
- * Handles category dropdown changes and redirects to filtered page
- * @param {string} categoryValue - The category ID to filter by
- */
-function handleCategoryChange(categoryValue) {
-  let url = new URL(window.location);
-
-  if (categoryValue === "") {
-    // Remove category parameter if "Alle Kategorien" is selected
-    url.searchParams.delete('category');
-  } else {
-    // Set category parameter
-    url.searchParams.set('category', categoryValue);
-  }
-
-  window.location.href = url.toString();
-}
-
-/**
- * Handles sort dropdown changes and redirects to sorted page
- * @param {string} sortValue - The encoded sort parameters
- * @param {string} paramPrefix - URL prefix with existing parameters
- */
-function handleSortChange(sortValue, paramPrefix) {
-  if (sortValue === "") {
-    // Remove sort parameter if "default" is selected
-    let url = new URL(window.location);
-    url.searchParams.delete('sort');
-    window.location.href = url.toString();
-  } else {
-    window.location.href = paramPrefix + 'sort=' + sortValue;
-  }
-}
-
-/**
  * Handles unified filter submission (search + category + sort)
  */
 function handleFilterSubmit() {
@@ -416,7 +382,7 @@ function handleFilterSubmit() {
   if (searchValue === "") {
     url.searchParams.delete('search');
   } else {
-    url.searchParams.set('search', encodeURIComponent(searchValue));
+    url.searchParams.set('search', searchValue);
   }
   
   // Handle category parameter
