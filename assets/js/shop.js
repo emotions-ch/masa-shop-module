@@ -26,6 +26,19 @@ $(function () {
     if (!locked) {
       locked = true; // Lock to prevent multiple clicks
       
+      // Validate quantity input
+      let quantityInput = $(this).closest('.product-action').find('.quantity input');
+      let quantity = parseInt(quantityInput.val());
+      let min = parseInt(quantityInput.attr('min')) || 1;
+      let max = parseInt(quantityInput.attr('max')) || 99;
+      
+      if (isNaN(quantity) || quantity < min || quantity > max) {
+        alert(`Bitte geben Sie eine gültige Menge zwischen ${min} und ${max} ein.`);
+        quantityInput.val(min);
+        locked = false;
+        return;
+      }
+      
       // Final validation check
       if (!validateVariations()) {
         alert('Bitte wählen Sie alle Produktvariationen aus, bevor Sie das Produkt in den Warenkorb legen.');
@@ -60,11 +73,11 @@ $(function () {
   var quantity = $('.quantity');
   quantity.each(function () {
     var spinner = $(this),
-      input = spinner.find('input[type="text"]'),
+      input = spinner.find('input[type="number"]'),
       btnUp = spinner.find('.plus'),
       btnDown = spinner.find('.minus'),
-      min = input.attr('min'),
-      max = input.attr('max');
+      min = input.attr('min') || 1,
+      max = input.attr('max') || 99;
 
     btnUp.click(function () {
       var oldValue = parseFloat(input.val());
@@ -90,18 +103,22 @@ $(function () {
 
     // Allow only number in range min - max
     // if invalid, set value = min
-    input.on('change', function () {
-      var val = $(this).val();
+    input.on('change input', function () {
+      var val = parseInt($(this).val());
+      var minVal = parseInt(min);
+      var maxVal = parseInt(max);
 
-      if (val > max) {
-        $(this).val(max);
-      } else
-      if (val < min) {
-        $(this).val(min);
-      } else
+      // Remove any non-numeric characters except empty
+      var cleanVal = $(this).val().replace(/[^0-9]/g, '');
+      if (cleanVal !== $(this).val()) {
+        $(this).val(cleanVal);
+        val = parseInt(cleanVal);
+      }
 
-      if (val == '' || isNaN(val)) {
-        $(this).val(min);
+      if (isNaN(val) || val === '' || val < minVal) {
+        $(this).val(minVal);
+      } else if (val > maxVal) {
+        $(this).val(maxVal);
       }
     });
   });
