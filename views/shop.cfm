@@ -1,60 +1,6 @@
 <cfoutput>
 	<div class="container">
 		<nav aria-label="breadcrumb">
-			<div class="filters">
-				<div class="search-filter mb-3 d-flex">
-					<input type="text" id="search-input" class="form-control" placeholder="Produkte suchen..." value="#StructKeyExists(url, "search") ? HTMLEditFormat(decodeFromURL(url.search)) : ""#" onkeypress="handleSearchKeypress(event)">
-					<button type="button" id="search-button" class="btn btn-primary ml-2" onclick="handleFilterSubmit()"><i class="fas fa-search"></i> Suchen</button>
-				</div>
-
-				<div>
-					<div class="sort-filter ml-sm-auto">
-						<cfset local.filterQuery = m.getBean('category').loadBy(name='shopArticleCategorys').getKidsQuery()>
-
-						<select id="category-select" class="form-select">
-							<option value="" #((decodeFromURL(url.category) == "") ? "selected" : "")#>Alle Kategorien</option>
-							<cfloop query="#local.filterQuery#">
-								<option value="#local.filterQuery['categoryID']#" #((decodeFromURL(url.category) == local.filterQuery['categoryID']) ? "selected" : "")#>#local.filterQuery['name']#</option>
-							</cfloop>
-						</select>
-					</div>
-
-					<div class="sort-filter ml-sm-auto">
-						<cfif CGI.query_string.length() AND !FindNoCase("sort", CGI.query_string)>
-							<cfset local.paramPrefix = "?#CGI.query_string#&">
-						<cfelse>
-							<cfset local.paramPrefix = "?">
-						</cfif>
-
-						<cfset local.sortingArray = [
-							{"direction":"","attribute":"","name":"Sortierung wählen"},
-							{"direction":"asc","attribute":"name","name":"Produktname (A - Z)"},
-							{"direction":"desc","attribute":"name","name":"Produktname (Z - A)"},
-							{"direction":"asc","attribute":"price","name":"Produkt Preis (Niedrig → Hoch)"},
-							{"direction":"desc","attribute":"price","name":"Produkt Preis (Hoch → Niedrig)"}
-						]>
-						
-						<label for="sort-select" class="sr-only">Sortierung wählen</label>
-						<select id="sort-select" class="form-select">
-							<cfloop array="#local.sortingArray#" index="local.sorting">
-								<cfset local.sortValue = (local.sorting.direction NEQ "" AND local.sorting.attribute NEQ "") ? encodeForURL(serializeJSON({"direction":local.sorting.direction, "attribute":local.sorting.attribute})) : "">
-								<cfset local.isSelected = false>
-								<cfif StructKeyExists(url, "sort")>
-									<cfset local.currentSort = deserializeJSON(decodeFromURL(url.sort))>
-									<cfif local.currentSort.direction EQ local.sorting.direction AND local.currentSort.attribute EQ local.sorting.attribute>
-										<cfset local.isSelected = true>
-									</cfif>
-								<cfelseif local.sorting.direction EQ "" AND local.sorting.attribute EQ "">
-									<cfset local.isSelected = true>
-								</cfif>
-								<option value="#local.sortValue#" <cfif local.isSelected>selected</cfif>>#local.sorting.name#</option>
-							</cfloop>
-						</select>
-					</div>
-				</div>
-
-			</div>
-			
 			<div class="breadcrumb mt-3 flex-column flex-sm-row">
 				<cfif StructKeyExists(session, "customer")>
 					<div class="mr-sm-auto">
@@ -70,6 +16,58 @@
 					<a class="btn btn-primary" href="#local.cleanRequestUrl#?cart=1"><i class="fas fa-shopping-cart"></i> Zum Warenkorb</a>
 				</div>
 			</div> <!--- breadcrumb --->
+
+			<div class="filters">
+				<input type="text" id="search-input" class="form-control" placeholder="Produkte suchen..." value="#(StructKeyExists(url, "search") ? decodeFromURL(url.search) : "")#" onkeypress="handleSearchKeypress(event)">
+
+				<div>
+					<div>
+						<div class="sort-filter ml-sm-auto">
+							<cfset local.filterQuery = m.getBean('category').loadBy(name='shopArticleCategorys').getKidsQuery()>
+
+							<select id="category-select" class="form-select">
+								<option value="" #((decodeFromURL(url.category) == "") ? "selected" : "")#>Alle Kategorien</option>
+								<cfloop query="#local.filterQuery#">
+									<option value="#local.filterQuery['categoryID']#" #((decodeFromURL(url.category) == local.filterQuery['categoryID']) ? "selected" : "")#>#local.filterQuery['name']#</option>
+								</cfloop>
+							</select>
+						</div>
+
+						<div class="sort-filter ml-sm-auto">
+							<cfif CGI.query_string.length() AND !FindNoCase("sort", CGI.query_string)>
+								<cfset local.paramPrefix = "?#CGI.query_string#&">
+							<cfelse>
+								<cfset local.paramPrefix = "?">
+							</cfif>
+
+							<cfset local.sortingArray = [
+								{"direction":"","attribute":"","name":"Sortierung wählen"},
+								{"direction":"asc","attribute":"name","name":"Produktname (A - Z)"},
+								{"direction":"desc","attribute":"name","name":"Produktname (Z - A)"},
+								{"direction":"asc","attribute":"price","name":"Produkt Preis (Niedrig → Hoch)"},
+								{"direction":"desc","attribute":"price","name":"Produkt Preis (Hoch → Niedrig)"}
+							]>
+							
+							<select id="sort-select" class="form-select">
+								<cfloop array="#local.sortingArray#" index="local.sorting">
+									<cfset local.sortValue = (local.sorting.direction NEQ "" AND local.sorting.attribute NEQ "") ? encodeForURL(serializeJSON({"direction":local.sorting.direction, "attribute":local.sorting.attribute})) : "">
+									<cfset local.isSelected = false>
+									<cfif StructKeyExists(url, "sort")>
+										<cfset local.currentSort = deserializeJSON(decodeFromURL(url.sort))>
+										<cfif local.currentSort.direction EQ local.sorting.direction AND local.currentSort.attribute EQ local.sorting.attribute>
+											<cfset local.isSelected = true>
+										</cfif>
+									<cfelseif local.sorting.direction EQ "" AND local.sorting.attribute EQ "">
+										<cfset local.isSelected = true>
+									</cfif>
+									<option value="#local.sortValue#" <cfif local.isSelected>selected</cfif>>#local.sorting.name#</option>
+								</cfloop>
+							</select>
+						</div>
+					</div>
+					<button type="button" id="search-button" class="btn btn-primary ml-2" onclick="handleFilterSubmit()"><i class="fas fa-search"></i> Suchen</button>
+				</div>
+			</div>
 		</nav> <!--- breadcrumb --->
 
 		<cfif url.category NEQ "" AND StructKeyExists(url, "search") AND url.search NEQ "">

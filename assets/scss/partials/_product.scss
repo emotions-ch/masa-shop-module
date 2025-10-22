@@ -133,6 +133,7 @@ select[id^="productVariation-"] {
   margin-bottom: $shop-margin-medium;
   padding: $input-padding-y-lg $input-padding-x-lg;
   border-radius: $shop-border-radius;
+  min-width: 50%;
 
   option {
     padding: $input-padding-y-lg $shop-margin-small;
