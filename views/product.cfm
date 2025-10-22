@@ -61,7 +61,7 @@
         </div>
       </div>
 
-      <div id="product-description" class="row">
+      <div id="product-description">
         #local.productContent.get('body')#
       </div>
     </article>
