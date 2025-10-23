@@ -40,7 +40,7 @@ component
             <tr>
               <td>#local.article.getTitle()#</td>
               <td>#local.article.getArticleNumber()#</td>
-              <td>#right(left(local.article.getVariantNames().toString(),-1),-1)#</td>
+              <td>#((arrayLen(local.article.getVariantNames())) ? right(left(local.article.getVariantNames().toString(),-1),-1) : "" )#</td>
               <td>#local.article.getQuantity()#</td>
               <td>CHF #decimalFormat(local.article.getPrice())#</td>
               <td>CHF #decimalFormat(local.article.getTotalPrice())#</td>
@@ -50,15 +50,15 @@ component
 
       writeOutput('
             <tr>
-              <td colspan="4" class="text-right">Zwischensumme:</td>
+              <td colspan="5" class="text-right">Zwischensumme:</td>
               <td>CHF #decimalFormat(arguments.cart.getTotalPrice())#</td>
             </tr>
             <tr>
-              <td colspan="4" class="text-right">B-Post Economy, Schweiz (4-10 Arbeitstage):</td>
+              <td colspan="5" class="text-right">B-Post Economy, Schweiz (4-10 Arbeitstage):</td>
               <td>CHF #decimalFormat(arguments.cart.getMaxShippingPrice())#</td>
             </tr>
             <tr>
-              <td colspan="4" class="text-right"><b>Summe:</b></td>
+              <td colspan="5" class="text-right"><b>Summe:</b></td>
               <td><b>CHF #decimalFormat(arguments.cart.getTotalPrice(arguments.cart.getMaxShippingPrice()))#</b></td>
             </tr>
           </tbody>
