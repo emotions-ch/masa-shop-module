@@ -57,7 +57,7 @@
 			</div>
 
       <style>
-        @import url('./styles.css');
+				<cfinclude template="./styles.css">
       </style>
     </html>
   </cfoutput>
