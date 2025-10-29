@@ -57,7 +57,7 @@
 		<cfif url.product neq "" && local.productContent.get('contentid') neq "00000000000000000000000000000000001">
 			<cfinclude template="views/product.cfm">
 			<script src="#local.modulePath#/assets/js/product.js" defer></script>
-		<cfelseif url.checkout eq "1">
+		<cfelseif url.checkout eq "1" && arrayLen(session.cart.getArticles())>
 			<cfinclude template="views/checkout.cfm">
 		<cfelseif url.login eq "1">
 			<cfinclude template="views/login.cfm">
