@@ -232,6 +232,15 @@ function removeFromCart(articleId, variant) {
         }
       });
 			updateCartPrice();
+
+      // Check if there are no more articles in cart and remove cart-actions if so
+      const remainingArticles = document.querySelectorAll('.article');
+      if (remainingArticles.length === 0) {
+        const cartActions = document.querySelector('.cart-actions');
+        if (cartActions) {
+          cartActions.remove();
+        }
+      }
     },
   });
 }
