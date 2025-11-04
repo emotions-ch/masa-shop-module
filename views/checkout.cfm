@@ -20,12 +20,12 @@
             <!--- billing table --->
             #local.billing.generateBillingTable(session.cart)#
             <!--- billing table done --->
-
-            <div class="spread">
-              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'"><i class="fas fa-arrow-left"></i> Zurück zum Shop</button>
-              <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?cart=1'"><i class="fas fa-shopping-cart"></i> zum Warenkorb</button>
-            </div>
           </div>
+
+					<div class="spread">
+						<button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#'"><i class="fas fa-arrow-left"></i> Zurück zum Shop</button>
+						<button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?cart=1'"><i class="fas fa-shopping-cart"></i> zum Warenkorb</button>
+					</div>
 
           <h2 class="form-title">Warenkorb bestellen</h2>
           <form onsubmit="submitOrder(this); return false;" class="form" method="POST">
