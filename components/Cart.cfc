@@ -137,7 +137,7 @@ component
 			for (local.article in getArticles()) {
 				local.articleShippingPrice = local.article.getShippingPrice();
 
-				if (isDefined(local.articleShippingPrice)) {
+				if (structKeyExists(local, "articleShippingPrice")) {
 					local.shippingPrice = ((local.articleShippingPrice >= local.shippingPrice) ? local.articleShippingPrice : local.shippingPrice);
 				}
 			}
