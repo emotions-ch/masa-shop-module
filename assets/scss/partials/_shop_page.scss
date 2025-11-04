@@ -22,6 +22,7 @@ body.shop main{
     &-image{
         background-color: $background_color_7;
         padding: 0 $shop-page-padding-horizontal 0;
+        min-height: 270px;
     }
 
     &-info{

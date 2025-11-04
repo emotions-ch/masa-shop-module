@@ -139,7 +139,8 @@
           </script>
         <cfelse>
           <h2 class="form-title">Bestellbestätigung</h2>
-          <p>Vielen Dank für Ihre Bestellung, #form.firstname# #form.lastname#!</p>
+          <p>Guten Tag #form.firstname#,</p>
+					<p>vielen Dank für Ihre Bestellung!</p>
           <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
             <p><strong>Ihre Bestellung wird zur Abholung bereitgestellt.</strong> Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
             <p>Rechnungsadresse:</p>
@@ -180,6 +181,9 @@
               #form.zip# #form.city#<br>
             </p>
           </cfif>
+					<p>Beste Grüsse,</p>
+					<p>#m.siteConfig().get("contactName")#</p>
+
           <button class="btn btn-primary mt-3" onclick="window.location.href='#local.cleanRequestUrl#?clear=1'">Zurück zum shop</button>
 
           <cfsilent>
@@ -209,7 +213,7 @@
 
             <!--- mail to customer --->
             <cfmail to="#form.email#" from="#local.sender#" subject="#objectParams.emailSubjectLine#" type="html" server="#m.siteConfig('mailServerIP')#" port="#m.siteConfig('MailServerSMTPPort')#" username="#m.siteConfig('mailServerUserName')#" password="#m.siteConfig('mailServerPassword')#" usetls="#m.siteConfig('mailServerTLS')#">
-              <p>Hi #form.firstname#</p>
+              <p>Guten Tag #form.firstname#</p>
               <p>#objectParams.emailText#</p>
               <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
                 <p><b>ABHOLUNG:</b> Ihre Bestellung wird zur Abholung bereitgestellt. Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
@@ -256,6 +260,7 @@
         
               <p><b>Artikel</b><br>
               #local.billing.generateBillingTable(session.cart)#</p>
+							<p>Beste Grüsse,</p>
               <p>#m.siteconfig('contactname')#</p>
 
               <cfmailparam filename="Rechnung.pdf" file="#expandPath("modules/shop/components/pdf-bill-export/tmp")#/#session.SessionID#.pdf" disposition="attachment" contentid="pdf"> 
