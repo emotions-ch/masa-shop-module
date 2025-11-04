@@ -1,9 +1,13 @@
 $bill-width: 210mm;
 $bill-height: 105mm;
 $A4-height: 297mm; // A4 page height
-$page-margin-top: 1cm;
-$page-margin-bottom: 1cm;
+$page-margin-top: 0.5cm;
+$page-margin-bottom: 0.5cm;
 $page-margin-vertical: $page-margin-top + $page-margin-bottom;
+
+* {
+  border: 1px solid red;
+}
 
 main {
   height: $A4-height - $page-margin-vertical;

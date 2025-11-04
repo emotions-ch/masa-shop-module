@@ -78,6 +78,6 @@
 </cfif>
 <!--- END DEV SHIT --->
 
-<cfdocument format="PDF" pagetype="A4" filename="#ExpandPath('./tmp/#local.billId#.pdf')#" overwrite="yes" unit="cm" margin="#{top:1,bottom:1,left:1,right:1}#">
+<cfdocument format="PDF" pagetype="A4" filename="#ExpandPath('./tmp/#local.billId#.pdf')#" overwrite="yes" unit="cm" margin="#{top:0.5,bottom:0.5,left:0.5,right:0.5}#">
   <cfoutput>#local.bill#</cfoutput>
 </cfdocument>
