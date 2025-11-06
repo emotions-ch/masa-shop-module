@@ -140,12 +140,12 @@
         <cfelse>
           <h2 class="form-title">Bestellbestätigung</h2>
           <p>Guten Tag #form.firstname#,</p>
-					<p>vielen Dank für Ihre Bestellung!</p>
+					<p>vielen Dank für Deine Bestellung!</p>
           <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
-            <p><strong>Ihre Bestellung wird zur Abholung bereitgestellt.</strong> Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
+            <p><strong>Deine Bestellung wird zur Abholung bereitgestellt.</strong> Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
             <p>Rechnungsadresse:</p>
           <cfelse>
-            <p>Ihre Bestellung wird an folgende Adresse geliefert:</p>
+            <p>Deine Bestellung wird an folgende Adresse geliefert:</p>
           </cfif>
           <cfif structKeyExists(form, "alternateShippingAddress") AND form.alternateShippingAddress EQ "on">
             <p>
@@ -216,7 +216,7 @@
               <p>Guten Tag #form.firstname#</p>
               <p>#objectParams.emailText#</p>
               <cfif structKeyExists(form, "pickup") AND form.pickup EQ "on">
-                <p><b>ABHOLUNG:</b> Ihre Bestellung wird zur Abholung bereitgestellt. Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
+                <p><b>ABHOLUNG:</b> Deine Bestellung wird zur Abholung bereitgestellt. Sie erhalten eine separate Benachrichtigung, wann die Bestellung abholbereit ist.</p>
                 
                 <p><b>Rechnungsadresse:</b><br>
                 <cfif form.addresszusatz neq "">

@@ -16,7 +16,7 @@ div.flex-grid {
     display: flex;
     height: 250px;
     width: 20vw;
-    padding: 15px;
+    // padding: 15px;
     margin: 10px 0;
 
     @media (max-width: $breakpoint-mobile) {
@@ -99,7 +99,7 @@ div.flex-grid {
     }
 
     .card-body {
-      padding: 15px;
+      // padding: 15px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;

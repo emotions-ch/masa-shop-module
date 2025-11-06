@@ -29,7 +29,7 @@ component
               <th scope="col">Variante</th>
               <th scope="col">Anzahl</th>
               <th scope="col">Einzelpreis</th>
-              <th scope="col">Summe</th>
+              <th scope="col">Total</th>
             </tr>
           </thead>
           <tbody>
@@ -50,7 +50,7 @@ component
 
       writeOutput('
             <tr>
-              <td colspan="5" class="text-right">Zwischensumme:</td>
+              <td colspan="5" class="text-right">Zwischentotal:</td>
               <td>CHF #decimalFormat(arguments.cart.getTotalPrice())#</td>
             </tr>
             <tr>
@@ -58,7 +58,7 @@ component
               <td>CHF #decimalFormat(arguments.cart.getMaxShippingPrice())#</td>
             </tr>
             <tr>
-              <td colspan="5" class="text-right"><b>Summe:</b></td>
+              <td colspan="5" class="text-right"><b>Total:</b></td>
               <td><b>CHF #decimalFormat(arguments.cart.getTotalPrice(arguments.cart.getMaxShippingPrice()))#</b></td>
             </tr>
           </tbody>
