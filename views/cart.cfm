@@ -14,8 +14,15 @@
     <cfelse>
       <div class="cart-items">
         <cfloop array="#session.cart.getArticles()#" index="local.article">
+					<cfset local.variants = local.article.getVariants()>
+					<cfif structKeyExists(local.variants, "File/Default")>
+						<cfset local.image = application.serviceFactory.getBean('m').getBean('content').loadBy(contentid=local.variants["File/Default"]).getImageUrl()>
+					<cfelse>
+						<cfset local.image = local.article.getImageUrl()>
+					</cfif>
+
           <div class="article" article-id="#local.article.getId()#" variant="#encodeForHTMLAttribute(local.article.getVariants().toJSON())#">
-            <img src="#local.article.getImageUrl()#" alt="#local.article.getTitle()#">
+            <img src="#local.image#" alt="#local.article.getTitle()#">
             <div class="item-details">
               <a href="#local.article.getUrl()#" target="_blank"><h3>#local.article.getTitle()#</h3></a>
 							<cfif local.article.getVariantNames().len() NEQ 0 >
@@ -28,7 +35,7 @@
             <div class="product-action">
               <button class="btn btn-danger remove-item" onclick="removeFromCart('#local.article.getId()#','#encodeForHTMLAttribute(local.article.getVariants().toJSON())#');"><i class="fas fa-trash-alt"></i> Entfernen</button>
               <div class="quantity">
-                <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#encodeForHTMLAttribute(local.article.getVariants().toJSON())#'); ">
+                <input type="number" class="form-control" value="#local.article.getQuantity()#" min="1" max="99" article-id="#local.article.getId()#" setter="1" onchange="updateCart(this, '#local.article.getPrice()#', '#encodeForHTMLAttribute(local.variants.toJSON())#'); ">
               </div> <!-- quantity -->
             </div>
           </div>
