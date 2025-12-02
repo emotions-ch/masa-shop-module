@@ -79,7 +79,7 @@
 				.addJoin(
 					jointype="inner",
 					table="tContentCategoryAssign",
-					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
+					clause="tContent.contentId=tContentCategoryAssign.contentId")
 				.prop("tContentCategoryAssign.categoryId")
 				.isEQ(url.category)
 				.andOpenGrouping()
@@ -89,8 +89,10 @@
 				.containsValue(decodeFromURL(url.search))
 				.closeGrouping()
 				.showNavOnly(0)
+				.distinct(true)
 				.getIterator(liveonly=false)
 			>
+			<cfset local.articleIterator = m.getBean("contentIterator").setQuery(local.articleIterator.getQuery())>
 		<cfelseif url.category NEQ "">
 			<!--- just category filter --->
 			<cfset local.articleIterator = m.getFeed("content")
@@ -100,12 +102,14 @@
 				.addJoin(
 					jointype="inner",
 					table="tContentCategoryAssign",
-					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
+					clause="tContent.contentId=tContentCategoryAssign.contentId")
 				.prop("tContentCategoryAssign.categoryId")
 				.isEQ(url.category)
 				.showNavOnly(0)
+				.distinct(true)
 				.getIterator(liveonly=false)
 			>
+			<cfset local.articleIterator = m.getBean("contentIterator").setQuery(local.articleIterator.getQuery())>
 		<cfelseif StructKeyExists(url, "search") AND url.search NEQ "">
 			<!--- just a search --->
 			<cfset local.articleIterator = m.getFeed("content")
