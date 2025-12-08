@@ -24,7 +24,7 @@
           <div class="article" article-id="#local.article.getId()#" variant="#encodeForHTMLAttribute(local.article.getVariants().toJSON())#">
             <img src="#local.image#" alt="#local.article.getTitle()#">
             <div class="item-details">
-              <a href="#local.article.getUrl()#" target="_blank"><h3>#local.article.getTitle()#</h3></a>
+              <a href="?product=#local.article.getId()#" target="_blank"><h3>#local.article.getTitle()#</h3></a>
 							<cfif local.article.getVariantNames().len() NEQ 0 >
 								<p class="article-variant">Variante: #right(left(local.article.getVariantNames().toString(),-1),-1)#</p>
 							</cfif>
