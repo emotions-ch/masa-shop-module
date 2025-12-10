@@ -22,6 +22,7 @@
           </cfif>
 
           <cfset local.productContent.kidsIterator = local.productContent.getKidsIterator()>
+					<cfset local.productContent.kidsIterator.setNextN(0)>
           <cfif local.productContent.kidsIterator.hasNext()>
 						<cfloop condition=local.productContent.kidsIterator.hasNext()>
 							<cfset local.variationContent = local.productContent.kidsIterator.next()>
@@ -33,6 +34,7 @@
 
 									<select name="variations-#lCase(local.variationContent.get('title'))#" id="productVariation-#local.variationContent.get('contentId')#" class="form-select">
 									<option value="#local.productContent.get('contentId')#" cType="parent" selected>Bitte wählen</option>
+										<cfset local.variantsContentKidsIterator.setNextN(0)>
 										<cfloop condition=local.variantsContentKidsIterator.hasNext()>
 											<cfset local.variant = local.variantsContentKidsIterator.next()>
 											<option value="#local.variant.get('contentId')#" cType="#local.variant.get('type')#/#local.variant.get('subtype')#">
