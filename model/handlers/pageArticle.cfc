@@ -59,15 +59,14 @@ component extends='core.mura.cfobject' {
 			local.attribute.save();
 	}
 
-	public void function onBeforePageArticleSave() {
-		local.content = m.getBean('content').loadBy(contentId = form.contentId);
-		request.isNew = local.content.getIsNew();
+	public void function onBeforePageArticleSave(m) {
+		arguments.m.content().setValue("isNav", 0);
+		request.pageArticleIsNew = arguments.m.content().getIsNew();
 	}
 
 	public void function onAfterPageArticleSave() {
-		cfparam(name="request.isNew", default="false");
-		cfparam(name="request.onAfterPageArticleSave", default="true");
-		if (request.onAfterPageArticleSave && StructKeyExists(form, 'contentId') && request.isNew) {
+		cfparam(name="request.pageArticleIsNew", default="false");
+		if (StructKeyExists(form, 'contentId') && request.pageArticleIsNew) {
 			local.content = m.getBean('content').loadBy(siteid=m.event('siteid'));
 			local.content.setTitle('Variationen');
 			local.content.setSiteId(m.event('siteid'));
@@ -89,11 +88,6 @@ component extends='core.mura.cfobject' {
 			local.content.setApproved(1);
 
 			local.content.save();
-		}
-
-		if (request.onAfterPageArticleSave) {
-			request.onAfterPageArticleSave = "false";
-			m.getBean('content').loadBy(contentId = form.contentId).setIsNav(0).save();
 		}
 	}
 }
