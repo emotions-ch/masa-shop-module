@@ -79,7 +79,7 @@
 				.addJoin(
 					jointype="inner",
 					table="tContentCategoryAssign",
-					clause="tContent.contentId=tContentCategoryAssign.contentId")
+					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
 				.prop("tContentCategoryAssign.categoryId")
 				.isEQ(url.category)
 				.andOpenGrouping()
@@ -102,7 +102,7 @@
 				.addJoin(
 					jointype="inner",
 					table="tContentCategoryAssign",
-					clause="tContent.contentId=tContentCategoryAssign.contentId")
+					clause="tContent.contentHistId=tContentCategoryAssign.contentHistId")
 				.prop("tContentCategoryAssign.categoryId")
 				.isEQ(url.category)
 				.showNavOnly(0)
