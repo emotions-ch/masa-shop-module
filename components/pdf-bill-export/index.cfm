@@ -42,8 +42,16 @@
 					<img class="logo" src="/modules/shop/assets/images/logo.png">
 					<div id="header-pad"></div>
 				</div>
-        <p class="small">#session.creditor.name# / #session.creditor.street# #session.creditor.houseNo# / #session.creditor.postalCode# #session.creditor.town#</p>
-        <p class="right">#session.creditor.town#, #lsDateFormat(now(), "d.m.yyyy")#</p>
+        
+				<p class="left" style="padding-left: 1.5cm;">
+					<span class="small">#session.creditor.name# / #session.creditor.street# #session.creditor.houseNo# / #session.creditor.postalCode# #session.creditor.town#<br></span><br>
+					#form.firstname# #form.lastname#<br>
+					#form.address#<br>
+					#form.zip# #form.city#<br>
+				</p>
+				<p class="right">
+					#session.creditor.town#, #lsDateFormat(now(), "d.m.yyyy")#<br><br>
+        </p>
 
         <h1>Rechnung</h1>
         <div id="payment">
@@ -72,6 +80,7 @@
 
 <cfif url.o>
   <cfoutput>
+		<cfdump var="#form#">
     #local.bill#
   </cfoutput>
   <cfabort>
