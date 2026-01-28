@@ -77,6 +77,8 @@
 					<label class="mura-control-label">FontAwesome Kit Id</label>
 					<input type="text" id="fontawsomeKitId" name="fontawsomeKitId" class="objectParam" value="#esapiEncode('html_attr',objectparams.fontawsomeKitId)#" required></input>
 				</div>
+
+				<a href="/modules/shop/docs/userDocumentation.html" target="_blank">Dokumentation</a>
 			</div>
 		</div>
 	</cfoutput>
